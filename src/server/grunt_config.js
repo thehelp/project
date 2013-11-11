@@ -204,7 +204,7 @@ GruntConfig.prototype.registerStaticAnalysis = function() {
     options: this.grunt.file.readJSON('.jshintrc')
   });
 
-  this.grunt.loadNpmTasks('grunt-complexity');
+  this.loadLocalNpm('grunt-complexity');
   this.grunt.config('complexity', {
     all: {
       src: jsFiles,
@@ -242,7 +242,7 @@ GruntConfig.prototype.registerDoc = function(files) {
 
   files = files || ['src/**/*.js', 'tasks/**/*.js', '*.js', 'README.md'];
 
-  this.grunt.loadNpmTasks('grunt-groc');
+  this.loadLocalNpm('grunt-groc');
   this.grunt.config('groc', {
     all: {
       src: files,
