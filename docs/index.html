@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">README.md</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="thehelp-project">thehelp-project</h1>
+
+<p>This project is designed to get a high quality grunt-based project automation setup in place very quickly.</p>
+
+<h2 id="features">Features</h2>
+
+<p>Grunt task setup:</p>
+
+<ul>
+<li>time-grunt</li>
+<li>env (using env.json)</li>
+<li>mocha-cli for 'unit', 'integration' and 'interactive' tasks, running everything underneath 'test/<test type>' excluding the 'client' subdirectory</li>
+<li>command-line options supported for tests: 'grep', 'coverage', 'reporter' and 'bail'</li>
+<li>staticanalysis, encompassing two tasks: jshint and complexity</li>
+<li>doc, wrapping two tasks: groc and fix-groc-stylesheet</li>
+<li>watch core setup and subtasks for tests, static analysis and documentation generation</li>
+<li><code>modifiedInLast()</code> method to filter files processed using the grunt 'partial' command-line option</li>
+</ul>
+
+<h1 id="cleandeletingpublictmpbydefaultandextendedtoincludefilesunderdocifyoucallregisterdoc">clean, deleting public/<em>, tmp/</em> by default, and extended to include files under doc if you call <code>registerDoc()</code></h1>
+
+<h2 id="jump-in">Jump in!</h2>
+
+<h3 id="install">Install</h3>
+
+<p>Include the project in your dependencies:</p>
+
+<pre><code>  "thehelp-project": "git+ssh://git@infra:thehelp-project#v1.0.0"
+</code></pre>
+
+<h3 id="usage">Usage</h3>
+
+<p>To get up and running very quickly with all defaults, just put this in your Gruntfile:</p>
+
+<pre><code>var GruntConfig = require('thehelp-project').GruntConfig;
+var config = new GruntConfig(grunt);
+config.standardSetup();
+config.standardDefault();
+</code></pre>
+
+<h2 id="history">History</h2>
+
+<h3 id="100">1.0.0</h3>
+
+<ul>
+<li>Initial release</li>
+<li>time-grunt, env, testing with mocha-cli, jshint, complexity, groc and fix-groc-stylesheet, clean, watch, filter, code coverage support in testing,</li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2013 Scott Nonnenberg &lt;scott@nonnenberg.com&gt;</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></div></div></div></div></body></html>

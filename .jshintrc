@@ -1,0 +1,31 @@
+{
+  "browser": true,
+  "node": true,
+  "globals": {
+    "define": true,
+    "requirejs": true,
+    "describe": true,
+    "it": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "before": true,
+    "after": true
+  },
+  "latedef": true,
+  "forin": true,
+  "eqeqeq": true,
+  "strict": true,
+  "trailing": true,
+
+  "indent": 2,
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "newcap": true,
+  "nonew": true,
+  "plusplus": true,
+  "quotmark": "single",
+  "undef": true,
+  "unused": true,
+  "maxcomplexity": 7
+}
