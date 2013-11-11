@@ -152,23 +152,23 @@ mocha would result in no tests run.</em></p></div></div><div class="code"><div c
 It also sets up the ability to run both of these whenever any javascript
 file changes in tne project.</p>
 
-<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">jshintrc</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">files</span> <span class="o">=</span> <span class="nx">files</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/**/*.js&#39;</span><span class="p">];</span>
+  <span class="nx">jshintrc</span> <span class="o">=</span> <span class="nx">jshintrc</span><span class="o">||</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../../.jshintrc&#39;</span><span class="p">);</span>
+
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-jshint&#39;</span><span class="p">);</span>
-
-  <span class="kd">var</span> <span class="nx">jsFiles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/**/*.js&#39;</span><span class="p">];</span>
-
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;jshint&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">all</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="nx">jsFiles</span><span class="p">,</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
     <span class="p">},</span>
-    <span class="nx">options</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">readJSON</span><span class="p">(</span><span class="s1">&#39;.jshintrc&#39;</span><span class="p">)</span>
+    <span class="nx">options</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">readJSON</span><span class="p">(</span><span class="nx">jshintrc</span><span class="p">)</span>
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-complexity&#39;</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;complexity&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">all</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="nx">jsFiles</span><span class="p">,</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
     <span class="p">},</span>
     <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
@@ -182,7 +182,7 @@ file changes in tne project.</p>
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;watch.staticanalysis&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">files</span><span class="o">:</span> <span class="nx">jsFiles</span><span class="p">,</span>
+    <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
     <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;staticanalysis&#39;</span><span class="p">]</span>
   <span class="p">});</span>
 

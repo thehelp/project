@@ -191,23 +191,23 @@ file changes in tne project.
 
 _Note: Participates in the 'partial' filtration option._
 */
-GruntConfig.prototype.registerStaticAnalysis = function() {
+GruntConfig.prototype.registerStaticAnalysis = function(jshintrc, files) {
+  files = files || ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
+  jshintrc = jshintrc || path.join(__dirname, '../../.jshintrc');
+
   this.loadLocalNpm('grunt-contrib-jshint');
-
-  var jsFiles = ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
-
   this.grunt.config('jshint', {
     all: {
-      src: jsFiles,
+      src: files,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
-    options: this.grunt.file.readJSON('.jshintrc')
+    options: this.grunt.file.readJSON(jshintrc)
   });
 
   this.loadLocalNpm('grunt-complexity');
   this.grunt.config('complexity', {
     all: {
-      src: jsFiles,
+      src: files,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: {
@@ -221,7 +221,7 @@ GruntConfig.prototype.registerStaticAnalysis = function() {
   });
 
   this.grunt.config('watch.staticanalysis', {
-    files: jsFiles,
+    files: files,
     tasks: ['staticanalysis']
   });
 
