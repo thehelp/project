@@ -120,6 +120,9 @@ GruntConfig.prototype.registerClean = function(options) {
     },
     tmp: {
       src: ['tmp/**/*']
+    },
+    dist: {
+      src: ['dist/**/*']
     }
   });
 };
