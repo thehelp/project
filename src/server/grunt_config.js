@@ -17,6 +17,7 @@ most scenarios have config points in different parts of the config tree:
 
 var fs = require('fs');
 var path = require('path');
+var _ = require('lodash');
 
 function GruntConfig(grunt) {
   this.grunt = grunt;
@@ -35,6 +36,8 @@ GruntConfig.prototype.standardSetup = function() {
   this.registerTest();
   this.registerStaticAnalysis();
   this.registerDoc();
+
+  this.registerConnect();
 };
 
 // `standardDefault` intalls a 'default' grunt handler (what runs when you just type
@@ -267,6 +270,123 @@ GruntConfig.prototype.registerDoc = function(files) {
   });
 
   this.grunt.registerTask('doc', ['groc', 'fix-groc-stylesheet']);
+};
+
+/*
+`registerCopy` uses the `grunt-contrib-copy` task to copy a collection
+of files. The `files` parameter should be formatted like this:
+
+    {
+      'target': 'source',
+      'dist/mocha.css': 'lib/vendor/mocha.css',
+      'dist/harness.js': 'src/client/harness.js'
+    }
+*/
+GruntConfig.prototype.registerCopy = function(files) {
+  this.loadLocalNpm('grunt-contrib-copy');
+  this.grunt.config('copy', {
+    default: {
+      files: files
+    }
+  });
+};
+
+/*
+`registerConnect` sets up two targets for the `grunt-contrib-connect`
+task, which runs a basic file server. Two different targets are provided:
+
++ test: On port 3001, this server will stop as soon as the grunt task stop,
+which means that it is only useful for grunt-based testing.
++ keepalive: A server on 3000 that runs until explicitly stopped - good
+for active development.
+*/
+GruntConfig.prototype.registerConnect = function() {
+  this.loadLocalNpm('grunt-contrib-connect');
+  this.grunt.config('connect', {
+    test: {
+      options: {
+        base: '.',
+        port: 3001,
+      }
+    },
+    keepalive: {
+      options: {
+        base: '.',
+        port: 3000,
+        keepalive: true
+      }
+    }
+  });
+};
+
+/*
+`registerMocha` pulls in `grunt-mocha` which uses `phantomjs`
+and a custom bridge to run in-browser tests on the command line. You're
+just responsible for the collection of URLs to hit. You might consider using
+the port 3001 urls available with the `connect` task above.
+*/
+GruntConfig.prototype.registerMocha = function(urls, reporter) {
+  reporter = reporter || 'Spec';
+
+  this.loadLocalNpm('grunt-mocha');
+  this.grunt.config('mocha', {
+    default: {
+      options: {
+        urls: urls,
+        reporter: reporter,
+        run: false
+      }
+    }
+  });
+};
+
+/*
+`optimizeLibrary` uses `grunt-requirejs` to produce both optimized
+and unoptimized versions of a given library using the r.js optimizer.
+If specified, standalone versions of that library can be produced as well
+(using almond), resulting in four total files.
+*/
+GruntConfig.prototype.registerOptimize = function(options) {
+  this.loadLocalNpm('grunt-requirejs');
+
+  options = options || {};
+  var name = options.name;
+  var empty = options.empty;
+  var config = options.config;
+  var standalone = options.standalone;
+  var out = options.out || 'dist';
+
+  //minified, needs requirejs
+  var rMin = _.cloneDeep(config);
+  rMin.name = name;
+  rMin.out = path.join(out, name + '.min.js');
+  if (empty) {
+    _.forEach(empty, function(module) {
+      rMin.paths[module] = 'empty:';
+    });
+  }
+  this.grunt.config('requirejs.' + name + '-min.options', rMin);
+
+  //not minified, needs requirejs
+  var r = _.cloneDeep(rMin);
+  r.optimize = 'none';
+  r.out = path.join(out, name + '.js');
+  this.grunt.config('requirejs.' + name + '.options', r);
+
+  if (standalone) {
+    //minified, standalone with almond.js
+    var sMin = _.cloneDeep(options);
+    sMin.name = name;
+    sMin.almond = true;
+    sMin.out = path.join(out, 'standalone', name + '.min.js');
+    this.grunt.config('requirejs.' + name + '-standalone-min.options', sMin);
+
+    //not minified, standalone with almond.js
+    var s = _.cloneDeep(sMin);
+    s.optimize = 'none';
+    s.out = path.join(out, 'standalone', name + '.js');
+    this.grunt.config('requirejs.' + name + '-standalone.options', s);
+  }
 };
 
 module.exports = GruntConfig;

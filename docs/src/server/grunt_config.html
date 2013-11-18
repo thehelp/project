@@ -16,6 +16,7 @@ most scenarios have config points in different parts of the config tree:</p>
 
 <span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;lodash&#39;</span><span class="p">);</span>
 
 <span class="kd">function</span> <span class="nx">GruntConfig</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span> <span class="o">=</span> <span class="nx">grunt</span><span class="p">;</span>
@@ -29,6 +30,8 @@ An easy one-stop shop.</p></div></div><div class="code"><div class="wrapper"><sp
   <span class="k">this</span><span class="p">.</span><span class="nx">registerTest</span><span class="p">();</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span><span class="p">();</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">registerDoc</span><span class="p">();</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerConnect</span><span class="p">();</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardDefault</code> intalls a 'default' grunt handler (what runs when you just type
 'grunt' on the command line) which does what you likely want it to do.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">standardDefault</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;staticanalysis&#39;</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">]);</span>
@@ -89,6 +92,9 @@ two default directories: 'public' and 'tmp.'</p></div></div><div class="code"><d
     <span class="p">},</span>
     <span class="nx">tmp</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;tmp/**/*&#39;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">dist</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;dist/**/*&#39;</span><span class="p">]</span>
     <span class="p">}</span>
   <span class="p">});</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerTest</code> does everything required to get a number of test-related
@@ -220,6 +226,106 @@ as groc runs take a long time.</em></p></div></div><div class="code"><div class=
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;groc&#39;</span><span class="p">,</span> <span class="s1">&#39;fix-groc-stylesheet&#39;</span><span class="p">]);</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopy</code> uses the <code>grunt-contrib-copy</code> task to copy a collection
+of files. The <code>files</code> parameter should be formatted like this:</p>
+
+<pre><code>{
+  'target': 'source',
+  'dist/mocha.css': 'lib/vendor/mocha.css',
+  'dist/harness.js': 'src/client/harness.js'
+}
+</code></pre></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-copy&#39;</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerConnect</code> sets up two targets for the <code>grunt-contrib-connect</code>
+task, which runs a basic file server. Two different targets are provided:</p>
+
+<ul>
+<li>test: On port 3001, this server will stop as soon as the grunt task stop,
+which means that it is only useful for grunt-based testing.</li>
+<li>keepalive: A server on 3000 that runs until explicitly stopped - good
+for active development.</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerConnect</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-connect&#39;</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">test</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">base</span><span class="o">:</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
+        <span class="nx">port</span><span class="o">:</span> <span class="mi">3001</span><span class="p">,</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">keepalive</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">base</span><span class="o">:</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
+        <span class="nx">port</span><span class="o">:</span> <span class="mi">3000</span><span class="p">,</span>
+        <span class="nx">keepalive</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerMocha</code> pulls in <code>grunt-mocha</code> which uses <code>phantomjs</code>
+and a custom bridge to run in-browser tests on the command line. You're
+just responsible for the collection of URLs to hit. You might consider using
+the port 3001 urls available with the <code>connect</code> task above.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerMocha</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">urls</span><span class="p">,</span> <span class="nx">reporter</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">reporter</span> <span class="o">=</span> <span class="nx">reporter</span> <span class="o">||</span> <span class="s1">&#39;Spec&#39;</span><span class="p">;</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-mocha&#39;</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;mocha&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">urls</span><span class="o">:</span> <span class="nx">urls</span><span class="p">,</span>
+        <span class="nx">reporter</span><span class="o">:</span> <span class="nx">reporter</span><span class="p">,</span>
+        <span class="nx">run</span><span class="o">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>optimizeLibrary</code> uses <code>grunt-requirejs</code> to produce both optimized
+and unoptimized versions of a given library using the r.js optimizer.
+If specified, standalone versions of that library can be produced as well
+(using almond), resulting in four total files.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerOptimize</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-requirejs&#39;</span><span class="p">);</span>
+
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+  <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">empty</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">empty</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">config</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">standalone</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">standalone</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">out</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">out</span> <span class="o">||</span> <span class="s1">&#39;dist&#39;</span><span class="p">;</span>
+
+  <span class="c1">//minified, needs requirejs</span>
+  <span class="kd">var</span> <span class="nx">rMin</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+  <span class="nx">rMin</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="nx">rMin</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;.min.js&#39;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">empty</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">empty</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">rMin</span><span class="p">.</span><span class="nx">paths</span><span class="p">[</span><span class="nx">module</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;empty:&#39;</span><span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;-min.options&#39;</span><span class="p">,</span> <span class="nx">rMin</span><span class="p">);</span>
+
+  <span class="c1">//not minified, needs requirejs</span>
+  <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">rMin</span><span class="p">);</span>
+  <span class="nx">r</span><span class="p">.</span><span class="nx">optimize</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+  <span class="nx">r</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;.options&#39;</span><span class="p">,</span> <span class="nx">r</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">standalone</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//minified, standalone with almond.js</span>
+    <span class="kd">var</span> <span class="nx">sMin</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+    <span class="nx">sMin</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="nx">sMin</span><span class="p">.</span><span class="nx">almond</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">sMin</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="s1">&#39;standalone&#39;</span><span class="p">,</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;.min.js&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;-standalone-min.options&#39;</span><span class="p">,</span> <span class="nx">sMin</span><span class="p">);</span>
+
+    <span class="c1">//not minified, standalone with almond.js</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">sMin</span><span class="p">);</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">optimize</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="s1">&#39;standalone&#39;</span><span class="p">,</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;-standalone.options&#39;</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+  <span class="p">}</span>
 <span class="p">};</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">GruntConfig</span><span class="p">;</span></div></div></div></div></body></html>
