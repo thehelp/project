@@ -367,6 +367,7 @@ GruntConfig.prototype.registerOptimize = function(options) {
 
   options = options || {};
   var name = options.name;
+  var outName = options.outName || name;
   var empty = options.empty;
   var config = options.config;
   var standalone = options.standalone;
@@ -375,7 +376,7 @@ GruntConfig.prototype.registerOptimize = function(options) {
   //minified, needs requirejs
   var rMin = _.cloneDeep(config);
   rMin.name = name;
-  rMin.out = path.join(out, name + '.min.js');
+  rMin.out = path.join(out, outName + '.min.js');
   if (empty) {
     _.forEach(empty, function(module) {
       rMin.paths[module] = 'empty:';
@@ -386,7 +387,7 @@ GruntConfig.prototype.registerOptimize = function(options) {
   //not minified, needs requirejs
   var r = _.cloneDeep(rMin);
   r.optimize = 'none';
-  r.out = path.join(out, name + '.js');
+  r.out = path.join(out, outName + '.js');
   this.grunt.config('requirejs.' + name + '.options', r);
 
   if (standalone) {
@@ -394,13 +395,13 @@ GruntConfig.prototype.registerOptimize = function(options) {
     var sMin = _.cloneDeep(options);
     sMin.name = name;
     sMin.almond = true;
-    sMin.out = path.join(out, 'standalone', name + '.min.js');
+    sMin.out = path.join(out, 'standalone', outName + '.min.js');
     this.grunt.config('requirejs.' + name + '-standalone-min.options', sMin);
 
     //not minified, standalone with almond.js
     var s = _.cloneDeep(sMin);
     s.optimize = 'none';
-    s.out = path.join(out, 'standalone', name + '.js');
+    s.out = path.join(out, 'standalone', outName + '.js');
     this.grunt.config('requirejs.' + name + '-standalone.options', s);
   }
 };
