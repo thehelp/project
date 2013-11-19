@@ -357,7 +357,7 @@ GruntConfig.prototype.registerMocha = function(urls, reporter) {
 };
 
 /*
-`optimizeLibrary` uses `grunt-requirejs` to produce both optimized
+`registerOptimize` uses `grunt-requirejs` to produce both optimized
 and unoptimized versions of a given library using the r.js optimizer.
 If specified, standalone versions of that library can be produced as well
 (using almond), resulting in four total files.
