@@ -382,13 +382,13 @@ GruntConfig.prototype.registerOptimize = function(options) {
       rMin.paths[module] = 'empty:';
     });
   }
-  this.grunt.config('requirejs.' + name + '-min.options', rMin);
+  this.grunt.config('requirejs.' + outName + '-min.options', rMin);
 
   //not minified, needs requirejs
   var r = _.cloneDeep(rMin);
   r.optimize = 'none';
   r.out = path.join(out, outName + '.js');
-  this.grunt.config('requirejs.' + name + '.options', r);
+  this.grunt.config('requirejs.' + outName + '.options', r);
 
   if (standalone) {
     //minified, standalone with almond.js
@@ -396,13 +396,13 @@ GruntConfig.prototype.registerOptimize = function(options) {
     sMin.name = name;
     sMin.almond = true;
     sMin.out = path.join(out, 'standalone', outName + '.min.js');
-    this.grunt.config('requirejs.' + name + '-standalone-min.options', sMin);
+    this.grunt.config('requirejs.' + outName + '-standalone-min.options', sMin);
 
     //not minified, standalone with almond.js
     var s = _.cloneDeep(sMin);
     s.optimize = 'none';
     s.out = path.join(out, 'standalone', outName + '.js');
-    this.grunt.config('requirejs.' + name + '-standalone.options', s);
+    this.grunt.config('requirejs.' + outName + '-standalone.options', s);
   }
 };
 
