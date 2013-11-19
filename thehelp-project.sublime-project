@@ -6,15 +6,17 @@
       "folder_exclude_patterns": [
         "node_modules",
         "bower_components",
-        "public",
+
+        "dist",
         "docs",
+        "lib",
+
+        "public",
         "tmp",
         "temp",
         "cache",
-
         "data",
-        "logs",
-        "lib"
+        "logs"
       ],
       "file_exclude_patterns": [
         "*.sublime-workspace",
