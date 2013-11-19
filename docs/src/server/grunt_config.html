@@ -226,21 +226,38 @@ as groc runs take a long time.</em></p></div></div><div class="code"><div class=
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;groc&#39;</span><span class="p">,</span> <span class="s1">&#39;fix-groc-stylesheet&#39;</span><span class="p">]);</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopy</code> uses the <code>grunt-contrib-copy</code> task to copy a collection
-of files. The <code>files</code> parameter should be formatted like this:</p>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopy</code> uses the <code>grunt-contrib-copy</code> task to create a 'default'
+target for the <code>copy</code> task, which works on a provided collection
+of <code>files</code>. It can look like this:</p>
 
 <pre><code>{
   'target': 'source',
   'dist/mocha.css': 'lib/vendor/mocha.css',
   'dist/harness.js': 'src/client/harness.js'
 }
-</code></pre></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+</code></pre>
+
+<p>Or like this:</p>
+
+<pre><code>[{
+  expand: true,
+  cwd: path.join('node_modules', module, 'dist'),
+  src: ['*.js'],
+  dest: 'lib/vendor'
+}]
+</code></pre>
+
+<p>If no files are specified, this method will simply pull in the copy task
+for your customization.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-copy&#39;</span><span class="p">);</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerConnect</code> sets up two targets for the <code>grunt-contrib-connect</code>
 task, which runs a basic file server. Two different targets are provided:</p>
 
