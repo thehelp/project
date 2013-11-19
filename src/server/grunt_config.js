@@ -405,4 +405,25 @@ GruntConfig.prototype.registerOptimize = function(options) {
   }
 };
 
+/*
+`registerCopyFromDist` uses `grunt-contrib-copy` (registered by `registerCopy()` -
+be sure to call that first) to copy all files under the 'dist/' folders of a list of
+specified npm-installed modules.
+*/
+GruntConfig.prototype.registerCopyFromDist = function(modules, target) {
+  target = target || 'lib/vendor';
+  var _this = this;
+
+  _.forEach(modules, function(module) {
+    _this.grunt.config('copy.from-' + module + '-dist', {
+      files: [{
+        expand: true,
+        cwd: path.join('node_modules', module, 'dist'),
+        src: ['**/*'],
+        dest: target
+      }]
+    });
+  });
+};
+
 module.exports = GruntConfig;
