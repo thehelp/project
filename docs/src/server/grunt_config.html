@@ -54,7 +54,10 @@ files to the files modified in the last X minutes. X is defined by supplying the
     <span class="k">return</span> <span class="p">(</span><span class="nx">updated</span> <span class="o">&gt;</span> <span class="nx">minutesAgo</span><span class="p">);</span>
   <span class="p">};</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>loadLocalNpm</code> gets around the limitation in <code>grunt.loadNpmTasks</code> - that it always
-pulls locally-installed modules. The whole point of this project is to take the difficulty out of</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadLocalNpm</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">root</span><span class="p">,</span> <span class="nx">delta</span><span class="p">)</span> <span class="p">{</span>
+pulls locally-installed modules. The whole point of this project is to take the
+difficulty out of using all of these grunt plugins. This method ensures that
+any project using 'thehelp-project' needs only to add 'thehelp-project' as
+a dependency, not the various grunt plugins.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadLocalNpm</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">root</span><span class="p">,</span> <span class="nx">delta</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">root</span> <span class="o">=</span> <span class="nx">root</span> <span class="o">||</span> <span class="nx">__dirname</span><span class="p">;</span>
   <span class="nx">delta</span> <span class="o">=</span> <span class="nx">delta</span> <span class="o">||</span> <span class="s1">&#39;../..&#39;</span><span class="p">;</span>
 
@@ -115,7 +118,10 @@ you'd like. I prefer 'dot' when running under a watch task, for example.</li>
 <p><em>Note: the 'partial' option will force you to save the test-side of a given
 test target to get the tests to run, since our filter only sees the test
 files, not the source files. Even if it did, supplying those files to
-mocha would result in no tests run.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerTest</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+mocha would result in no tests run.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerTest</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sourceFiles</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/*jshint maxcomplexity: 8 */</span>
+  <span class="nx">sourceFiles</span> <span class="o">=</span> <span class="nx">sourceFiles</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">];</span>
+
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-mocha-cli&#39;</span><span class="p">);</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;mochacli&#39;</span><span class="p">,</span> <span class="p">{</span>
@@ -143,11 +149,11 @@ mocha would result in no tests run.</em></p></div></div><div class="code"><div c
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;watch.unit&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">files</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/unit/**/*.js&#39;</span><span class="p">],</span>
+    <span class="nx">files</span><span class="o">:</span> <span class="nx">sourceFiles</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s1">&#39;test/unit/**/*.js&#39;</span><span class="p">),</span>
     <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;unit&#39;</span><span class="p">]</span>
   <span class="p">});</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;watch.integration&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">files</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/integration/**/*.js&#39;</span><span class="p">],</span>
+    <span class="nx">files</span><span class="o">:</span> <span class="nx">sourceFiles</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s1">&#39;test/integration/**/*.js&#39;</span><span class="p">),</span>
     <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;integration&#39;</span><span class="p">]</span>
   <span class="p">});</span>
 
@@ -159,7 +165,7 @@ mocha would result in no tests run.</em></p></div></div><div class="code"><div c
 It also sets up the ability to run both of these whenever any javascript
 file changes in tne project.</p>
 
-<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">jshintrc</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span> <span class="nx">jshintrc</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">files</span> <span class="o">=</span> <span class="nx">files</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/**/*.js&#39;</span><span class="p">];</span>
   <span class="nx">jshintrc</span> <span class="o">=</span> <span class="nx">jshintrc</span> <span class="o">||</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../../.jshintrc&#39;</span><span class="p">);</span>
 
@@ -322,13 +328,13 @@ If specified, standalone versions of that library can be produced as well
       <span class="nx">rMin</span><span class="p">.</span><span class="nx">paths</span><span class="p">[</span><span class="nx">module</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;empty:&#39;</span><span class="p">;</span>
     <span class="p">});</span>
   <span class="p">}</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;-min.options&#39;</span><span class="p">,</span> <span class="nx">rMin</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;-min.options&#39;</span><span class="p">,</span> <span class="nx">rMin</span><span class="p">);</span>
 
   <span class="c1">//not minified, needs requirejs</span>
   <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">rMin</span><span class="p">);</span>
   <span class="nx">r</span><span class="p">.</span><span class="nx">optimize</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
   <span class="nx">r</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">);</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;.options&#39;</span><span class="p">,</span> <span class="nx">r</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;.options&#39;</span><span class="p">,</span> <span class="nx">r</span><span class="p">);</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">standalone</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//minified, standalone with almond.js</span>
@@ -336,13 +342,13 @@ If specified, standalone versions of that library can be produced as well
     <span class="nx">sMin</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
     <span class="nx">sMin</span><span class="p">.</span><span class="nx">almond</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="nx">sMin</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="s1">&#39;standalone&#39;</span><span class="p">,</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;.min.js&#39;</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;-standalone-min.options&#39;</span><span class="p">,</span> <span class="nx">sMin</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;-standalone-min.options&#39;</span><span class="p">,</span> <span class="nx">sMin</span><span class="p">);</span>
 
     <span class="c1">//not minified, standalone with almond.js</span>
     <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">sMin</span><span class="p">);</span>
     <span class="nx">s</span><span class="p">.</span><span class="nx">optimize</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
     <span class="nx">s</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="s1">&#39;standalone&#39;</span><span class="p">,</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;-standalone.options&#39;</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;-standalone.options&#39;</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopyFromDist</code> uses <code>grunt-contrib-copy</code> (registered by <code>registerCopy()</code> -
 be sure to call that first) to copy all files under the 'dist/' folders of a list of

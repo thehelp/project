@@ -71,7 +71,10 @@ GruntConfig.prototype.modifiedInLast = function() {
 };
 
 // `loadLocalNpm` gets around the limitation in `grunt.loadNpmTasks` - that it always
-// pulls locally-installed modules. The whole point of this project is to take the difficulty out of
+// pulls locally-installed modules. The whole point of this project is to take the
+// difficulty out of using all of these grunt plugins. This method ensures that
+// any project using 'thehelp-project' needs only to add 'thehelp-project' as
+// a dependency, not the various grunt plugins.
 GruntConfig.prototype.loadLocalNpm = function(name, root, delta) {
   root = root || __dirname;
   delta = delta || '../..';
@@ -149,7 +152,10 @@ test target to get the tests to run, since our filter only sees the test
 files, not the source files. Even if it did, supplying those files to
 mocha would result in no tests run._
 */
-GruntConfig.prototype.registerTest = function() {
+GruntConfig.prototype.registerTest = function(sourceFiles) {
+  /*jshint maxcomplexity: 8 */
+  sourceFiles = sourceFiles || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
+
   this.loadLocalNpm('grunt-mocha-cli');
 
   this.grunt.config('mochacli', {
@@ -177,11 +183,11 @@ GruntConfig.prototype.registerTest = function() {
   });
 
   this.grunt.config('watch.unit', {
-    files: ['src/**/*.js', 'test/unit/**/*.js'],
+    files: sourceFiles.concat('test/unit/**/*.js'),
     tasks: ['unit']
   });
   this.grunt.config('watch.integration', {
-    files: ['src/**/*.js', 'test/integration/**/*.js'],
+    files: sourceFiles.concat('test/integration/**/*.js'),
     tasks: ['integration']
   });
 
