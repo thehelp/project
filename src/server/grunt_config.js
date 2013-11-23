@@ -198,7 +198,7 @@ file changes in tne project.
 
 _Note: Participates in the 'partial' filtration option._
 */
-GruntConfig.prototype.registerStaticAnalysis = function(jshintrc, files) {
+GruntConfig.prototype.registerStaticAnalysis = function(files, jshintrc) {
   files = files || ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
   jshintrc = jshintrc || path.join(__dirname, '../../.jshintrc');
 
