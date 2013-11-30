@@ -23,6 +23,8 @@ function GruntConfig(grunt) {
   this.grunt = grunt;
 }
 
+module.exports = GruntConfig;
+
 // ## Commonly-used Methods
 
 // `standardSetup` sets up everything this project provides with the defaults.
@@ -302,7 +304,10 @@ If no files are specified, this method will simply pull in the copy task
 for your customization.
 */
 GruntConfig.prototype.registerCopy = function(files) {
-  this.loadLocalNpm('grunt-contrib-copy');
+  if (!this.copyRegistered) {
+    this.loadLocalNpm('grunt-contrib-copy');
+    this.copyRegistered = true;
+  }
 
   if (files) {
     this.grunt.config('copy', {
@@ -413,13 +418,14 @@ GruntConfig.prototype.registerOptimize = function(options) {
 };
 
 /*
-`registerCopyFromDist` uses `grunt-contrib-copy` (registered by `registerCopy()` -
-be sure to call that first) to copy all files under the 'dist/' folders of a list of
-specified npm-installed modules.
+`registerCopyFromDist` uses `grunt-contrib-copy` to copy all files under the
+ 'dist/' folders of a list of specified npm-installed modules.
 */
 GruntConfig.prototype.registerCopyFromDist = function(modules, target) {
   target = target || 'lib/vendor';
   var _this = this;
+
+  this.registerCopy();
 
   _.forEach(modules, function(module) {
     _this.grunt.config('copy.from-' + module + '-dist', {
@@ -433,4 +439,36 @@ GruntConfig.prototype.registerCopyFromDist = function(modules, target) {
   });
 };
 
-module.exports = GruntConfig;
+/*
+`registerCopyFromBower` uses `grunt-contrib-copy` to copy all files installed
+by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
+*/
+GruntConfig.prototype.registerCopyFromBower = function(target, source) {
+  target = target || 'lib/vendor';
+  source = source || 'bower_components';
+  var _this = this;
+  var files = {};
+
+  this.registerCopy();
+
+  _.forEach(fs.readdirSync(source), function(dir) {
+    var filename = dir + '.js';
+    var file = path.join(source, dir, filename);
+
+    try {
+      if (fs.statSync(file).isFile()) {
+        files[path.join(target, filename)] = file;
+      }
+    }
+    catch (err) {
+      _this.grunt.log.verbose.writeln('\n' + 'Warning: '.red + dir +
+       ' didn\'t have a root ' + filename + '\n');
+    }
+  });
+
+  if (_.keys(files).length) {
+    _this.grunt.config('copy.from-bower', {
+      files: files
+    });
+  }
+};

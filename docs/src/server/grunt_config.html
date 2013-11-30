@@ -20,7 +20,9 @@ most scenarios have config points in different parts of the config tree:</p>
 
 <span class="kd">function</span> <span class="nx">GruntConfig</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span> <span class="o">=</span> <span class="nx">grunt</span><span class="p">;</span>
-<span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="commonly-used-methods">Commonly-used Methods</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardSetup</code> sets up everything this project provides with the defaults.
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">GruntConfig</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="commonly-used-methods">Commonly-used Methods</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardSetup</code> sets up everything this project provides with the defaults.
 An easy one-stop shop.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">standardSetup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">setupTimeGrunt</span><span class="p">();</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">registerWatch</span><span class="p">();</span>
@@ -255,7 +257,10 @@ of <code>files</code>. It can look like this:</p>
 
 <p>If no files are specified, this method will simply pull in the copy task
 for your customization.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-copy&#39;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">copyRegistered</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-copy&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">copyRegistered</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy&#39;</span><span class="p">,</span> <span class="p">{</span>
@@ -350,11 +355,12 @@ If specified, standalone versions of that library can be produced as well
     <span class="nx">s</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="s1">&#39;standalone&#39;</span><span class="p">,</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;-standalone.options&#39;</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopyFromDist</code> uses <code>grunt-contrib-copy</code> (registered by <code>registerCopy()</code> -
-be sure to call that first) to copy all files under the 'dist/' folders of a list of
-specified npm-installed modules.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromDist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopyFromDist</code> uses <code>grunt-contrib-copy</code> to copy all files under the
+ 'dist/' folders of a list of specified npm-installed modules.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromDist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">target</span> <span class="o">=</span> <span class="nx">target</span> <span class="o">||</span> <span class="s1">&#39;lib/vendor&#39;</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerCopy</span><span class="p">();</span>
 
   <span class="nx">_</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">modules</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">_this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy.from-&#39;</span> <span class="o">+</span> <span class="nx">module</span> <span class="o">+</span> <span class="s1">&#39;-dist&#39;</span><span class="p">,</span> <span class="p">{</span>
@@ -366,6 +372,33 @@ specified npm-installed modules.</p></div></div><div class="code"><div class="wr
       <span class="p">}]</span>
     <span class="p">});</span>
   <span class="p">});</span>
-<span class="p">};</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopyFromBower</code> uses <code>grunt-contrib-copy</code> to copy all files installed
+by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromBower</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">target</span> <span class="o">=</span> <span class="nx">target</span> <span class="o">||</span> <span class="s1">&#39;lib/vendor&#39;</span><span class="p">;</span>
+  <span class="nx">source</span> <span class="o">=</span> <span class="nx">source</span> <span class="o">||</span> <span class="s1">&#39;bower_components&#39;</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">files</span> <span class="o">=</span> <span class="p">{};</span>
 
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">GruntConfig</span><span class="p">;</span></div></div></div></div></body></html>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerCopy</span><span class="p">();</span>
+
+  <span class="nx">_</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">source</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">filename</span> <span class="o">=</span> <span class="nx">dir</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">filename</span><span class="p">);</span>
+
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">file</span><span class="p">).</span><span class="nx">isFile</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">files</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">filename</span><span class="p">)]</span> <span class="o">=</span> <span class="nx">file</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">_this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">verbose</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span> <span class="o">+</span> <span class="s1">&#39;Warning: &#39;</span><span class="p">.</span><span class="nx">red</span> <span class="o">+</span> <span class="nx">dir</span> <span class="o">+</span>
+       <span class="s1">&#39; didn\&#39;t have a root &#39;</span> <span class="o">+</span> <span class="nx">filename</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">files</span><span class="p">).</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">_this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy.from-bower&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span></div></div></div></div></body></html>
