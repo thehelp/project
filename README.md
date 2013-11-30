@@ -14,7 +14,7 @@ Grunt task setup:
 * doc, wrapping two tasks: groc and fix-groc-stylesheet
 * watch core setup and subtasks for tests, static analysis and documentation generation
 * `modifiedInLast()` method to filter files processed using the grunt 'partial' command-line option
-# clean, deleting public/*, tmp/* by default, and extended to include files under doc if you call `registerDoc()`
+* clean, deleting public/*, tmp/* by default, and extended to include files under doc if you call `registerDoc()`
 
 ## Jump in!
 
@@ -38,6 +38,46 @@ config.standardDefault();
 ```
 
 ## History
+
+### 1.3.0
+
+* registerTest: now allows customization of source files to ensure that your 'run-on-change' task behaves properly
+
+### 1.2.3
+
+* Re-ordering parameters in registerStaticAnalysis (now it's files first, then jshintrc path)
+
+### 1.2.2
+
+* Fix to registerOptimize: fix task name collision for multiple libraries based off of the same root javascript file
+
+### 1.2.1
+
+* Fix to registerOptimize: allow multiple libraries based off of the same root javascript file (take name for task from the output file, not the input file)
+
+### 1.2.0
+
+* new method: `registerCopyFromDist()` - pulls files out of `dist/` folders of installed node modules
+* `registerCopy()` files parameter now optional
+
+### 1.1.0
+
+* new method: `registerCopy()` - pulls in `grunt-contrib-copy` task, passes `files` parameter to it
+* new method: `registerConnect()` - sets up two targets: test (port 3001) and keepalive (port 3000)
+* new method: `registerOptimize()` - uses `grunt-requirejs` to optimize and concatenate AMD files, producing unoptimized and, if requested, standalone files based on almond.js
+* new method: `registerMocha()` - running phantomjs-based in-browser unit tests. Works well with `registerConnect()`
+
+### 1.0.3
+
+* adding 'dist' target to  `registerClean()`
+
+### 1.0.2
+
+* `registerStaticAnalysis()` uses .jshintrc file inside this project by default, to make it that much easier to set up a new project.
+
+### 1.0.1
+
+* new: `loadLocalNpm()` loads tasks from node modules installed as dependencies of this library, not from the project which is using this library.
 
 ### 1.0.0
 

@@ -15,9 +15,8 @@
 <li>doc, wrapping two tasks: groc and fix-groc-stylesheet</li>
 <li>watch core setup and subtasks for tests, static analysis and documentation generation</li>
 <li><code>modifiedInLast()</code> method to filter files processed using the grunt 'partial' command-line option</li>
+<li>clean, deleting public/<em>, tmp/</em> by default, and extended to include files under doc if you call <code>registerDoc()</code></li>
 </ul>
-
-<h1 id="cleandeletingpublictmpbydefaultandextendedtoincludefilesunderdocifyoucallregisterdoc">clean, deleting public/<em>, tmp/</em> by default, and extended to include files under doc if you call <code>registerDoc()</code></h1>
 
 <h2 id="jump-in">Jump in!</h2>
 
@@ -39,6 +38,72 @@ config.standardDefault();
 </code></pre>
 
 <h2 id="history">History</h2>
+
+<h3 id="140">1.4.0</h3>
+
+<ul>
+<li>new method: <code>registerCopyFromBower()</code> - pulls javascript files installed by bower into your lib/vendor directory</li>
+<li><code>registerCopy()</code> can be called more than once; also called by <code>registerCopyFromBower()</code> and <code>registerCopyFromDist</code> to ensure <code>grunt-contrib-copy</code> task is ready for use</li>
+<li>dependency update: latest versions of lodash, grunt-contrib-jshint, grunt-mocha, time-grunt, and grunt</li>
+</ul>
+
+<h3 id="130">1.3.0</h3>
+
+<ul>
+<li>registerTest: now allows customization of source files to ensure that your 'run-on-change' task behaves properly</li>
+</ul>
+
+<h3 id="123">1.2.3</h3>
+
+<ul>
+<li>Re-ordering parameters in registerStaticAnalysis (now it's files first, then jshintrc path)</li>
+</ul>
+
+<h3 id="122">1.2.2</h3>
+
+<ul>
+<li>Fix to registerOptimize: fix task name collision for multiple libraries based off of the same root javascript file</li>
+</ul>
+
+<h3 id="121">1.2.1</h3>
+
+<ul>
+<li>Fix to registerOptimize: allow multiple libraries based off of the same root javascript file (take name for task from the output file, not the input file)</li>
+</ul>
+
+<h3 id="120">1.2.0</h3>
+
+<ul>
+<li>new method: <code>registerCopyFromDist()</code> - pulls files out of <code>dist/</code> folders of installed node modules</li>
+<li><code>registerCopy()</code> files parameter now optional</li>
+</ul>
+
+<h3 id="110">1.1.0</h3>
+
+<ul>
+<li>new method: <code>registerCopy()</code> - pulls in <code>grunt-contrib-copy</code> task, passes <code>files</code> parameter to it</li>
+<li>new method: <code>registerConnect()</code> - sets up two targets: test (port 3001) and keepalive (port 3000)</li>
+<li>new method: <code>registerOptimize()</code> - uses <code>grunt-requirejs</code> to optimize and concatenate AMD files, producing unoptimized and, if requested, standalone files based on almond.js</li>
+<li>new method: <code>registerMocha()</code> - running phantomjs-based in-browser unit tests. Works well with <code>registerConnect()</code></li>
+</ul>
+
+<h3 id="103">1.0.3</h3>
+
+<ul>
+<li>adding 'dist' target to  <code>registerClean()</code></li>
+</ul>
+
+<h3 id="102">1.0.2</h3>
+
+<ul>
+<li><code>registerStaticAnalysis()</code> uses .jshintrc file inside this project by default, to make it that much easier to set up a new project.</li>
+</ul>
+
+<h3 id="101">1.0.1</h3>
+
+<ul>
+<li>new: <code>loadLocalNpm()</code> loads tasks from node modules installed as dependencies of this library, not from the project which is using this library.</li>
+</ul>
 
 <h3 id="100">1.0.0</h3>
 
