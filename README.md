@@ -39,6 +39,12 @@ config.standardDefault();
 
 ## History
 
+### 1.4.0
+
+* new method: `registerCopyFromBower()` - pulls javascript files installed by bower into your lib/vendor directory
+* `registerCopy()` can be called more than once; also called by `registerCopyFromBower()` and `registerCopyFromDist` to ensure `grunt-contrib-copy` task is ready for use
+* dependency update: latest versions of lodash, grunt-contrib-jshint, grunt-mocha, time-grunt, and grunt
+
 ### 1.3.0
 
 * registerTest: now allows customization of source files to ensure that your 'run-on-change' task behaves properly
