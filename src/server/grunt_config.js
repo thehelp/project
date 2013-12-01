@@ -21,6 +21,13 @@ var _ = require('lodash');
 
 function GruntConfig(grunt) {
   this.grunt = grunt;
+
+  this.bowerSpecialCases = {
+    lodash: 'dist/lodash.compat.js',
+    requirejs: 'require.js'
+  };
+
+  this.fs = fs;
 }
 
 module.exports = GruntConfig;
@@ -439,6 +446,7 @@ GruntConfig.prototype.registerCopyFromDist = function(modules, target) {
 
 // `registerCopyFromBower` uses `grunt-contrib-copy` to copy all files installed
 // by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
+// You can use the `bowerSpecialCases` hash to override the default expected file location.
 GruntConfig.prototype.registerCopyFromBower = function(target, source) {
   target = target || 'lib/vendor';
   source = source || 'bower_components';
@@ -447,18 +455,19 @@ GruntConfig.prototype.registerCopyFromBower = function(target, source) {
 
   this.registerCopy();
 
-  _.forEach(fs.readdirSync(source), function(dir) {
-    var filename = dir + '.js';
+  _.forEach(this.fs.readdirSync(source), function(dir) {
+    var filename = _this.bowerSpecialCases[dir] || dir + '.js';
+
     var file = path.join(source, dir, filename);
 
     try {
-      if (fs.statSync(file).isFile()) {
-        files[path.join(target, filename)] = file;
+      if (_this.fs.statSync(file).isFile()) {
+        files[path.join(target, path.basename(filename))] = file;
       }
     }
     catch (err) {
       _this.grunt.log.verbose.writeln('\n' + 'Warning: '.red + dir +
-       ' didn\'t have a root ' + filename + '\n');
+       ' bower directory didn\'t contain \'' + filename + '\'\n');
     }
   });
 

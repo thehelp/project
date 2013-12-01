@@ -20,6 +20,13 @@ most scenarios have config points in different parts of the config tree:</p>
 
 <span class="kd">function</span> <span class="nx">GruntConfig</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span> <span class="o">=</span> <span class="nx">grunt</span><span class="p">;</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">bowerSpecialCases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">lodash</span><span class="o">:</span> <span class="s1">&#39;dist/lodash.compat.js&#39;</span><span class="p">,</span>
+    <span class="nx">requirejs</span><span class="o">:</span> <span class="s1">&#39;require.js&#39;</span>
+  <span class="p">};</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">fs</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">GruntConfig</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="commonly-used-methods">Commonly-used Methods</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardSetup</code> sets up everything this project provides with the defaults.
@@ -373,7 +380,8 @@ If specified, standalone versions of that library can be produced as well
     <span class="p">});</span>
   <span class="p">});</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopyFromBower</code> uses <code>grunt-contrib-copy</code> to copy all files installed
-by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromBower</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
+You can use the <code>bowerSpecialCases</code> hash to override the default expected file location.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromBower</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">target</span> <span class="o">=</span> <span class="nx">target</span> <span class="o">||</span> <span class="s1">&#39;lib/vendor&#39;</span><span class="p">;</span>
   <span class="nx">source</span> <span class="o">=</span> <span class="nx">source</span> <span class="o">||</span> <span class="s1">&#39;bower_components&#39;</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
@@ -381,18 +389,19 @@ by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.</p
 
   <span class="k">this</span><span class="p">.</span><span class="nx">registerCopy</span><span class="p">();</span>
 
-  <span class="nx">_</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">source</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">filename</span> <span class="o">=</span> <span class="nx">dir</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">;</span>
+  <span class="nx">_</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">source</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">filename</span> <span class="o">=</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">bowerSpecialCases</span><span class="p">[</span><span class="nx">dir</span><span class="p">]</span> <span class="o">||</span> <span class="nx">dir</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">;</span>
+
     <span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">filename</span><span class="p">);</span>
 
     <span class="k">try</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">file</span><span class="p">).</span><span class="nx">isFile</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nx">files</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">filename</span><span class="p">)]</span> <span class="o">=</span> <span class="nx">file</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">_this</span><span class="p">.</span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">file</span><span class="p">).</span><span class="nx">isFile</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">files</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">filename</span><span class="p">))]</span> <span class="o">=</span> <span class="nx">file</span><span class="p">;</span>
       <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">_this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">verbose</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span> <span class="o">+</span> <span class="s1">&#39;Warning: &#39;</span><span class="p">.</span><span class="nx">red</span> <span class="o">+</span> <span class="nx">dir</span> <span class="o">+</span>
-       <span class="s1">&#39; didn\&#39;t have a root &#39;</span> <span class="o">+</span> <span class="nx">filename</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+       <span class="s1">&#39; bower directory didn\&#39;t contain \&#39;&#39;</span> <span class="o">+</span> <span class="nx">filename</span> <span class="o">+</span> <span class="s1">&#39;\&#39;\n&#39;</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">});</span>
 
