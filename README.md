@@ -39,6 +39,10 @@ config.standardDefault();
 
 ## History
 
+### 1.4.1
+
+* can use `bowerSpecialCases` to customize the behavior of `registerCopyFromBower()`. two special-cases are included by default: lodash (dist/lodash.compat.js) and requirejs (require.js)
+
 ### 1.4.0
 
 * new method: `registerCopyFromBower()` - pulls javascript files installed by bower into your lib/vendor directory
