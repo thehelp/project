@@ -20,8 +20,11 @@
     "time-grunt": "0.2.3"
   },
   "devDependencies": {
-    "grunt": "0.4.2"
+    "chai": "1.8.1",
+    "grunt": "0.4.2",
+    "sinon": "1.7.3"
   },
+
   "scripts": {
     "blanket": {
       "data-cover-only": "src",
