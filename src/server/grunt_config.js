@@ -417,10 +417,8 @@ GruntConfig.prototype.registerOptimize = function(options) {
   }
 };
 
-/*
-`registerCopyFromDist` uses `grunt-contrib-copy` to copy all files under the
- 'dist/' folders of a list of specified npm-installed modules.
-*/
+// `registerCopyFromDist` uses `grunt-contrib-copy` to copy all files under the
+//  'dist/' folders of a list of specified npm-installed modules.
 GruntConfig.prototype.registerCopyFromDist = function(modules, target) {
   target = target || 'lib/vendor';
   var _this = this;
@@ -439,10 +437,8 @@ GruntConfig.prototype.registerCopyFromDist = function(modules, target) {
   });
 };
 
-/*
-`registerCopyFromBower` uses `grunt-contrib-copy` to copy all files installed
-by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
-*/
+// `registerCopyFromBower` uses `grunt-contrib-copy` to copy all files installed
+// by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
 GruntConfig.prototype.registerCopyFromBower = function(target, source) {
   target = target || 'lib/vendor';
   source = source || 'bower_components';
