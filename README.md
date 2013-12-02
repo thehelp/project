@@ -39,6 +39,13 @@ config.standardDefault();
 
 ## History
 
+### 2.0.0
+
+* `registerCopy()` now takes options param, not files
+* `registerCopyFromDist()` now creates just one target
+* new: `registerInstall()` for 'npm/bower install'
+* new: 'setup' task for installing dependencies
+
 ### 1.4.1
 
 * can use `bowerSpecialCases` to customize the behavior of `registerCopyFromBower()`. two special-cases are included by default: lodash (dist/lodash.compat.js) and requirejs (require.js)
