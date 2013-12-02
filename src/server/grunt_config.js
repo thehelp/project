@@ -205,6 +205,7 @@ GruntConfig.prototype.registerTest = function(sourceFiles) {
   this.grunt.registerTask('unit', ['env', 'mochacli:unit']);
   this.grunt.registerTask('integration', ['env', 'mochacli:integration']);
   this.grunt.registerTask('interactive', ['env', 'mochacli:interactive']);
+  this.grunt.registerTask('test-all', ['env', 'mochacli:all']);
   this.grunt.registerTask('test', ['env', 'unit', 'integration']);
 };
 

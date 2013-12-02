@@ -21,6 +21,7 @@
     "time-grunt": "0.2.3"
   },
   "devDependencies": {
+    "blanket": "https://github.com/NiKnight/blanket/tarball/changes",
     "chai": "1.8.1",
     "grunt": "0.4.2",
     "sinon": "1.7.3"
