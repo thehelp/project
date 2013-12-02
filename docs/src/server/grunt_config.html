@@ -171,6 +171,7 @@ mocha would result in no tests run.</em></p></div></div><div class="code"><div c
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;unit&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="s1">&#39;mochacli:unit&#39;</span><span class="p">]);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;integration&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="s1">&#39;mochacli:integration&#39;</span><span class="p">]);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;interactive&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="s1">&#39;mochacli:interactive&#39;</span><span class="p">]);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test:all&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="s1">&#39;mochacli:all&#39;</span><span class="p">]);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="s1">&#39;unit&#39;</span><span class="p">,</span> <span class="s1">&#39;integration&#39;</span><span class="p">]);</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerStaticAnalysis</code> sets up two tasks: jshint and complexity.
 It also sets up the ability to run both of these whenever any javascript
@@ -243,9 +244,9 @@ as groc runs take a long time.</em></p></div></div><div class="code"><div class=
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;groc&#39;</span><span class="p">,</span> <span class="s1">&#39;fix-groc-stylesheet&#39;</span><span class="p">]);</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopy</code> uses the <code>grunt-contrib-copy</code> task to pass options
-to the copy task. Ensure that you don't call this after configuring
-other copy targets, as it will overwrite them.</p>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopy</code> uses the <code>grunt-contrib-copy</code> task to copy files.
+Ensure that you don't call this method with options after configuring
+other copy targets, as it will overwrite those other settings.</p>
 
 <pre><code>target: {
   files: {
