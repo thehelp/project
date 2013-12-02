@@ -41,8 +41,10 @@ An easy one-stop shop.</p></div></div><div class="code"><div class="wrapper"><sp
   <span class="k">this</span><span class="p">.</span><span class="nx">registerDoc</span><span class="p">();</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">registerConnect</span><span class="p">();</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerInstall</span><span class="p">();</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardDefault</code> intalls a 'default' grunt handler (what runs when you just type
 'grunt' on the command line) which does what you likely want it to do.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">standardDefault</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;setup&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;shell:npm-install&#39;</span><span class="p">,</span> <span class="s1">&#39;shell:bower-install&#39;</span><span class="p">]);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;staticanalysis&#39;</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">]);</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="utility-methods">Utility Methods</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>modifiedInLast</code> allows you to limit the scope of any participating task's target
 files to the files modified in the last X minutes. X is defined by supplying the
@@ -363,22 +365,27 @@ If specified, standalone versions of that library can be produced as well
     <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;-standalone.options&#39;</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopyFromDist</code> uses <code>grunt-contrib-copy</code> to copy all files under the
- 'dist/' folders of a list of specified npm-installed modules.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromDist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+'dist/' folders of a list of specified npm-installed modules.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromDist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">target</span> <span class="o">=</span> <span class="nx">target</span> <span class="o">||</span> <span class="s1">&#39;lib/vendor&#39;</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">files</span> <span class="o">=</span> <span class="p">[];</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">registerCopy</span><span class="p">();</span>
 
   <span class="nx">_</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">modules</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">_this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy.from-&#39;</span> <span class="o">+</span> <span class="nx">module</span> <span class="o">+</span> <span class="s1">&#39;-dist&#39;</span><span class="p">,</span> <span class="p">{</span>
-      <span class="nx">files</span><span class="o">:</span> <span class="p">[{</span>
-        <span class="nx">expand</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nx">cwd</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;node_modules&#39;</span><span class="p">,</span> <span class="nx">module</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">),</span>
-        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;**/*&#39;</span><span class="p">],</span>
-        <span class="nx">dest</span><span class="o">:</span> <span class="nx">target</span>
-      <span class="p">}]</span>
+    <span class="nx">files</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+      <span class="nx">expand</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">cwd</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;node_modules&#39;</span><span class="p">,</span> <span class="nx">module</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">),</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;**/*&#39;</span><span class="p">],</span>
+      <span class="nx">dest</span><span class="o">:</span> <span class="nx">target</span>
     <span class="p">});</span>
   <span class="p">});</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">files</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">_this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy.from-dist&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopyFromBower</code> uses <code>grunt-contrib-copy</code> to copy all files installed
 by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
 You can use the <code>bowerSpecialCases</code> hash to override the default expected file location.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromBower</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
@@ -410,4 +417,23 @@ You can use the <code>bowerSpecialCases</code> hash to override the default expe
       <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span>
     <span class="p">});</span>
   <span class="p">}</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerInstall</code> uses <code>grunt-shell</code> to run 'npm install' and 'bower install'
+for you. Use with 'registerCopyFromDist' and 'registerCopyFromBower' for complete
+setup tasks.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerInstall</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-shell&#39;</span><span class="p">);</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;shell&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">&#39;bower-install&#39;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">command</span><span class="o">:</span> <span class="s1">&#39;bower install&#39;</span><span class="p">,</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">failOnError</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;npm-install&#39;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">command</span><span class="o">:</span> <span class="s1">&#39;npm install&#39;</span><span class="p">,</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">failOnError</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
 <span class="p">};</span></div></div></div></div></body></html>
