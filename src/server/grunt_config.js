@@ -47,11 +47,13 @@ GruntConfig.prototype.standardSetup = function() {
   this.registerDoc();
 
   this.registerConnect();
+  this.registerInstall();
 };
 
 // `standardDefault` intalls a 'default' grunt handler (what runs when you just type
 // 'grunt' on the command line) which does what you likely want it to do.
 GruntConfig.prototype.standardDefault = function() {
+  this.grunt.registerTask('setup', ['shell:npm-install', 'shell:bower-install']);
   this.grunt.registerTask('default', ['test', 'staticanalysis', 'doc']);
 };
 
@@ -476,4 +478,26 @@ GruntConfig.prototype.registerCopyFromBower = function(target, source) {
       files: files
     });
   }
+};
+
+// `registerInstall` uses `grunt-shell` to run 'npm install' and 'bower install'
+// for you. Use with 'registerCopyFromDist' and 'registerCopyFromBower' for complete
+// setup tasks.
+GruntConfig.prototype.registerInstall = function() {
+  this.loadLocalNpm('grunt-shell');
+
+  this.grunt.config('shell', {
+    'bower-install': {
+      command: 'bower install',
+      options: {
+        failOnError: true
+      }
+    },
+    'npm-install': {
+      command: 'npm install',
+      options: {
+        failOnError: true
+      }
+    }
+  });
 };
