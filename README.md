@@ -39,6 +39,10 @@ config.standardDefault();
 
 ## History
 
+### 2.1.0
+
+* new: task 'test-all' for easy code coverage testing
+
 ### 2.0.0
 
 * `registerCopy()` now takes options param, not files
