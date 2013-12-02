@@ -18,7 +18,7 @@ describe('GruntConfig', function() {
   });
 
   describe('#registerCopyFromBower', function() {
-    it('should use special cases', function() {
+    it('honors special cases', function() {
       var dirs = ['lodash', 'async'];
       var expected = {
         files: {
@@ -37,6 +37,33 @@ describe('GruntConfig', function() {
       });
 
       config.registerCopyFromBower();
+
+      expect(grunt.config).to.have.property('callCount', 1);
+    });
+  });
+
+  describe('#registerCopyFromDist', function() {
+    it('creates just one task including all modules', function() {
+      var modules = ['thehelp-core', 'thehelp-test'];
+      var expected = {
+        files: [{
+          expand: true,
+          cwd: 'node_modules/thehelp-core/dist',
+          src: ['**/*'],
+          dest: 'lib/vendor'
+        },{
+          expand: true,
+          cwd: 'node_modules/thehelp-test/dist',
+          src: ['**/*'],
+          dest: 'lib/vendor'
+        }]
+      };
+
+      grunt.config = sinon.spy(function(name, data) {
+        expect(data).to.deep.equal(expected);
+      });
+
+      config.registerCopyFromDist(modules);
 
       expect(grunt.config).to.have.property('callCount', 1);
     });
