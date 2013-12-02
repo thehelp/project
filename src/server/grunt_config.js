@@ -290,40 +290,41 @@ GruntConfig.prototype.registerDoc = function(files) {
 };
 
 /*
-`registerCopy` uses the `grunt-contrib-copy` task to create a 'default'
-target for the `copy` task, which works on a provided collection
-of `files`. It can look like this:
+`registerCopy` uses the `grunt-contrib-copy` task to copy files.
+Ensure that you don't call this method with options after configuring
+other copy targets, as it will overwrite those other settings.
 
-    {
-      'target': 'source',
-      'dist/mocha.css': 'lib/vendor/mocha.css',
-      'dist/harness.js': 'src/client/harness.js'
+    target: {
+      files: {
+        'target': 'source',
+        'dist/mocha.css': 'lib/vendor/mocha.css',
+        'dist/harness.js': 'src/client/harness.js'
+        }
+      }
     }
 
 Or like this:
 
-    [{
-      expand: true,
-      cwd: path.join('node_modules', module, 'dist'),
-      src: ['*.js'],
-      dest: 'lib/vendor'
-    }]
+    target: {
+      files: [{
+        expand: true,
+        cwd: path.join('node_modules', module, 'dist'),
+        src: ['*.js'],
+        dest: 'lib/vendor'
+      }]
+    }
 
-If no files are specified, this method will simply pull in the copy task
+If no options are specified, this method will simply pull in the copy task
 for your customization.
 */
-GruntConfig.prototype.registerCopy = function(files) {
+GruntConfig.prototype.registerCopy = function(options) {
   if (!this.copyRegistered) {
     this.loadLocalNpm('grunt-contrib-copy');
     this.copyRegistered = true;
   }
 
-  if (files) {
-    this.grunt.config('copy', {
-      default: {
-        files: files
-      }
-    });
+  if (options) {
+    this.grunt.config('copy', options);
   }
 };
 
