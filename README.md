@@ -39,6 +39,10 @@ config.standardDefault();
 
 ## History
 
+### 2.1.1
+
+* adding `async` to `bowerSpecialCases`
+
 ### 2.1.0
 
 * new: task 'test-all' for easy code coverage testing
