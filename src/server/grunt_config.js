@@ -23,6 +23,7 @@ function GruntConfig(grunt) {
   this.grunt = grunt;
 
   this.bowerSpecialCases = {
+    async: 'lib/async.js',
     lodash: 'dist/lodash.compat.js',
     requirejs: 'require.js'
   };
