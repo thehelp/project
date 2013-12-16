@@ -23,7 +23,7 @@ describe('GruntConfig', function() {
       var expected = {
         files: {
           'lib/vendor/lodash.compat.js': 'bower_components/lodash/dist/lodash.compat.js',
-          'lib/vendor/async.js': 'bower_components/async/async.js'
+          'lib/vendor/async.js': 'bower_components/async/lib/async.js'
         }
       };
 
