@@ -465,7 +465,18 @@ GruntConfig.prototype.registerCopyFromBower = function(target, source) {
 
   this.registerCopy();
 
-  _.forEach(this.fs.readdirSync(source), function(dir) {
+  var dirs;
+
+  try {
+    dirs = this.fs.readdirSync(source);
+  }
+  catch (err) {
+    this.grunt.log.warn('registerCopyFromBower: ' +
+      'Couldn\'t load installed bower components.');
+    return;
+  }
+
+  _.forEach(dirs, function(dir) {
     var filename = _this.bowerSpecialCases[dir] || dir + '.js';
 
     var file = path.join(source, dir, filename);
