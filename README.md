@@ -39,6 +39,10 @@ config.standardDefault();
 
 ## History
 
+### 2.1.3
+
+* Fix crash if 'bower_components' folder doesn't exist
+
 ### 2.1.2
 
 * updating minor version: `grunt-mocha-cli` (now at mocha 1.15, also has my [pull request](https://github.com/Rowno/grunt-mocha-cli/pull/8))
