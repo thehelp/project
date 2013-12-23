@@ -456,7 +456,8 @@ GruntConfig.prototype.registerCopyFromDist = function(modules, target) {
 
 // `registerCopyFromBower` uses `grunt-contrib-copy` to copy all files installed
 // by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
-// You can use the `bowerSpecialCases` hash to override the default expected file location.
+// You can use the `bowerSpecialCases` hash to override the default expected file
+// location.
 GruntConfig.prototype.registerCopyFromBower = function(target, source) {
   target = target || 'lib/vendor';
   source = source || 'bower_components';

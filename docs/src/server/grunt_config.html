@@ -391,7 +391,8 @@ If specified, standalone versions of that library can be produced as well
   <span class="p">}</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopyFromBower</code> uses <code>grunt-contrib-copy</code> to copy all files installed
 by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
-You can use the <code>bowerSpecialCases</code> hash to override the default expected file location.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromBower</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+You can use the <code>bowerSpecialCases</code> hash to override the default expected file
+location.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromBower</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">target</span> <span class="o">=</span> <span class="nx">target</span> <span class="o">||</span> <span class="s1">&#39;lib/vendor&#39;</span><span class="p">;</span>
   <span class="nx">source</span> <span class="o">=</span> <span class="nx">source</span> <span class="o">||</span> <span class="s1">&#39;bower_components&#39;</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>

@@ -27,5 +27,6 @@
   "quotmark": "single",
   "undef": true,
   "unused": true,
-  "maxcomplexity": 7
+  "maxcomplexity": 7,
+  "maxlen": 90
 }

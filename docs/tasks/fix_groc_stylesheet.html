@@ -6,12 +6,14 @@ keep the CSS updates required to make its output look reasonable.</p></div></div
 <span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;fix-groc-stylesheet&#39;</span><span class="p">,</span> <span class="s1">&#39;Replace generated groc style sheet.&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">({</span>
-      <span class="nx">source</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../docs/style.css&#39;</span><span class="p">),</span>
-      <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;docs/assets/style.css&#39;</span>
-    <span class="p">});</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;fix-groc-stylesheet&#39;</span><span class="p">,</span> <span class="s1">&#39;Replace generated groc style sheet.&#39;</span><span class="p">,</span>
+    <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">({</span>
+        <span class="nx">source</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../docs/style.css&#39;</span><span class="p">),</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;docs/assets/style.css&#39;</span>
+      <span class="p">});</span>
 
-    <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">source</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span>
-  <span class="p">});</span>
+      <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">source</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">);</span>
 <span class="p">};</span></div></div></div></div></body></html>
