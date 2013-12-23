@@ -39,6 +39,10 @@ config.standardDefault();
 
 ## History
 
+### 2.1.4
+
+* Update to my fork of `groc` which prevents it from being broken after `jade` 1.0.0 release
+
 ### 2.1.3
 
 * Fix crash if 'bower_components' folder doesn't exist
