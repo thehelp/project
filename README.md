@@ -39,6 +39,10 @@ config.standardDefault();
 
 ## History
 
+### 2.2.0
+
+* Turn on 90-character limit per line
+
 ### 2.1.4
 
 * Update to my fork of `groc` which prevents it from being broken after `jade` 1.0.0 release
