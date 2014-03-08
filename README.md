@@ -39,6 +39,12 @@ config.standardDefault();
 
 ## History
 
+### 2.3.0
+
+* Patch updates: grunt-complexity, grunt-groc, grunt-mocha, grunt-requirejs, grunt-shell, time-grunt, grunt
+* Minor version updates: chai, sinon
+* Minor version below v1 (could be breaking changes): grunt-contrib-connect, grunt-contrib-connect, grunt-contrib-jshint
+
 ### 2.2.0
 
 * Turn on 90-character limit per line
