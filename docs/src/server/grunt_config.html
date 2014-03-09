@@ -329,12 +329,21 @@ If specified, standalone versions of that library can be produced as well
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-requirejs&#39;</span><span class="p">);</span>
 
   <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
+  <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">config</span><span class="p">;</span>
+
   <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">outName</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">outName</span> <span class="o">||</span> <span class="nx">name</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">empty</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">empty</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">config</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">standalone</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">standalone</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">out</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">out</span> <span class="o">||</span> <span class="s1">&#39;dist&#39;</span><span class="p">;</span>
+
+  <span class="c1">//turning on source maps unless explictly configured</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">config</span><span class="p">.</span><span class="nx">generateSourceMaps</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">optimize</span> <span class="o">=</span> <span class="s1">&#39;uglify2&#39;</span><span class="p">;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">generateSourceMaps</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">preserveLicenseComments</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
 
   <span class="c1">//minified, needs requirejs</span>
   <span class="kd">var</span> <span class="nx">rMin</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
@@ -350,12 +359,13 @@ If specified, standalone versions of that library can be produced as well
   <span class="c1">//not minified, needs requirejs</span>
   <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">rMin</span><span class="p">);</span>
   <span class="nx">r</span><span class="p">.</span><span class="nx">optimize</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+  <span class="nx">r</span><span class="p">.</span><span class="nx">generateSourceMaps</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
   <span class="nx">r</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;.options&#39;</span><span class="p">,</span> <span class="nx">r</span><span class="p">);</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">standalone</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//minified, standalone with almond.js</span>
-    <span class="kd">var</span> <span class="nx">sMin</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">sMin</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
     <span class="nx">sMin</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
     <span class="nx">sMin</span><span class="p">.</span><span class="nx">almond</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="nx">sMin</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="s1">&#39;standalone&#39;</span><span class="p">,</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;.min.js&#39;</span><span class="p">);</span>
@@ -364,6 +374,7 @@ If specified, standalone versions of that library can be produced as well
     <span class="c1">//not minified, standalone with almond.js</span>
     <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="nx">sMin</span><span class="p">);</span>
     <span class="nx">s</span><span class="p">.</span><span class="nx">optimize</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">generateSourceMaps</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="nx">s</span><span class="p">.</span><span class="nx">out</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">out</span><span class="p">,</span> <span class="s1">&#39;standalone&#39;</span><span class="p">,</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;requirejs.&#39;</span> <span class="o">+</span> <span class="nx">outName</span> <span class="o">+</span> <span class="s1">&#39;-standalone.options&#39;</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
   <span class="p">}</span>

@@ -389,12 +389,21 @@ GruntConfig.prototype.registerOptimize = function(options) {
   this.loadLocalNpm('grunt-requirejs');
 
   options = options || {};
+
+  var config = options.config;
+
   var name = options.name;
   var outName = options.outName || name;
   var empty = options.empty;
-  var config = options.config;
   var standalone = options.standalone;
   var out = options.out || 'dist';
+
+  //turning on source maps unless explictly configured
+  if (typeof config.generateSourceMaps === 'undefined') {
+    config.optimize = 'uglify2';
+    config.generateSourceMaps = true;
+    config.preserveLicenseComments = false;
+  }
 
   //minified, needs requirejs
   var rMin = _.cloneDeep(config);
@@ -410,12 +419,13 @@ GruntConfig.prototype.registerOptimize = function(options) {
   //not minified, needs requirejs
   var r = _.cloneDeep(rMin);
   r.optimize = 'none';
+  r.generateSourceMaps = false;
   r.out = path.join(out, outName + '.js');
   this.grunt.config('requirejs.' + outName + '.options', r);
 
   if (standalone) {
     //minified, standalone with almond.js
-    var sMin = _.cloneDeep(options);
+    var sMin = _.cloneDeep(config);
     sMin.name = name;
     sMin.almond = true;
     sMin.out = path.join(out, 'standalone', outName + '.min.js');
@@ -424,6 +434,7 @@ GruntConfig.prototype.registerOptimize = function(options) {
     //not minified, standalone with almond.js
     var s = _.cloneDeep(sMin);
     s.optimize = 'none';
+    s.generateSourceMaps = false;
     s.out = path.join(out, 'standalone', outName + '.js');
     this.grunt.config('requirejs.' + outName + '-standalone.options', s);
   }
