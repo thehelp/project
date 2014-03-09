@@ -23,7 +23,7 @@ Grunt task setup:
 Include the project in your dependencies:
 
 ```
-  "thehelp-project": "git+ssh://git@infra:thehelp-project#v1.0.0"
+"thehelp-project": "git+ssh://git@infra:thehelp-project#v1.0.0"
 ```
 
 ### Usage
@@ -38,6 +38,10 @@ config.standardDefault();
 ```
 
 ## History
+
+### 2.4.0
+
+* `registerOptimize()` now turns on source map generation unless it's been explicitly configured.
 
 ### 2.3.0
 
