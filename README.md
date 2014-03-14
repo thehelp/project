@@ -39,6 +39,10 @@ config.standardDefault();
 
 ## History
 
+### 2.4.1
+
+* Upgrading to [groc@0.6.4 (from my branch)](https://github.com/scottnonnenberg/groc/releases/tag/v0.6.4). Pulls in `jade` 1.x, something that the main `groc` project has resisted doing. But it didn't even change the generated documentation.
+
 ### 2.4.0
 
 * `registerOptimize()` now turns on source map generation unless it's been explicitly configured.
