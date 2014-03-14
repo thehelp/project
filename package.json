@@ -6,7 +6,7 @@
 
   "dependencies": {
     "lodash": "2.x",
-    "groc": "git+ssh://git@github.com:scottnonnenberg/groc#v0.6.2",
+    "groc": "git+ssh://git@github.com:scottnonnenberg/groc#v0.6.4",
     "grunt-complexity": "0.1.4",
     "grunt-contrib-clean": "0.5.0",
     "grunt-contrib-connect": "0.7.1",
