@@ -213,6 +213,7 @@ file changes in tne project.</p>
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;staticanalysis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;jshint&#39;</span><span class="p">,</span> <span class="s1">&#39;complexity&#39;</span><span class="p">]);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;sa&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;staticanalysis&#39;</span><span class="p">]);</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerDoc</code> uses <code>groc</code> to process markdown comments in source files into
 nice documentation files in HTML. It also uses a custom-developed
 <a href="../../tasks/fix_groc_stylesheet.html"><code>fix-groc-stylesheet</code></a> task to do better

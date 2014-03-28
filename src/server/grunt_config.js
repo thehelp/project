@@ -252,6 +252,7 @@ GruntConfig.prototype.registerStaticAnalysis = function(files, jshintrc) {
   });
 
   this.grunt.registerTask('staticanalysis', ['jshint', 'complexity']);
+  this.grunt.registerTask('sa', ['staticanalysis']);
 };
 
 /*
