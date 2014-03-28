@@ -39,6 +39,10 @@ config.standardDefault();
 
 ## History
 
+### 2.4.3
+
+* Added 'sa' alias for the combined jshint/complexity 'staticanalysis' task
+
 ### 2.4.2
 
 * Patch versions: groc (actually a no-op change; fixing tag version to match package.json)
