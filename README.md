@@ -39,6 +39,11 @@ config.standardDefault();
 
 ## History
 
+### 2.4.4
+
+* Updated minor versions: `grunt-contrib-jshint`, `grunt-mocha-cli`
+* Updated patch versions: `grunt-complexity`
+
 ### 2.4.3
 
 * Added 'sa' alias for the combined jshint/complexity 'staticanalysis' task
