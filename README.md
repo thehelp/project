@@ -39,6 +39,12 @@ config.standardDefault();
 
 ## History
 
+### 2.4.5
+
+* task 'mochacli:all' properly excludes javascript files in the root test folder
+* Minor version updates: `grunt-shell`
+* Patch updates: `grunt-requirejs`
+
 ### 2.4.4
 
 * Updated minor versions: `grunt-contrib-jshint`, `grunt-mocha-cli`
