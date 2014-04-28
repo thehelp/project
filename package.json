@@ -17,8 +17,8 @@
     "grunt-groc": "0.4.5",
     "grunt-mocha": "0.4.10",
     "grunt-mocha-cli": "1.8.0",
-    "grunt-requirejs": "0.4.1",
-    "grunt-shell": "0.6.4",
+    "grunt-requirejs": "0.4.2",
+    "grunt-shell": "0.7.0",
     "time-grunt": "0.3.1"
   },
   "devDependencies": {
