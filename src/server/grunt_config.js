@@ -183,7 +183,7 @@ GruntConfig.prototype.registerTest = function(sourceFiles) {
       src: ['test/interactive/**/*.js', '!test/interactive/client/**']
     },
     all: {
-      src: ['test/**/*.js', '!test/*/client/**', '!test/util/*'],
+      src: ['test/**/*.js', '!test/*.js', '!test/*/client/**', '!test/util/*'],
     },
     options: {
       reporter: this.grunt.option('coverage') ? 'html-cov' :
