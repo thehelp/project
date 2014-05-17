@@ -174,18 +174,28 @@ mocha would result in no tests run.</em></p></div></div><div class="code"><div c
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;interactive&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="s1">&#39;mochacli:interactive&#39;</span><span class="p">]);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test-all&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="s1">&#39;mochacli:all&#39;</span><span class="p">]);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="s1">&#39;unit&#39;</span><span class="p">,</span> <span class="s1">&#39;integration&#39;</span><span class="p">]);</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerStaticAnalysis</code> sets up two tasks: jshint and complexity.
-It also sets up the ability to run both of these whenever any javascript
-file changes in tne project.</p>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerStaticAnalysis</code> sets up two tasks: 'jshint' and 'complexity.' It also sets up the
+ability to run both of these whenever any javascript file changes in tne project. Within
+the 'jshint' task we create two sub-tasks: 'src' and 'test.' Test has a
+frequently-encountered rule turned off.</p>
 
-<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span> <span class="nx">jshintrc</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">files</span> <span class="o">=</span> <span class="nx">files</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/**/*.js&#39;</span><span class="p">];</span>
+<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">srcFiles</span><span class="p">,</span> <span class="nx">jshintrc</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">srcFiles</span> <span class="o">=</span> <span class="nx">srcFiles</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">testFiles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;test/**/*.js&#39;</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">allFiles</span> <span class="o">=</span> <span class="nx">srcFiles</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">testFiles</span><span class="p">);</span>
+
   <span class="nx">jshintrc</span> <span class="o">=</span> <span class="nx">jshintrc</span> <span class="o">||</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../../.jshintrc&#39;</span><span class="p">);</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-jshint&#39;</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;jshint&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">all</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
+    <span class="nx">src</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">srcFiles</span><span class="p">,</span>
+      <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
+    <span class="p">},</span>
+    <span class="nx">test</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">testFiles</span><span class="p">,</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>"Expected an assignment or function call and instead saw an expression"</p></div></div><div class="code"><div class="wrapper">        <span class="s1">&#39;-W030&#39;</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="p">},</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
     <span class="p">},</span>
     <span class="nx">options</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">readJSON</span><span class="p">(</span><span class="nx">jshintrc</span><span class="p">)</span>
@@ -194,7 +204,7 @@ file changes in tne project.</p>
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-complexity&#39;</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;complexity&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">all</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">allFiles</span><span class="p">,</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
     <span class="p">},</span>
     <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
@@ -208,7 +218,7 @@ file changes in tne project.</p>
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;watch.staticanalysis&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
+    <span class="nx">files</span><span class="o">:</span> <span class="nx">allFiles</span><span class="p">,</span>
     <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;staticanalysis&#39;</span><span class="p">]</span>
   <span class="p">});</span>
 

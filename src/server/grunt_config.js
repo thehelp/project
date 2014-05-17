@@ -211,20 +211,32 @@ GruntConfig.prototype.registerTest = function(sourceFiles) {
 };
 
 /*
-`registerStaticAnalysis` sets up two tasks: jshint and complexity.
-It also sets up the ability to run both of these whenever any javascript
-file changes in tne project.
+`registerStaticAnalysis` sets up two tasks: 'jshint' and 'complexity.' It also sets up the
+ability to run both of these whenever any javascript file changes in tne project. Within
+the 'jshint' task we create two sub-tasks: 'src' and 'test.' Test has a
+frequently-encountered rule turned off.
 
 _Note: Participates in the 'partial' filtration option._
 */
-GruntConfig.prototype.registerStaticAnalysis = function(files, jshintrc) {
-  files = files || ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
+GruntConfig.prototype.registerStaticAnalysis = function(srcFiles, jshintrc) {
+  srcFiles = srcFiles || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
+  var testFiles = ['test/**/*.js'];
+  var allFiles = srcFiles.concat(testFiles);
+
   jshintrc = jshintrc || path.join(__dirname, '../../.jshintrc');
 
   this.loadLocalNpm('grunt-contrib-jshint');
   this.grunt.config('jshint', {
-    all: {
-      src: files,
+    src: {
+      src: srcFiles,
+      filter: this.grunt.option('partial') ? this.modifiedInLast() : null
+    },
+    test: {
+      src: testFiles,
+      options: {
+        // "Expected an assignment or function call and instead saw an expression"
+        '-W030': true
+      },
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: this.grunt.file.readJSON(jshintrc)
@@ -233,7 +245,7 @@ GruntConfig.prototype.registerStaticAnalysis = function(files, jshintrc) {
   this.loadLocalNpm('grunt-complexity');
   this.grunt.config('complexity', {
     all: {
-      src: files,
+      src: allFiles,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: {
@@ -247,7 +259,7 @@ GruntConfig.prototype.registerStaticAnalysis = function(files, jshintrc) {
   });
 
   this.grunt.config('watch.staticanalysis', {
-    files: files,
+    files: allFiles,
     tasks: ['staticanalysis']
   });
 
