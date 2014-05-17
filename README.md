@@ -39,6 +39,12 @@ config.standardDefault();
 
 ## History
 
+### 2.4.6
+
+* split 'jshint:all' task into 'test' and 'src' tasks. 'test' task has one warning turned off:
+
+  - -W030: Expected an assignment or function call and instead saw an expression
+
 ### 2.4.5
 
 * task 'mochacli:all' properly excludes javascript files in the root test folder
