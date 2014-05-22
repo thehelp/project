@@ -39,6 +39,11 @@ config.standardDefault();
 
 ## History
 
+### 2.5.0 (2014-05-21)
+
+* add new 'style' task based on the style checking capabilities of [`jscs`](https://github.com/mdevils/node-jscs). Take a look at `.jscsrc` in the root directory for the default set of rules. You can supply a path to the second parameter of `registerStyle` to provide your own config file, and you might want to, since it's pretty opinionated.
+* Update some dev dependencies
+
 ### 2.4.6 (2014-05-17)
 
 * split 'jshint:all' task into 'test' and 'src' tasks. 'test' task has one warning turned off:

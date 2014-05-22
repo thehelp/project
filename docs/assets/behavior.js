@@ -75,216 +75,224 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.4.6",
-                    "slug": "246"
+                    "title": "2.5.0 (2014-05-21)",
+                    "slug": "250-2014-05-21"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.4.5",
-                    "slug": "245"
+                    "title": "2.4.6 (2014-05-17)",
+                    "slug": "246-2014-05-17"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.4.4",
-                    "slug": "244"
+                    "title": "2.4.5 (2014-04-28)",
+                    "slug": "245-2014-04-28"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.4.3",
-                    "slug": "243"
+                    "title": "2.4.4 (2014-04-02)",
+                    "slug": "244-2014-04-02"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.4.2",
-                    "slug": "242"
+                    "title": "2.4.3 (2014-03-27)",
+                    "slug": "243-2014-03-27"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.4.1",
-                    "slug": "241"
+                    "title": "2.4.2 (2014-03-21)",
+                    "slug": "242-2014-03-21"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.4.0",
-                    "slug": "240"
+                    "title": "2.4.1 (2014-03-13)",
+                    "slug": "241-2014-03-13"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.3.0",
-                    "slug": "230"
+                    "title": "2.4.0 (2014-03-09)",
+                    "slug": "240-2014-03-09"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.2.0",
-                    "slug": "220"
+                    "title": "2.3.0 (2014-03-07)",
+                    "slug": "230-2014-03-07"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.1.4",
-                    "slug": "214"
+                    "title": "2.2.0 (2013-12-23)",
+                    "slug": "220-2013-12-23"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.1.3",
-                    "slug": "213"
+                    "title": "2.1.4 (2013-12-22)",
+                    "slug": "214-2013-12-22"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.1.2",
-                    "slug": "212"
+                    "title": "2.1.3 (2013-12-21)",
+                    "slug": "213-2013-12-21"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.1.1",
-                    "slug": "211"
+                    "title": "2.1.2 (2013-12-16)",
+                    "slug": "212-2013-12-16"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.1.0",
-                    "slug": "210"
+                    "title": "2.1.1 (2013-12-14)",
+                    "slug": "211-2013-12-14"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "2.0.0",
-                    "slug": "200"
+                    "title": "2.1.0 (2013-12-02)",
+                    "slug": "210-2013-12-02"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.4.1",
-                    "slug": "141"
+                    "title": "2.0.0 (2013-12-02)",
+                    "slug": "200-2013-12-02"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.4.0",
-                    "slug": "140"
+                    "title": "1.4.1 (2013-11-30)",
+                    "slug": "141-2013-11-30"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.3.0",
-                    "slug": "130"
+                    "title": "1.4.0 (2013-11-29)",
+                    "slug": "140-2013-11-29"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.2.3",
-                    "slug": "123"
+                    "title": "1.3.0 (2013-11-22)",
+                    "slug": "130-2013-11-22"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.2.2",
-                    "slug": "122"
+                    "title": "1.2.3 (2013-11-22)",
+                    "slug": "123-2013-11-22"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.2.1",
-                    "slug": "121"
+                    "title": "1.2.2 (2013-11-19)",
+                    "slug": "122-2013-11-19"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.2.0",
-                    "slug": "120"
+                    "title": "1.2.1 (2013-11-19)",
+                    "slug": "121-2013-11-19"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.1.0",
-                    "slug": "110"
+                    "title": "1.2.0 (2013-11-18)",
+                    "slug": "120-2013-11-18"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.0.3",
-                    "slug": "103"
+                    "title": "1.1.0 (2013-11-17)",
+                    "slug": "110-2013-11-17"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.0.2",
-                    "slug": "102"
+                    "title": "1.0.3 (2013-11-14)",
+                    "slug": "103-2013-11-14"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.0.1",
-                    "slug": "101"
+                    "title": "1.0.2 (2013-11-11)",
+                    "slug": "102-2013-11-11"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "1.0.0",
-                    "slug": "100"
+                    "title": "1.0.1 (2013-11-11)",
+                    "slug": "101-2013-11-11"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "1.0.0 (2013-11-11)",
+                    "slug": "100-2013-11-11"
                   },
                   "depth": 3
                 }
@@ -352,216 +360,224 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.4.6",
-                "slug": "246"
+                "title": "2.5.0 (2014-05-21)",
+                "slug": "250-2014-05-21"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.4.5",
-                "slug": "245"
+                "title": "2.4.6 (2014-05-17)",
+                "slug": "246-2014-05-17"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.4.4",
-                "slug": "244"
+                "title": "2.4.5 (2014-04-28)",
+                "slug": "245-2014-04-28"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.4.3",
-                "slug": "243"
+                "title": "2.4.4 (2014-04-02)",
+                "slug": "244-2014-04-02"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.4.2",
-                "slug": "242"
+                "title": "2.4.3 (2014-03-27)",
+                "slug": "243-2014-03-27"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.4.1",
-                "slug": "241"
+                "title": "2.4.2 (2014-03-21)",
+                "slug": "242-2014-03-21"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.4.0",
-                "slug": "240"
+                "title": "2.4.1 (2014-03-13)",
+                "slug": "241-2014-03-13"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.3.0",
-                "slug": "230"
+                "title": "2.4.0 (2014-03-09)",
+                "slug": "240-2014-03-09"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.2.0",
-                "slug": "220"
+                "title": "2.3.0 (2014-03-07)",
+                "slug": "230-2014-03-07"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.1.4",
-                "slug": "214"
+                "title": "2.2.0 (2013-12-23)",
+                "slug": "220-2013-12-23"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.1.3",
-                "slug": "213"
+                "title": "2.1.4 (2013-12-22)",
+                "slug": "214-2013-12-22"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.1.2",
-                "slug": "212"
+                "title": "2.1.3 (2013-12-21)",
+                "slug": "213-2013-12-21"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.1.1",
-                "slug": "211"
+                "title": "2.1.2 (2013-12-16)",
+                "slug": "212-2013-12-16"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.1.0",
-                "slug": "210"
+                "title": "2.1.1 (2013-12-14)",
+                "slug": "211-2013-12-14"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "2.0.0",
-                "slug": "200"
+                "title": "2.1.0 (2013-12-02)",
+                "slug": "210-2013-12-02"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.4.1",
-                "slug": "141"
+                "title": "2.0.0 (2013-12-02)",
+                "slug": "200-2013-12-02"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.4.0",
-                "slug": "140"
+                "title": "1.4.1 (2013-11-30)",
+                "slug": "141-2013-11-30"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.3.0",
-                "slug": "130"
+                "title": "1.4.0 (2013-11-29)",
+                "slug": "140-2013-11-29"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.2.3",
-                "slug": "123"
+                "title": "1.3.0 (2013-11-22)",
+                "slug": "130-2013-11-22"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.2.2",
-                "slug": "122"
+                "title": "1.2.3 (2013-11-22)",
+                "slug": "123-2013-11-22"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.2.1",
-                "slug": "121"
+                "title": "1.2.2 (2013-11-19)",
+                "slug": "122-2013-11-19"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.2.0",
-                "slug": "120"
+                "title": "1.2.1 (2013-11-19)",
+                "slug": "121-2013-11-19"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.1.0",
-                "slug": "110"
+                "title": "1.2.0 (2013-11-18)",
+                "slug": "120-2013-11-18"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.0.3",
-                "slug": "103"
+                "title": "1.1.0 (2013-11-17)",
+                "slug": "110-2013-11-17"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.0.2",
-                "slug": "102"
+                "title": "1.0.3 (2013-11-14)",
+                "slug": "103-2013-11-14"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.0.1",
-                "slug": "101"
+                "title": "1.0.2 (2013-11-11)",
+                "slug": "102-2013-11-11"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "1.0.0",
-                "slug": "100"
+                "title": "1.0.1 (2013-11-11)",
+                "slug": "101-2013-11-11"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "1.0.0 (2013-11-11)",
+                "slug": "100-2013-11-11"
               },
               "depth": 3
             }

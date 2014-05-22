@@ -39,7 +39,14 @@ config.standardDefault();
 
 <h2 id="history">History</h2>
 
-<h3 id="246">2.4.6</h3>
+<h3 id="250-2014-05-21">2.5.0 (2014-05-21)</h3>
+
+<ul>
+<li>add new 'style' task based on the style checking capabilities of <a href="https://github.com/mdevils/node-jscs"><code>jscs</code></a>. Take a look at <code>.jscsrc</code> in the root directory for the default set of rules. You can supply a path to the second parameter of <code>registerStyle</code> to provide your own config file, and you might want to, since it's pretty opinionated.</li>
+<li>Update some dev dependencies</li>
+</ul>
+
+<h3 id="246-2014-05-17">2.4.6 (2014-05-17)</h3>
 
 <ul>
 <li><p>split 'jshint:all' task into 'test' and 'src' tasks. 'test' task has one warning turned off:</p>
@@ -47,7 +54,7 @@ config.standardDefault();
 <ul><li>-W030: Expected an assignment or function call and instead saw an expression</li></ul></li>
 </ul>
 
-<h3 id="245">2.4.5</h3>
+<h3 id="245-2014-04-28">2.4.5 (2014-04-28)</h3>
 
 <ul>
 <li>task 'mochacli:all' properly excludes javascript files in the root test folder</li>
@@ -55,20 +62,20 @@ config.standardDefault();
 <li>Patch updates: <code>grunt-requirejs</code></li>
 </ul>
 
-<h3 id="244">2.4.4</h3>
+<h3 id="244-2014-04-02">2.4.4 (2014-04-02)</h3>
 
 <ul>
 <li>Updated minor versions: <code>grunt-contrib-jshint</code>, <code>grunt-mocha-cli</code></li>
 <li>Updated patch versions: <code>grunt-complexity</code></li>
 </ul>
 
-<h3 id="243">2.4.3</h3>
+<h3 id="243-2014-03-27">2.4.3 (2014-03-27)</h3>
 
 <ul>
 <li>Added 'sa' alias for the combined jshint/complexity 'staticanalysis' task</li>
 </ul>
 
-<h3 id="242">2.4.2</h3>
+<h3 id="242-2014-03-21">2.4.2 (2014-03-21)</h3>
 
 <ul>
 <li>Patch versions: groc (actually a no-op change; fixing tag version to match package.json)</li>
@@ -76,19 +83,19 @@ config.standardDefault();
 <li>Dev dependencies: chai, grunt</li>
 </ul>
 
-<h3 id="241">2.4.1</h3>
+<h3 id="241-2014-03-13">2.4.1 (2014-03-13)</h3>
 
 <ul>
 <li>Upgrading to <a href="https://github.com/scottnonnenberg/groc/releases/tag/v0.6.4">groc@0.6.4 (from my branch)</a>. Pulls in <code>jade</code> 1.x, something that the main <code>groc</code> project has resisted doing. But it didn't even change the generated documentation.</li>
 </ul>
 
-<h3 id="240">2.4.0</h3>
+<h3 id="240-2014-03-09">2.4.0 (2014-03-09)</h3>
 
 <ul>
 <li><code>registerOptimize()</code> now turns on source map generation unless it's been explicitly configured.</li>
 </ul>
 
-<h3 id="230">2.3.0</h3>
+<h3 id="230-2014-03-07">2.3.0 (2014-03-07)</h3>
 
 <ul>
 <li>Patch updates: grunt-complexity, grunt-groc, grunt-mocha, grunt-requirejs, grunt-shell, time-grunt, grunt</li>
@@ -96,44 +103,44 @@ config.standardDefault();
 <li>Minor version below v1 (could be breaking changes): grunt-contrib-connect, grunt-contrib-connect, grunt-contrib-jshint</li>
 </ul>
 
-<h3 id="220">2.2.0</h3>
+<h3 id="220-2013-12-23">2.2.0 (2013-12-23)</h3>
 
 <ul>
 <li>Turn on 90-character limit per line</li>
 </ul>
 
-<h3 id="214">2.1.4</h3>
+<h3 id="214-2013-12-22">2.1.4 (2013-12-22)</h3>
 
 <ul>
 <li>Update to my fork of <code>groc</code> which prevents it from being broken after <code>jade</code> 1.0.0 release</li>
 </ul>
 
-<h3 id="213">2.1.3</h3>
+<h3 id="213-2013-12-21">2.1.3 (2013-12-21)</h3>
 
 <ul>
 <li>Fix crash if 'bower_components' folder doesn't exist</li>
 </ul>
 
-<h3 id="212">2.1.2</h3>
+<h3 id="212-2013-12-16">2.1.2 (2013-12-16)</h3>
 
 <ul>
 <li>updating minor version: <code>grunt-mocha-cli</code> (now at mocha 1.15, also has my <a href="https://github.com/Rowno/grunt-mocha-cli/pull/8">pull request</a>)</li>
 <li>updating patch version: <code>grunt-env</code>, <code>grunt-mocha</code>, <code>time-grunt</code> (time grunt update actually brings its output back under <code>grunt</code> 0.4.2)</li>
 </ul>
 
-<h3 id="211">2.1.1</h3>
+<h3 id="211-2013-12-14">2.1.1 (2013-12-14)</h3>
 
 <ul>
 <li>adding <code>async</code> to <code>bowerSpecialCases</code></li>
 </ul>
 
-<h3 id="210">2.1.0</h3>
+<h3 id="210-2013-12-02">2.1.0 (2013-12-02)</h3>
 
 <ul>
 <li>new: task 'test-all' for easy code coverage testing</li>
 </ul>
 
-<h3 id="200">2.0.0</h3>
+<h3 id="200-2013-12-02">2.0.0 (2013-12-02)</h3>
 
 <ul>
 <li><code>registerCopy()</code> now takes options param, not files</li>
@@ -142,13 +149,13 @@ config.standardDefault();
 <li>new: 'setup' task for installing dependencies</li>
 </ul>
 
-<h3 id="141">1.4.1</h3>
+<h3 id="141-2013-11-30">1.4.1 (2013-11-30)</h3>
 
 <ul>
 <li>can use <code>bowerSpecialCases</code> to customize the behavior of <code>registerCopyFromBower()</code>. two special-cases are included by default: lodash (dist/lodash.compat.js) and requirejs (require.js)</li>
 </ul>
 
-<h3 id="140">1.4.0</h3>
+<h3 id="140-2013-11-29">1.4.0 (2013-11-29)</h3>
 
 <ul>
 <li>new method: <code>registerCopyFromBower()</code> - pulls javascript files installed by bower into your lib/vendor directory</li>
@@ -156,38 +163,38 @@ config.standardDefault();
 <li>dependency update: latest versions of lodash, grunt-contrib-jshint, grunt-mocha, time-grunt, and grunt</li>
 </ul>
 
-<h3 id="130">1.3.0</h3>
+<h3 id="130-2013-11-22">1.3.0 (2013-11-22)</h3>
 
 <ul>
 <li>registerTest: now allows customization of source files to ensure that your 'run-on-change' task behaves properly</li>
 </ul>
 
-<h3 id="123">1.2.3</h3>
+<h3 id="123-2013-11-22">1.2.3 (2013-11-22)</h3>
 
 <ul>
 <li>Re-ordering parameters in registerStaticAnalysis (now it's files first, then jshintrc path)</li>
 </ul>
 
-<h3 id="122">1.2.2</h3>
+<h3 id="122-2013-11-19">1.2.2 (2013-11-19)</h3>
 
 <ul>
 <li>Fix to registerOptimize: fix task name collision for multiple libraries based off of the same root javascript file</li>
 </ul>
 
-<h3 id="121">1.2.1</h3>
+<h3 id="121-2013-11-19">1.2.1 (2013-11-19)</h3>
 
 <ul>
 <li>Fix to registerOptimize: allow multiple libraries based off of the same root javascript file (take name for task from the output file, not the input file)</li>
 </ul>
 
-<h3 id="120">1.2.0</h3>
+<h3 id="120-2013-11-18">1.2.0 (2013-11-18)</h3>
 
 <ul>
 <li>new method: <code>registerCopyFromDist()</code> - pulls files out of <code>dist/</code> folders of installed node modules</li>
 <li><code>registerCopy()</code> files parameter now optional</li>
 </ul>
 
-<h3 id="110">1.1.0</h3>
+<h3 id="110-2013-11-17">1.1.0 (2013-11-17)</h3>
 
 <ul>
 <li>new method: <code>registerCopy()</code> - pulls in <code>grunt-contrib-copy</code> task, passes <code>files</code> parameter to it</li>
@@ -196,25 +203,25 @@ config.standardDefault();
 <li>new method: <code>registerMocha()</code> - running phantomjs-based in-browser unit tests. Works well with <code>registerConnect()</code></li>
 </ul>
 
-<h3 id="103">1.0.3</h3>
+<h3 id="103-2013-11-14">1.0.3 (2013-11-14)</h3>
 
 <ul>
 <li>adding 'dist' target to  <code>registerClean()</code></li>
 </ul>
 
-<h3 id="102">1.0.2</h3>
+<h3 id="102-2013-11-11">1.0.2 (2013-11-11)</h3>
 
 <ul>
 <li><code>registerStaticAnalysis()</code> uses .jshintrc file inside this project by default, to make it that much easier to set up a new project.</li>
 </ul>
 
-<h3 id="101">1.0.1</h3>
+<h3 id="101-2013-11-11">1.0.1 (2013-11-11)</h3>
 
 <ul>
 <li>new: <code>loadLocalNpm()</code> loads tasks from node modules installed as dependencies of this library, not from the project which is using this library.</li>
 </ul>
 
-<h3 id="100">1.0.0</h3>
+<h3 id="100-2013-11-11">1.0.0 (2013-11-11)</h3>
 
 <ul>
 <li>Initial release</li>
