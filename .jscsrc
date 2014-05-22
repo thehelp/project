@@ -33,7 +33,6 @@
   },
 
   "requireBlocksOnNewline": true,
-  "disallowPaddingNewlinesInBlocks": true,
 
   "disallowEmptyBlocks": true,
   "disallowSpacesInsideObjectBrackets": true,

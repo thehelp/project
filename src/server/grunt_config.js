@@ -274,21 +274,31 @@ specify your path to a JSON config file in the second parameter.
 
 _Note: Participates in the 'partial' filtration option._
 */
-GruntConfig.prototype.registerStyle = function(files, jscsrc) {
-  files = files || ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
+GruntConfig.prototype.registerStyle = function(srcFiles, jscsrc) {
+  srcFiles = srcFiles || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
+  var testFiles = ['test/**/*.js'];
+  var allFiles = srcFiles.concat(testFiles);
+
   jscsrc = jscsrc || path.join(__dirname, '../../.jscsrc');
 
   this.loadLocalNpm('grunt-jscs-checker');
   this.grunt.config('jscs', {
-    all: {
-      src: files,
+    src: {
+      src: srcFiles,
+      filter: this.grunt.option('partial') ? this.modifiedInLast() : null,
+      options: {
+        disallowPaddingNewlinesInBlocks: true
+      }
+    },
+    test: {
+      src: testFiles,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: this.grunt.file.readJSON(jscsrc)
   });
 
   this.grunt.config('watch.style', {
-    files: files,
+    files: allFiles,
     tasks: ['jscs']
   });
 
