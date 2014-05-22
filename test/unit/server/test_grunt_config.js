@@ -51,7 +51,8 @@ describe('GruntConfig', function() {
           cwd: 'node_modules/thehelp-core/dist',
           src: ['**/*'],
           dest: 'lib/vendor'
-        },{
+        },
+        {
           expand: true,
           cwd: 'node_modules/thehelp-test/dist',
           src: ['**/*'],

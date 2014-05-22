@@ -184,14 +184,14 @@ GruntConfig.prototype.registerTest = function(sourceFiles) {
       src: ['test/interactive/**/*.js', '!test/interactive/client/**']
     },
     all: {
-      src: ['test/**/*.js', '!test/*.js', '!test/*/client/**', '!test/util/*'],
+      src: ['test/**/*.js', '!test/*.js', '!test/*/client/**', '!test/util/*']
     },
     options: {
       reporter: this.grunt.option('coverage') ? 'html-cov' :
         this.grunt.option('reporter') || 'spec',
       require: this.grunt.option('coverage') ? ['blanket'] : [],
       grep: this.grunt.option('grep'),
-      bail: this.grunt.option('bail') ? true : false,
+      bail: this.grunt.option('bail') ? true : false
     }
   });
 
@@ -396,7 +396,7 @@ GruntConfig.prototype.registerConnect = function() {
     test: {
       options: {
         base: '.',
-        port: 3001,
+        port: 3001
       }
     },
     keepalive: {
