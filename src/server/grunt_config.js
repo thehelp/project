@@ -45,6 +45,7 @@ GruntConfig.prototype.standardSetup = function() {
 
   this.registerTest();
   this.registerStaticAnalysis();
+  this.registerStyle();
   this.registerDoc();
 
   this.registerConnect();
@@ -55,7 +56,7 @@ GruntConfig.prototype.standardSetup = function() {
 // 'grunt' on the command line) which does what you likely want it to do.
 GruntConfig.prototype.standardDefault = function() {
   this.grunt.registerTask('setup', ['shell:npm-install', 'shell:bower-install']);
-  this.grunt.registerTask('default', ['test', 'staticanalysis', 'doc']);
+  this.grunt.registerTask('default', ['test', 'staticanalysis', 'style', 'doc']);
 };
 
 // ## Utility Methods
@@ -265,6 +266,33 @@ GruntConfig.prototype.registerStaticAnalysis = function(srcFiles, jshintrc) {
 
   this.grunt.registerTask('staticanalysis', ['jshint', 'complexity']);
   this.grunt.registerTask('sa', ['staticanalysis']);
+};
+
+/*
+`registerStyle` sets up one task: 'jscs' with a default set of rules. You can
+specify your path to a JSON config file in the second parameter.
+
+_Note: Participates in the 'partial' filtration option._
+*/
+GruntConfig.prototype.registerStyle = function(files, jscsrc) {
+  files = files || ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
+  jscsrc = jscsrc || path.join(__dirname, '../../.jscsrc');
+
+  this.loadLocalNpm('grunt-jscs-checker');
+  this.grunt.config('jscs', {
+    all: {
+      src: files,
+      filter: this.grunt.option('partial') ? this.modifiedInLast() : null
+    },
+    options: this.grunt.file.readJSON(jscsrc)
+  });
+
+  this.grunt.config('watch.style', {
+    files: files,
+    tasks: ['jscs']
+  });
+
+  this.grunt.registerTask('style', ['jscs']);
 };
 
 /*
