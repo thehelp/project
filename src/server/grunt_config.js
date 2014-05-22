@@ -235,7 +235,7 @@ GruntConfig.prototype.registerStaticAnalysis = function(srcFiles, jshintrc) {
     test: {
       src: testFiles,
       options: {
-        // "Expected an assignment or function call and instead saw an expression"
+        //"Expected an assignment or function call and instead saw an expression"
         '-W030': true
       },
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
@@ -272,30 +272,26 @@ GruntConfig.prototype.registerStaticAnalysis = function(srcFiles, jshintrc) {
 `registerStyle` sets up one task: 'jscs' with a default set of rules. You can
 specify your path to a JSON config file in the second parameter.
 
+Check the [jscs readme](https://github.com/mdevils/node-jscs) for more information on
+what it does.
+
 _Note: Participates in the 'partial' filtration option._
 */
-GruntConfig.prototype.registerStyle = function(srcFiles, jscsrc) {
-  srcFiles = srcFiles || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
-  var testFiles = ['test/**/*.js'];
-  var allFiles = srcFiles.concat(testFiles);
-
+GruntConfig.prototype.registerStyle = function(files, jscsrc) {
+  files = files || ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
   jscsrc = jscsrc || path.join(__dirname, '../../.jscsrc');
 
   this.loadLocalNpm('grunt-jscs-checker');
   this.grunt.config('jscs', {
-    src: {
-      src: srcFiles,
-      filter: this.grunt.option('partial') ? this.modifiedInLast() : null,
-    },
-    test: {
-      src: testFiles,
+    all: {
+      src: files,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: this.grunt.file.readJSON(jscsrc)
   });
 
   this.grunt.config('watch.style', {
-    files: allFiles,
+    files: files,
     tasks: ['jscs']
   });
 
