@@ -286,9 +286,6 @@ GruntConfig.prototype.registerStyle = function(srcFiles, jscsrc) {
     src: {
       src: srcFiles,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null,
-      options: {
-        disallowPaddingNewlinesInBlocks: true
-      }
     },
     test: {
       src: testFiles,
