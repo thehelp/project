@@ -6,15 +6,16 @@ This project is designed to get a high quality grunt-based project automation se
 
 Grunt task setup:
 
-* time-grunt
-* env (using env.json)
-* mocha-cli for 'unit', 'integration' and 'interactive' tasks, running everything underneath 'test/<test type>' excluding the 'client' subdirectory
+* `time-grunt`
+* `env`, loading environment variables from env.json
+* `mocha-cli` for 'unit', 'integration' and 'interactive' tasks, running everything underneath 'test/<test type>' excluding the 'client' subdirectory
 * command-line options supported for tests: 'grep', 'coverage', 'reporter' and 'bail'
-* staticanalysis, encompassing two tasks: jshint and complexity
-* doc, wrapping two tasks: groc and fix-groc-stylesheet
-* watch core setup and subtasks for tests, static analysis and documentation generation
+* staticanalysis, encompassing two tasks: `jshint` and `complexity`
+* style, using the highly-configurable `jscs`
+* doc, wrapping two tasks: `groc` and `fix-groc-stylesheet`
+* `watch` core setup and subtasks for tests, static analysis, style and documentation generation
 * `modifiedInLast()` method to filter files processed using the grunt 'partial' command-line option
-* clean, deleting public/*, tmp/* by default, and extended to include files under doc if you call `registerDoc()`
+* `clean`, deleting 'public/*', 'tmp/*', and 'dist/*' by default, and extended to include files under doc if you call `registerDoc()`
 
 ## Jump in!
 
@@ -23,18 +24,22 @@ Grunt task setup:
 Include the project in your dependencies:
 
 ```
-"thehelp-project": "git+ssh://git@infra:thehelp-project#v1.0.0"
+npm install thehelp-project --save-dev
 ```
 
 ### Usage
 
-To get up and running very quickly with all defaults, just put this in your Gruntfile:
+To get up and running very quickly with all defaults, you can use this as your whole Gruntfile:
 
 ```
 var GruntConfig = require('thehelp-project').GruntConfig;
-var config = new GruntConfig(grunt);
-config.standardSetup();
-config.standardDefault();
+
+module.exports = function(grunt) {
+  var config = new GruntConfig(grunt);
+
+  config.standardSetup();
+  config.standardDefault();
+};
 ```
 
 ## History
