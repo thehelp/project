@@ -44,6 +44,10 @@ module.exports = function(grunt) {
 
 ## History
 
+### 2.5.1 (2014-05-26)
+
+* Turn off `jscs` option 'requireCamelCaseOrUpperCaseIdentifiers' since there's no mechanism for exceptions, and we do need to interact with external services whose parameters are often not in camelcase. `jshint` already covers this anyway.
+
 ### 2.5.0 (2014-05-21)
 
 * add new 'style' task based on the style checking capabilities of [`jscs`](https://github.com/mdevils/node-jscs). Take a look at `.jscsrc` in the root directory for the default set of rules. You can supply a path to the second parameter of `registerStyle` to provide your own config file, and you might want to, since it's pretty opinionated.

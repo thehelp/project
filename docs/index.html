@@ -16,7 +16,7 @@
 <li>doc, wrapping two tasks: <code>groc</code> and <code>fix-groc-stylesheet</code></li>
 <li><code>watch</code> core setup and subtasks for tests, static analysis, style and documentation generation</li>
 <li><code>modifiedInLast()</code> method to filter files processed using the grunt 'partial' command-line option</li>
-<li><code>clean</code>, deleting public/<em>, tmp/</em> by default, and extended to include files under doc if you call <code>registerDoc()</code></li>
+<li><code>clean</code>, deleting 'public/<em>', 'tmp/</em>', and 'dist/*' by default, and extended to include files under doc if you call <code>registerDoc()</code></li>
 </ul>
 
 <h2 id="jump-in">Jump in!</h2>
@@ -43,6 +43,12 @@ module.exports = function(grunt) {
 </code></pre>
 
 <h2 id="history">History</h2>
+
+<h3 id="251-2014-05-26">2.5.1 (2014-05-26)</h3>
+
+<ul>
+<li>Turn off <code>jscs</code> option 'requireCamelCaseOrUpperCaseIdentifiers' since there's no mechanism for exceptions, and we do need to interact with external services whose parameters are often not in camelcase. <code>jshint</code> already covers this anyway.</li>
+</ul>
 
 <h3 id="250-2014-05-21">2.5.0 (2014-05-21)</h3>
 
