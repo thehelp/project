@@ -87,7 +87,6 @@
 
 
   "disallowImplicitTypeConversion": ["numeric", "boolean", "binary", "string"],
-  "requireCamelCaseOrUpperCaseIdentifiers": true,
   "disallowKeywords": ["with"],
   "disallowMultipleLineStrings": true,
   "validateLineBreaks": "LF",
