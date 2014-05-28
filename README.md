@@ -44,6 +44,10 @@ module.exports = function(grunt) {
 
 ## History
 
+### 2.5.2 (2014-05-27)
+
+* Pare down what's in npm package
+
 ### 2.5.1 (2014-05-26)
 
 * Turn off `jscs` option 'requireCamelCaseOrUpperCaseIdentifiers' since there's no mechanism for exceptions, and we do need to interact with external services whose parameters are often not in camelcase. `jshint` already covers this anyway.
