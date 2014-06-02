@@ -60,7 +60,7 @@ GruntConfig.prototype.standardSetup = function(options) {
   this.registerShell(options.shell);
 };
 
-// `standardDefault` intalls a 'default' grunt handler (what runs when you just type
+// `standardDefault` installs a 'default' grunt handler (what runs when you just type
 // 'grunt' on the command line) which does what you likely want it to do.
 GruntConfig.prototype.standardDefault = function() {
   this.grunt.registerTask('default', ['test', 'staticanalysis', 'style', 'doc']);
