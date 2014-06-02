@@ -18,7 +18,6 @@ most scenarios have config points in different parts of the config tree:
 
 var fs = require('fs');
 var path = require('path');
-var _ = require('lodash');
 
 function GruntConfig(grunt) {
   this.grunt = grunt;
@@ -56,7 +55,6 @@ GruntConfig.prototype.standardSetup = function(options) {
   this.registerStyle(options.style);
   this.registerDoc(options.doc);
 
-  this.registerConnect(options.connect);
   this.registerShell(options.shell);
 };
 
@@ -397,193 +395,6 @@ GruntConfig.prototype.registerCopy = function(options) {
 
   if (options) {
     this.grunt.config('copy', options);
-  }
-};
-
-/*
-`registerConnect` sets up two targets for the `grunt-contrib-connect`
-task, which runs a basic file server. Two different targets are provided:
-
-+ test: On port 3001, this server will stop as soon as the grunt task stop,
-which means that it is only useful for grunt-based testing.
-+ keepalive: A server on 3000 that runs until explicitly stopped - good
-for active development.
-
-*/
-GruntConfig.prototype.registerConnect = function(options) {
-  this.loadLocalNpm('grunt-contrib-connect');
-  this.grunt.config('connect', options || {
-    test: {
-      options: {
-        base: '.',
-        port: 3001
-      }
-    },
-    keepalive: {
-      options: {
-        base: '.',
-        port: 3000,
-        keepalive: true
-      }
-    }
-  });
-};
-
-// `registerMocha` pulls in `grunt-mocha` which uses `phantomjs`
-// and a custom bridge to run in-browser tests on the command line. You're
-// just responsible for the collection of URLs to hit. You might consider using
-// the port 3001 urls available with the `connect` task above.
-GruntConfig.prototype.registerMocha = function(options) {
-  options = options || {};
-
-  if (!options.urls) {
-    throw new Error('Need to provide array of urls to registerMocha()!');
-  }
-
-  options.reporter = options.reporter || 'spec';
-
-  this.loadLocalNpm('grunt-mocha');
-  this.grunt.config('mocha', {
-    default: {
-      options: {
-        urls: options.urls,
-        reporter: options.reporter,
-        run: false
-      }
-    }
-  });
-};
-
-// `registerOptimize` uses `grunt-requirejs` to produce both optimized
-// and unoptimized versions of a given library using the r.js optimizer.
-// If specified, standalone versions of that library can be produced as well
-// (using almond), resulting in four total files.
-GruntConfig.prototype.registerOptimize = function(options) {
-  this.loadLocalNpm('grunt-requirejs');
-
-  options = options || {};
-
-  var config = options.config;
-
-  var name = options.name;
-  var outName = options.outName || name;
-  var empty = options.empty;
-  var standalone = options.standalone;
-  var out = options.out || 'dist';
-
-  //turning on source maps unless explictly configured
-  if (typeof config.generateSourceMaps === 'undefined') {
-    config.optimize = 'uglify2';
-    config.generateSourceMaps = true;
-    config.preserveLicenseComments = false;
-  }
-
-  //minified, needs requirejs
-  var rMin = _.cloneDeep(config);
-  rMin.name = name;
-  rMin.out = path.join(out, outName + '.min.js');
-  if (empty) {
-    _.forEach(empty, function(module) {
-      rMin.paths[module] = 'empty:';
-    });
-  }
-  this.grunt.config('requirejs.' + outName + '-min.options', rMin);
-
-  //not minified, needs requirejs
-  var r = _.cloneDeep(rMin);
-  r.optimize = 'none';
-  r.generateSourceMaps = false;
-  r.out = path.join(out, outName + '.js');
-  this.grunt.config('requirejs.' + outName + '.options', r);
-
-  if (standalone) {
-    //minified, standalone with almond.js
-    var sMin = _.cloneDeep(config);
-    sMin.name = name;
-    sMin.almond = true;
-    sMin.out = path.join(out, 'standalone', outName + '.min.js');
-    this.grunt.config('requirejs.' + outName + '-standalone-min.options', sMin);
-
-    //not minified, standalone with almond.js
-    var s = _.cloneDeep(sMin);
-    s.optimize = 'none';
-    s.generateSourceMaps = false;
-    s.out = path.join(out, 'standalone', outName + '.js');
-    this.grunt.config('requirejs.' + outName + '-standalone.options', s);
-  }
-};
-
-// `registerCopyFromDist` uses `grunt-contrib-copy` to copy all files under the
-// 'dist/' folders of a list of specified npm-installed modules.
-GruntConfig.prototype.registerCopyFromDist = function(modules, target) {
-  target = target || 'lib/vendor';
-  var _this = this;
-  var files = [];
-
-  this.registerCopy();
-
-  _.forEach(modules, function(module) {
-    files.push({
-      expand: true,
-      cwd: path.join('node_modules', module, 'dist'),
-      src: ['**/*'],
-      dest: target
-    });
-  });
-
-  if (files.length) {
-    _this.grunt.config('copy.from-dist', {
-      files: files
-    });
-  }
-};
-
-// `registerCopyFromBower` uses `grunt-contrib-copy` to copy all files installed
-// by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
-// You can use the `bowerSpecialCases` hash to override the default expected file
-// location.
-GruntConfig.prototype.registerCopyFromBower = function(options) {
-  options = options || {};
-
-  var _this = this;
-  var files = {};
-  var dirs;
-
-  options.target = options.target || 'lib/vendor';
-  options.source = options.source || 'bower_components';
-
-  this.registerCopy();
-
-  try {
-    dirs = this.fs.readdirSync(options.source);
-  }
-  catch (err) {
-    this.grunt.log.warn(
-      'registerCopyFromBower: Couldn\'t load installed bower components.'
-    );
-    return;
-  }
-
-  _.forEach(dirs, function(dir) {
-    var filename = _this.bowerSpecialCases[dir] || dir + '.js';
-
-    var file = path.join(options.source, dir, filename);
-
-    try {
-      if (_this.fs.statSync(file).isFile()) {
-        files[path.join(options.target, path.basename(filename))] = file;
-      }
-    }
-    catch (err) {
-      _this.grunt.log.verbose.writeln('\n' + 'Warning: '.red + dir +
-       ' bower directory didn\'t contain \'' + filename + '\'\n');
-    }
-  });
-
-  if (_.keys(files).length) {
-    _this.grunt.config('copy.from-bower', {
-      files: files
-    });
   }
 };
 
