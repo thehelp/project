@@ -25,13 +25,6 @@
     "sinon": "1.10.1"
   },
 
-  "scripts": {
-    "blanket": {
-      "data-cover-only": "src",
-      "data-cover-never": "['lib/','node_modules/','test/','src/client']"
-    }
-  },
-
   "author": "Scott Nonnenberg",
   "repository": {
     "type": "git",
