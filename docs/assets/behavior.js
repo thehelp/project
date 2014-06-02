@@ -13,7 +13,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/Users/scottnonnenberg/Development/thehelp/thehelp-project/README.md",
+        "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
@@ -39,8 +39,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 2,
-                "title": "Jump in!",
-                "slug": "jump-in"
+                "title": "Setup",
+                "slug": "setup"
               },
               "depth": 2,
               "children": [
@@ -48,20 +48,122 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "Install",
-                    "slug": "install"
+                    "title": "Code coverage",
+                    "slug": "code-coverage"
                   },
                   "depth": 3
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "Usage",
-                    "slug": "usage"
+                    "title": "Documentation generation",
+                    "slug": "documentation-generation"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Expected project structure",
+                    "slug": "expected-project-structure"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Your Gruntfile",
+                    "slug": "your-gruntfile"
                   },
                   "depth": 3
                 }
               ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Usage",
+                "slug": "usage"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Testing",
+                    "slug": "testing"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Static analysis",
+                    "slug": "static-analysis"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Code style",
+                    "slug": "code-style"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Generate documentation",
+                    "slug": "generate-documentation"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Clean",
+                    "slug": "clean"
+                  },
+                  "depth": 3
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Advanced",
+                "slug": "advanced"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Watch",
+                    "slug": "watch"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Going past the defaults",
+                    "slug": "going-past-the-defaults"
+                  },
+                  "depth": 3
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Some additional notes",
+                "slug": "some-additional-notes"
+              },
+              "depth": 2
             }, {
               "type": "heading",
               "data": {
@@ -72,6 +174,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 2,
               "children": [
                 {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "3.0.0 (2014-06-02)",
+                    "slug": "300-2014-06-02"
+                  },
+                  "depth": 3
+                }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
@@ -340,8 +450,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 2,
-            "title": "Jump in!",
-            "slug": "jump-in"
+            "title": "Setup",
+            "slug": "setup"
           },
           "depth": 2,
           "children": [
@@ -349,20 +459,122 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "Install",
-                "slug": "install"
+                "title": "Code coverage",
+                "slug": "code-coverage"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "Usage",
-                "slug": "usage"
+                "title": "Documentation generation",
+                "slug": "documentation-generation"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Expected project structure",
+                "slug": "expected-project-structure"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Your Gruntfile",
+                "slug": "your-gruntfile"
               },
               "depth": 3
             }
           ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Usage",
+            "slug": "usage"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Testing",
+                "slug": "testing"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Static analysis",
+                "slug": "static-analysis"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Code style",
+                "slug": "code-style"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Generate documentation",
+                "slug": "generate-documentation"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Clean",
+                "slug": "clean"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Advanced",
+            "slug": "advanced"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Watch",
+                "slug": "watch"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Going past the defaults",
+                "slug": "going-past-the-defaults"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Some additional notes",
+            "slug": "some-additional-notes"
+          },
+          "depth": 2
         }, {
           "type": "heading",
           "data": {
@@ -373,6 +585,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "depth": 2,
           "children": [
             {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "3.0.0 (2014-06-02)",
+                "slug": "300-2014-06-02"
+              },
+              "depth": 3
+            }, {
               "type": "heading",
               "data": {
                 "level": 3,
@@ -636,7 +856,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "JavaScript"
         },
-        "sourcePath": "/Users/scottnonnenberg/Development/thehelp/thehelp-project/Gruntfile.js",
+        "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/Gruntfile.js",
         "projectPath": "Gruntfile.js",
         "targetPath": "Gruntfile",
         "pageTitle": "Gruntfile",
@@ -682,7 +902,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "JavaScript"
                 },
-                "sourcePath": "/Users/scottnonnenberg/Development/thehelp/thehelp-project/src/server/grunt_config.js",
+                "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/src/server/grunt_config.js",
                 "projectPath": "src/server/grunt_config.js",
                 "targetPath": "src/server/grunt_config",
                 "pageTitle": "src/server/grunt_config",
@@ -765,7 +985,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "JavaScript"
                 },
-                "sourcePath": "/Users/scottnonnenberg/Development/thehelp/thehelp-project/src/server/index.js",
+                "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/src/server/index.js",
                 "projectPath": "src/server/index.js",
                 "targetPath": "src/server/index",
                 "pageTitle": "src/server/index",
@@ -797,7 +1017,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/scottnonnenberg/Development/thehelp/thehelp-project/tasks/fix_groc_stylesheet.js",
+            "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/tasks/fix_groc_stylesheet.js",
             "projectPath": "tasks/fix_groc_stylesheet.js",
             "targetPath": "tasks/fix_groc_stylesheet",
             "pageTitle": "tasks/fix_groc_stylesheet",

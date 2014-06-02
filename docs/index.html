@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">README.md</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="thehelp-project">thehelp-project</h1>
 
-<p>This project is designed to get a high quality grunt-based project automation setup in place very quickly.</p>
+<p>This project is designed to get high quality grunt-based project automation in place very quickly.</p>
 
 <h2 id="features">Features</h2>
 
@@ -9,7 +9,7 @@
 <ul>
 <li><code>time-grunt</code></li>
 <li><code>env</code>, loading environment variables from env.json</li>
-<li><code>mocha-cli</code> for 'unit', 'integration' and 'interactive' tasks, running everything underneath 'test/<test type>' excluding the 'client' subdirectory</li>
+<li><code>mocha-cli</code> for 'unit', 'integration' and 'manual' tasks, running everything underneath 'test/<test type>' excluding the 'client' subdirectory</li>
 <li>command-line options supported for tests: 'grep', 'coverage', 'reporter' and 'bail'</li>
 <li>staticanalysis, encompassing two tasks: <code>jshint</code> and <code>complexity</code></li>
 <li>style, using the highly-configurable <code>jscs</code></li>
@@ -19,20 +19,59 @@
 <li><code>clean</code>, deleting 'public/<em>', 'tmp/</em>', and 'dist/*' by default, and extended to include files under doc if you call <code>registerDoc()</code></li>
 </ul>
 
-<h2 id="jump-in">Jump in!</h2>
+<h2 id="setup">Setup</h2>
 
-<h3 id="install">Install</h3>
-
-<p>Include the project in your dependencies:</p>
+<p>First, install the project as a dev dependency:</p>
 
 <pre><code>npm install thehelp-project --save-dev
 </code></pre>
 
-<h3 id="usage">Usage</h3>
+<p>Then make sure you have the grunt command available:</p>
 
-<p>To get up and running very quickly with all defaults, you can use this as your whole Gruntfile:</p>
+<pre><code>npm install -g grunt-cli
+</code></pre>
 
-<pre><code>var GruntConfig = require('thehelp-project').GruntConfig;
+<h3 id="code-coverage">Code coverage</h3>
+
+<p>To use code coverage functionality, you'll need to have <a href="https://github.com/alex-seville/blanket"><code>blanket</code></a> installed as a dev dependency at the top level in your project:</p>
+
+<pre><code>npm install blanket --save-dev
+</code></pre>
+
+<p>If you'd like to fine-tune the files checked for code coverage, take a look at Blanket's <a href="https://github.com/alex-seville/blanket/blob/master/docs/getting_started_node.md">node getting started</a> documentation.</p>
+
+<h3 id="documentation-generation">Documentation generation</h3>
+
+<p>To use <a href="https://github.com/nevir/groc"><code>groc</code></a>-based documentation generation, you'll need to have <a href="http://pygments.org/docs/installation/">Pygments</a> installed. On OSX, the easiest way to install it is:</p>
+
+<pre><code>sudo easy_install Pygments
+</code></pre>
+
+<p>Even on non-OSX, <code>easy_install</code> is still the the right way to install it. You'll just need to pull down <a href="http://www.python.org/getit/">Python</a> to get it.</p>
+
+<h3 id="expected-project-structure">Expected project structure</h3>
+
+<p>The easiest way to use this project is to take all the defaults. Of course, this means that you'll have to structure your project in the way the project expects:</p>
+
+<pre><code>root
+├ README.md       becomes doc/index.html
+├ env.json        environment variables needed by your project
+├ dist/           optimized files are deposited here
+├ docs/           all groc-generated doc files added here
+├ src/            core source files
+├ tasks/          any grunt tasks your project exposes
+└ test/
+  ├ unit/         unit tests
+  │ └ client/     files under client/ in all three test directories are excluded
+  ├ integration/  integration tests
+  └ manual/       manual tests (will not be run as part of 'grunt test')
+</code></pre>
+
+<h3 id="your-gruntfile">Your Gruntfile</h3>
+
+<p>Now, again using all the defaults, you can use this as your whole Gruntfile:</p>
+
+<pre><code class="javascript">var GruntConfig = require('thehelp-project').GruntConfig;
 
 module.exports = function(grunt) {
   var config = new GruntConfig(grunt);
@@ -42,7 +81,134 @@ module.exports = function(grunt) {
 };
 </code></pre>
 
+<p>Now you've got quite a few new grunt tasks available to you! You can take a look by typing <code>grunt --help</code>, or you can just type <code>grunt</code> and the default task will do quite a bit. Here are the details...</p>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="testing">Testing</h3>
+
+<pre><code>grunt unit
+grunt integration
+grunt manual
+
+# just unit and integration tests
+grunt test
+# all three types of tests
+grunt test-all
+
+grunt test --bail
+grunt test --grep searchPattern
+grunt test --reporter nyan
+grunt test-all --coverage &gt; result.html &amp;&amp; open result.html
+</code></pre>
+
+<h3 id="static-analysis">Static analysis</h3>
+
+<p>For static analysis delivered by <code>jshint</code> and <code>complexity</code>:</p>
+
+<pre><code>grunt sa
+grunt staticanalysis
+</code></pre>
+
+<h3 id="code-style">Code style</h3>
+
+<p>For code style checking, delivered by <code>jscs</code>:</p>
+
+<pre><code>grunt style
+</code></pre>
+
+<h3 id="generate-documentation">Generate documentation</h3>
+
+<p>To generate html files from markdown in your source files' comments <code>groc</code> is used.</p>
+
+<pre><code>grunt doc
+</code></pre>
+
+<h3 id="clean">Clean</h3>
+
+<p>Three directories are registered by default: 'dist/', 'tmp/', and 'public/'. If you set documentation generation up with <code>standardSetup()</code> or call <code>registerDoc()</code> a fourth directory will be added: 'doc/'</p>
+
+<pre><code>grunt clean
+grunt clean:tmp
+grunt clean:dist
+grunt clean:public
+grunt clean:doc
+</code></pre>
+
+<h2 id="advanced">Advanced</h2>
+
+<h3 id="watch">Watch</h3>
+
+<p>Five sub-tasks are supported for the <code>watch</code> file-watching task from <code>grunt-contrib-watch</code>:</p>
+
+<ul>
+<li>unit</li>
+<li>integration</li>
+<li>staticanalysis</li>
+<li>style</li>
+<li>doc</li>
+</ul>
+
+<p>Because, for large projects, you may not want to run these entire tasks every time one file changes, a <code>partial</code> option is available which limits the set of files to the set modified in the last N minutes.</p>
+
+<pre><code>grunt watch:staticanalysis
+grunt watch:doc --partial 3
+
+# note: unit and integration only watch the test files
+grunt watch:unit
+</code></pre>
+
+<h3 id="going-past-the-defaults">Going past the defaults</h3>
+
+<p>The first level of customization is adding to what <code>thehelp-project</code> provides. For example, if you'd like to add a new <code>clean</code> target, you can add to its grunt configuration with a targeted update:</p>
+
+<pre><code>grunt.config('clean.build', {
+  src: ['build/**/*']
+})
+</code></pre>
+
+<p>The next step is changing things by passing data to <code>standardSetup()</code>. For example, if you'd like to provide your own <code>jshint</code> and <code>jscs</code> rules, you can do this to load your own local config files:</p>
+
+<pre><code class="javascript">config.standardSetup({
+  staticAnalysis: {
+    jshintrc: '.jshintrc'
+  },
+  style: {
+    jscsrc: '.jscsrc'
+  }
+})
+</code></pre>
+
+<p>If you would like to eliminate setup for a given task completely, you can always bypass the <code>standardSetup()</code> function. This example just loads what it needs - it will add test-related tasks later:</p>
+
+<pre><code class="javascript">this.setupTimeGrunt();
+this.registerWatch();
+this.registerEnv();
+this.registerClean();
+
+this.registerStaticAnalysis();
+this.registerStyle();
+this.registerDoc();
+</code></pre>
+
+<h2 id="some-additional-notes">Some additional notes</h2>
+
+<ul>
+<li>groc - using my own fork</li>
+<li>blanket - using my own fork</li>
+</ul>
+
 <h2 id="history">History</h2>
+
+<h3 id="300-2014-06-02">3.0.0 (2014-06-02)</h3>
+
+<ul>
+<li>Every <code>registerXXX()</code> method now takes one options parameter, looking for keys on it, instead of direct parameters.</li>
+<li><code>standardSetup()</code> now takes an options parameter. <code>options.watch</code> is passed to <code>registerWatch()</code>, for example.</li>
+<li><code>grunt interactive</code> is now <code>grunt manual</code> (still excluded from <code>grunt test</code> and included in <code>grunt test-all</code>)</li>
+<li>Overhaul of this readme</li>
+<li>All client-side development task configuration removed, to be released in a forthcoming <code>thehelp-client-project</code>: <code>registerConnect()</code>, <code>registerMocha()</code>, <code>registerOptimize()</code>, <code>registerCopyFromBower()</code> and <code>registerCopyFromDist()</code></li>
+</ul>
 
 <h3 id="252-2014-05-27">2.5.2 (2014-05-27)</h3>
 
@@ -242,7 +408,7 @@ module.exports = function(grunt) {
 
 <ul>
 <li>Initial release</li>
-<li>time-grunt, env, testing with mocha-cli, jshint, complexity, groc and fix-groc-stylesheet, clean, watch, filter, code coverage support in testing,</li>
+<li>time-grunt, env, testing with mocha-cli, jshint, complexity, groc and fix-groc-stylesheet, clean, watch, filter, code coverage support in testing</li>
 </ul>
 
 <h2 id="license">License</h2>

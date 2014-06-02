@@ -17,21 +17,64 @@ Grunt task setup:
 * `modifiedInLast()` method to filter files processed using the grunt 'partial' command-line option
 * `clean`, deleting 'public/*', 'tmp/*', and 'dist/*' by default, and extended to include files under doc if you call `registerDoc()`
 
-## Jump in!
+## Setup
 
-### Install
-
-Include the project in your dependencies:
+First, install the project as a dev dependency:
 
 ```
 npm install thehelp-project --save-dev
 ```
 
-### Usage
-
-To get up and running very quickly with all defaults, you can use this as your whole Gruntfile:
+Then make sure you have the grunt command available:
 
 ```
+npm install -g grunt-cli
+```
+
+### Code coverage
+
+To use code coverage functionality, you'll need to have [`blanket`](https://github.com/alex-seville/blanket) installed as a dev dependency at the top level in your project:
+
+```
+npm install blanket --save-dev
+```
+
+If you'd like to fine-tune the files checked for code coverage, take a look at Blanket's [node getting started](https://github.com/alex-seville/blanket/blob/master/docs/getting_started_node.md) documentation.
+
+### Documentation generation
+
+To use [`groc`](https://github.com/nevir/groc)-based documentation generation, you'll need to have [Pygments](http://pygments.org/docs/installation/) installed. On OSX, the easiest way to install it is:
+
+```
+sudo easy_install Pygments
+```
+
+Even on non-OSX, `easy_install` is still the the right way to install it. You'll just need to pull down [Python](http://www.python.org/getit/) to get it.
+
+### Expected project structure
+
+The easiest way to use this project is to take all the defaults. Of course, this means that you'll have to structure your project in the way the project expects:
+
+```
+root
+├ README.md       becomes doc/index.html
+├ env.json        environment variables needed by your project
+├ dist/           optimized files are deposited here
+├ docs/           all groc-generated doc files added here
+├ src/            core source files
+├ tasks/          any grunt tasks your project exposes
+└ test/
+  ├ unit/         unit tests
+  │ └ client/     files under client/ in all three test directories are excluded
+  ├ integration/  integration tests
+  └ manual/       manual tests (will not be run as part of 'grunt test')
+```
+
+### Your Gruntfile
+
+Now, again using all the defaults, you can use this as your whole Gruntfile:
+
+```javascript
 var GruntConfig = require('thehelp-project').GruntConfig;
 
 module.exports = function(grunt) {
@@ -41,8 +84,138 @@ module.exports = function(grunt) {
   config.standardDefault();
 };
 ```
+Now you've got quite a few new grunt tasks available to you! You can take a look by typing `grunt --help`, or you can just type `grunt` and the default task will do quite a bit. Here are the details...
+
+## Usage
+
+### Testing
+
+```
+grunt unit
+grunt integration
+grunt manual
+
+# just unit and integration tests
+grunt test
+# all three types of tests
+grunt test-all
+
+grunt test --bail
+grunt test --grep searchPattern
+grunt test --reporter nyan
+grunt test-all --coverage > result.html && open result.html
+```
+
+### Static analysis
+
+For static analysis delivered by `jshint` and `complexity`:
+
+```
+grunt sa
+grunt staticanalysis
+```
+
+### Code style
+
+For code style checking, delivered by `jscs`:
+
+```
+grunt style
+```
+
+### Generate documentation
+
+To generate html files from markdown in your source files' comments `groc` is used.
+
+```
+grunt doc
+```
+
+### Clean
+
+Three directories are registered by default: 'dist/', 'tmp/', and 'public/'. If you set documentation generation up with `standardSetup()` or call `registerDoc()` a fourth directory will be added: 'doc/'
+
+```
+grunt clean
+grunt clean:tmp
+grunt clean:dist
+grunt clean:public
+grunt clean:doc
+```
+
+## Advanced
+
+### Watch
+
+Five sub-tasks are supported for the `watch` file-watching task from `grunt-contrib-watch`:
+
+* unit
+* integration
+* staticanalysis
+* style
+* doc
+
+Because, for large projects, you may not want to run these entire tasks every time one file changes, a `partial` option is available which limits the set of files to the set modified in the last N minutes.
+
+```
+grunt watch:staticanalysis
+grunt watch:doc --partial 3
+
+# note: unit and integration only watch the test files
+grunt watch:unit
+```
+
+### Going past the defaults
+
+The first level of customization is adding to what `thehelp-project` provides. For example, if you'd like to add a new `clean` target, you can add to its grunt configuration with a targeted update:
+
+```
+grunt.config('clean.build', {
+  src: ['build/**/*']
+})
+```
+
+The next step is changing things by passing data to `standardSetup()`. For example, if you'd like to provide your own `jshint` and `jscs` rules, you can do this to load your own local config files:
+
+```javascript
+config.standardSetup({
+  staticAnalysis: {
+    jshintrc: '.jshintrc'
+  },
+  style: {
+    jscsrc: '.jscsrc'
+  }
+})
+
+```
+
+If you would like to eliminate setup for a given task completely, you can always bypass the `standardSetup()` function. This example just loads what it needs - it will add test-related tasks later:
+
+```javascript
+this.setupTimeGrunt();
+this.registerWatch();
+this.registerEnv();
+this.registerClean();
+
+this.registerStaticAnalysis();
+this.registerStyle();
+this.registerDoc();
+```
+
+## Some additional notes
+
+* groc - using my own fork
+* blanket - using my own fork
 
 ## History
+
+### 3.0.0 (2014-06-02)
+
+* Every `registerXXX()` method now takes one options parameter, looking for keys on it, instead of direct parameters.
+* `standardSetup()` now takes an options parameter. `options.watch` is passed to `registerWatch()`, for example.
+* `grunt interactive` is now `grunt manual` (still excluded from `grunt test` and included in `grunt test-all`)
+* Overhaul of this readme
+* All client-side development task configuration removed, to be released in a forthcoming `thehelp-client-project`: `registerConnect()`, `registerMocha()`, `registerOptimize()`, `registerCopyFromBower()` and `registerCopyFromDist()`
 
 ### 2.5.2 (2014-05-27)
 
