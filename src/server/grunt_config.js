@@ -139,19 +139,19 @@ GruntConfig.prototype.registerEnv = function(options) {
 };
 
 // `registerClean` deletes directories as specified in options, or in
-// two default directories: 'public' and 'tmp.'
+// three default directories: 'dist,' 'tmp,' and 'public.
 GruntConfig.prototype.registerClean = function(options) {
   this.loadLocalNpm('grunt-contrib-clean');
 
   this.grunt.config('clean', options || {
-    public: {
-      src: ['public/**/*']
+    dist: {
+      src: ['dist/**/*']
     },
     tmp: {
       src: ['tmp/**/*']
     },
-    dist: {
-      src: ['dist/**/*']
+    public: {
+      src: ['public/**/*']
     }
   });
 };
