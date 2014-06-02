@@ -47,16 +47,16 @@ GruntConfig.prototype.standardSetup = function(options) {
   options = options || {};
 
   this.setupTimeGrunt();
-  this.registerWatch();
-  this.registerEnv();
-  this.registerClean();
+  this.registerWatch(options.watch);
+  this.registerEnv(options.env);
+  this.registerClean(options.clean);
 
-  this.registerTest();
-  this.registerStaticAnalysis();
-  this.registerStyle();
-  this.registerDoc();
+  this.registerTest(options.test);
+  this.registerStaticAnalysis(options.staticAnalysis);
+  this.registerStyle(options.style);
+  this.registerDoc(options.doc);
 
-  this.registerConnect();
+  this.registerConnect(options.connect);
   this.registerShell(options.shell);
 };
 
