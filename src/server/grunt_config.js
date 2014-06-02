@@ -1,16 +1,17 @@
 /*
 # GruntConfig
 Configures grunt-based automation for the project. Just create an instance of this
-class, passing in `grunt`, then call `standardSetup`.
+class, passing in `grunt`, then call `standardSetup()`.
 
-Registration for specific scenario is in each of the 'register-' methods below.
+Registration for specific scenario is in each of the `registerXXX()` methods below.
 It's split out this way to keep related configuration in the same place, since
 most scenarios have config points in different parts of the config tree:
 
-1. loadTasks/loadNpmTasks calls
-2. overall task configuration
-3. any related watch tasks
-4. any related clean tasks
+1. loading the tasks themselves
+2. task configuration
+3. related watch tasks
+4. related clean tasks
+
 */
 
 'use strict';
