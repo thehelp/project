@@ -43,7 +43,9 @@ module.exports = GruntConfig;
 
 // `standardSetup` sets up everything this project provides with the defaults.
 // An easy one-stop shop.
-GruntConfig.prototype.standardSetup = function() {
+GruntConfig.prototype.standardSetup = function(options) {
+  options = options || {};
+
   this.setupTimeGrunt();
   this.registerWatch();
   this.registerEnv();
@@ -55,13 +57,12 @@ GruntConfig.prototype.standardSetup = function() {
   this.registerDoc();
 
   this.registerConnect();
-  this.registerInstall();
+  this.registerShell(options.shell);
 };
 
 // `standardDefault` intalls a 'default' grunt handler (what runs when you just type
 // 'grunt' on the command line) which does what you likely want it to do.
 GruntConfig.prototype.standardDefault = function() {
-  this.grunt.registerTask('setup', ['shell:npm-install', 'shell:bower-install']);
   this.grunt.registerTask('default', ['test', 'staticanalysis', 'style', 'doc']);
 };
 
@@ -561,24 +562,23 @@ GruntConfig.prototype.registerCopyFromBower = function(target, source) {
   }
 };
 
-// `registerInstall` uses `grunt-shell` to run 'npm install' and 'bower install'
-// for you. Use with 'registerCopyFromDist' and 'registerCopyFromBower' for complete
-// setup tasks.
-GruntConfig.prototype.registerInstall = function() {
+// `registerShell` makes the 'shell' task available if no options are required. Here's an
+// example of how to add `bower install` to your grunt tasks:
+//
+// ```javascript
+// registerShell({
+//   'bower-install': {
+//      command: 'bower install',
+//      options: {
+//        failOnError: true
+//      }
+//    }
+// })
+// ```
+GruntConfig.prototype.registerShell = function(options) {
   this.loadLocalNpm('grunt-shell');
 
-  this.grunt.config('shell', {
-    'bower-install': {
-      command: 'bower install',
-      options: {
-        failOnError: true
-      }
-    },
-    'npm-install': {
-      command: 'npm install',
-      options: {
-        failOnError: true
-      }
-    }
-  });
+  if (options) {
+    this.grunt.config('shell', options);
+  }
 };
