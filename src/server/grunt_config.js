@@ -21,19 +21,6 @@ var path = require('path');
 
 function GruntConfig(grunt) {
   this.grunt = grunt;
-
-  this.bowerSpecialCases = {
-    async: 'lib/async.js',
-    hoverintent: 'jquery.hoverIntent.js',
-    jquery: 'dist/jquery.js',
-    labjs: 'LAB.min.js',
-    lodash: 'dist/lodash.compat.js',
-    requirejs: 'require.js',
-    'spin.js': 'spin.js',
-    tipsy: 'src/jquery.tipsy.js'
-  };
-
-  this.fs = fs;
 }
 
 module.exports = GruntConfig;
