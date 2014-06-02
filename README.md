@@ -8,7 +8,7 @@ Grunt task setup:
 
 * `time-grunt`
 * `env`, loading environment variables from env.json
-* `mocha-cli` for 'unit', 'integration' and 'interactive' tasks, running everything underneath 'test/<test type>' excluding the 'client' subdirectory
+* `mocha-cli` for 'unit', 'integration' and 'manual' tasks, running everything underneath 'test/<test type>' excluding the 'client' subdirectory
 * command-line options supported for tests: 'grep', 'coverage', 'reporter' and 'bail'
 * staticanalysis, encompassing two tasks: `jshint` and `complexity`
 * style, using the highly-configurable `jscs`
