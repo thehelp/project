@@ -183,7 +183,7 @@ module.exports = function(grunt) {
 ### 1.0.0 (2013-11-11)
 
 * Initial release
-* time-grunt, env, testing with mocha-cli, jshint, complexity, groc and fix-groc-stylesheet, clean, watch, filter, code coverage support in testing,
+* time-grunt, env, testing with mocha-cli, jshint, complexity, groc and fix-groc-stylesheet, clean, watch, filter, code coverage support in testing
 
 
 ## License
