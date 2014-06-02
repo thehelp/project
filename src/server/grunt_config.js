@@ -193,8 +193,8 @@ GruntConfig.prototype.registerTest = function(options) {
       src: ['test/integration/**/*.js', '!test/integration/client/**'],
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
-    interactive: {
-      src: ['test/interactive/**/*.js', '!test/interactive/client/**']
+    manual: {
+      src: ['test/manual/**/*.js', '!test/manual/client/**']
     },
     all: {
       src: ['test/**/*.js', '!test/*.js', '!test/*/client/**', '!test/util/*']
@@ -219,7 +219,7 @@ GruntConfig.prototype.registerTest = function(options) {
 
   this.grunt.registerTask('unit', ['env', 'mochacli:unit']);
   this.grunt.registerTask('integration', ['env', 'mochacli:integration']);
-  this.grunt.registerTask('interactive', ['env', 'mochacli:interactive']);
+  this.grunt.registerTask('manual', ['env', 'mochacli:manual']);
   this.grunt.registerTask('test-all', ['env', 'mochacli:all']);
   this.grunt.registerTask('test', ['env', 'unit', 'integration']);
 };
