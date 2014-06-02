@@ -175,9 +175,12 @@ test target to get the tests to run, since our filter only sees the test
 files, not the source files. Even if it did, supplying those files to
 mocha would result in no tests run._
 */
-GruntConfig.prototype.registerTest = function(sourceFiles) {
-  /*jshint maxcomplexity: 8 */
-  sourceFiles = sourceFiles || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
+GruntConfig.prototype.registerTest = function(options) {
+  /*jshint maxcomplexity: 9 */
+
+  options = options || {};
+
+  options.src = options.src || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
 
   this.loadLocalNpm('grunt-mocha-cli');
 
@@ -206,11 +209,11 @@ GruntConfig.prototype.registerTest = function(sourceFiles) {
   });
 
   this.grunt.config('watch.unit', {
-    files: sourceFiles.concat('test/unit/**/*.js'),
+    files: options.src.concat('test/unit/**/*.js'),
     tasks: ['unit']
   });
   this.grunt.config('watch.integration', {
-    files: sourceFiles.concat('test/integration/**/*.js'),
+    files: options.src.concat('test/integration/**/*.js'),
     tasks: ['integration']
   });
 
@@ -229,34 +232,38 @@ frequently-encountered rule turned off.
 
 _Note: Participates in the 'partial' filtration option._
 */
-GruntConfig.prototype.registerStaticAnalysis = function(srcFiles, jshintrc) {
-  srcFiles = srcFiles || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
-  var testFiles = ['test/**/*.js'];
-  var allFiles = srcFiles.concat(testFiles);
+GruntConfig.prototype.registerStaticAnalysis = function(options) {
+  /*jshint maxcomplexity: 9 */
 
-  jshintrc = jshintrc || path.join(__dirname, '../../.jshintrc');
+  options = options || {};
+
+  options.src = options.src || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
+  options.test = options.test || ['test/**/*.js'];
+  options.all = options.all || options.src.concat(options.test);
+
+  options.jshintrc = options.jshintrc || path.join(__dirname, '../../.jshintrc');
 
   this.loadLocalNpm('grunt-contrib-jshint');
   this.grunt.config('jshint', {
     src: {
-      src: srcFiles,
+      src: options.src,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     test: {
-      src: testFiles,
+      src: options.test,
       options: {
         //"Expected an assignment or function call and instead saw an expression"
         '-W030': true
       },
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
-    options: this.grunt.file.readJSON(jshintrc)
+    options: this.grunt.file.readJSON(options.jshintrc)
   });
 
   this.loadLocalNpm('grunt-complexity');
   this.grunt.config('complexity', {
     all: {
-      src: allFiles,
+      src: options.all,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: {
@@ -270,7 +277,7 @@ GruntConfig.prototype.registerStaticAnalysis = function(srcFiles, jshintrc) {
   });
 
   this.grunt.config('watch.staticanalysis', {
-    files: allFiles,
+    files: options.all,
     tasks: ['staticanalysis']
   });
 
@@ -287,21 +294,25 @@ what it does.
 
 _Note: Participates in the 'partial' filtration option._
 */
-GruntConfig.prototype.registerStyle = function(files, jscsrc) {
-  files = files || ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
-  jscsrc = jscsrc || path.join(__dirname, '../../.jscsrc');
+GruntConfig.prototype.registerStyle = function(options) {
+  options = options || {};
+
+  options.files = options.files ||
+    ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
+
+  options.jscsrc = options.jscsrc || path.join(__dirname, '../../.jscsrc');
 
   this.loadLocalNpm('grunt-jscs-checker');
   this.grunt.config('jscs', {
     all: {
-      src: files,
+      src: options.files,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
-    options: this.grunt.file.readJSON(jscsrc)
+    options: this.grunt.file.readJSON(options.jscsrc)
   });
 
   this.grunt.config('watch.style', {
-    files: files,
+    files: options.files,
     tasks: ['jscs']
   });
 
@@ -317,15 +328,17 @@ than the default groc stylesheet, recopied on every run.
 _Note: Participates in the 'partial' filtration option. Highly recommended,
 as groc runs take a long time._
 */
-GruntConfig.prototype.registerDoc = function(files) {
+GruntConfig.prototype.registerDoc = function(options) {
+  options = options || {};
+
   this.grunt.loadTasks(path.join(__dirname, '../../tasks'));
 
-  files = files || ['src/**/*.js', 'tasks/**/*.js', '*.js', 'README.md'];
+  options.all = options.all || ['src/**/*.js', 'tasks/**/*.js', '*.js', 'README.md'];
 
   this.loadLocalNpm('grunt-groc');
   this.grunt.config('groc', {
     all: {
-      src: files,
+      src: options.all,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: {
@@ -334,7 +347,7 @@ GruntConfig.prototype.registerDoc = function(files) {
   });
 
   this.grunt.config('watch.doc', {
-    files: files,
+    files: options.all,
     tasks: ['doc']
   });
 
@@ -395,10 +408,11 @@ task, which runs a basic file server. Two different targets are provided:
 which means that it is only useful for grunt-based testing.
 + keepalive: A server on 3000 that runs until explicitly stopped - good
 for active development.
+
 */
-GruntConfig.prototype.registerConnect = function() {
+GruntConfig.prototype.registerConnect = function(options) {
   this.loadLocalNpm('grunt-contrib-connect');
-  this.grunt.config('connect', {
+  this.grunt.config('connect', options || {
     test: {
       options: {
         base: '.',
@@ -415,33 +429,35 @@ GruntConfig.prototype.registerConnect = function() {
   });
 };
 
-/*
-`registerMocha` pulls in `grunt-mocha` which uses `phantomjs`
-and a custom bridge to run in-browser tests on the command line. You're
-just responsible for the collection of URLs to hit. You might consider using
-the port 3001 urls available with the `connect` task above.
-*/
-GruntConfig.prototype.registerMocha = function(urls, reporter) {
-  reporter = reporter || 'Spec';
+// `registerMocha` pulls in `grunt-mocha` which uses `phantomjs`
+// and a custom bridge to run in-browser tests on the command line. You're
+// just responsible for the collection of URLs to hit. You might consider using
+// the port 3001 urls available with the `connect` task above.
+GruntConfig.prototype.registerMocha = function(options) {
+  options = options || {};
+
+  if (!options.urls) {
+    throw new Error('Need to provide array of urls to registerMocha()!');
+  }
+
+  options.reporter = options.reporter || 'spec';
 
   this.loadLocalNpm('grunt-mocha');
   this.grunt.config('mocha', {
     default: {
       options: {
-        urls: urls,
-        reporter: reporter,
+        urls: options.urls,
+        reporter: options.reporter,
         run: false
       }
     }
   });
 };
 
-/*
-`registerOptimize` uses `grunt-requirejs` to produce both optimized
-and unoptimized versions of a given library using the r.js optimizer.
-If specified, standalone versions of that library can be produced as well
-(using almond), resulting in four total files.
-*/
+// `registerOptimize` uses `grunt-requirejs` to produce both optimized
+// and unoptimized versions of a given library using the r.js optimizer.
+// If specified, standalone versions of that library can be produced as well
+// (using almond), resulting in four total files.
 GruntConfig.prototype.registerOptimize = function(options) {
   this.loadLocalNpm('grunt-requirejs');
 
@@ -526,33 +542,36 @@ GruntConfig.prototype.registerCopyFromDist = function(modules, target) {
 // by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
 // You can use the `bowerSpecialCases` hash to override the default expected file
 // location.
-GruntConfig.prototype.registerCopyFromBower = function(target, source) {
-  target = target || 'lib/vendor';
-  source = source || 'bower_components';
+GruntConfig.prototype.registerCopyFromBower = function(options) {
+  options = options || {};
+
   var _this = this;
   var files = {};
+  var dirs;
+
+  options.target = options.target || 'lib/vendor';
+  options.source = options.source || 'bower_components';
 
   this.registerCopy();
 
-  var dirs;
-
   try {
-    dirs = this.fs.readdirSync(source);
+    dirs = this.fs.readdirSync(options.source);
   }
   catch (err) {
-    this.grunt.log.warn('registerCopyFromBower: ' +
-      'Couldn\'t load installed bower components.');
+    this.grunt.log.warn(
+      'registerCopyFromBower: Couldn\'t load installed bower components.'
+    );
     return;
   }
 
   _.forEach(dirs, function(dir) {
     var filename = _this.bowerSpecialCases[dir] || dir + '.js';
 
-    var file = path.join(source, dir, filename);
+    var file = path.join(options.source, dir, filename);
 
     try {
       if (_this.fs.statSync(file).isFile()) {
-        files[path.join(target, path.basename(filename))] = file;
+        files[path.join(options.target, path.basename(filename))] = file;
       }
     }
     catch (err) {
