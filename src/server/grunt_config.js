@@ -126,8 +126,8 @@ GruntConfig.prototype.registerWatch = function(options) {
   });
 };
 
-// `registerEnv` sets up the `env` task to populate environment variables
-// in the current context.
+// `registerEnv` sets up the `env` task to populate environment variables. By default it
+//  uses data from 'env.json' in the current working directory (the root of your project).
 GruntConfig.prototype.registerEnv = function(options) {
   this.loadLocalNpm('grunt-env');
 
