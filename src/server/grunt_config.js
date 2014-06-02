@@ -168,7 +168,7 @@ will automatically required
 + reporter: when 'coverage' is not set, you can customize the reporter to anything
 you'd like. I prefer 'dot' when running under a watch task, for example.
 + grep: use this to limit your run to specific tests
-+ bail: use this to cause the mocha run to stop after the first
++ bail: use this to cause the mocha run to stop after the first failed test
 
 _Note: the 'partial' option will force you to save the test-side of a given
 test target to get the tests to run, since our filter only sees the test
