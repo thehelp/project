@@ -73,7 +73,10 @@ GruntConfig.prototype.standardDefault = function() {
 files to the files modified in the last X minutes. X is defined by supplying the
 'partial' option on the command line. For example:
 
-    grunt watch:doc --partial=2
+```
+grunt watch:doc --partial=2
+```
+
 */
 GruntConfig.prototype.modifiedInLast = function() {
   var minutes = parseInt(this.grunt.option('partial'), 10);
@@ -347,25 +350,28 @@ GruntConfig.prototype.registerDoc = function(files) {
 Ensure that you don't call this method with options after configuring
 other copy targets, as it will overwrite those other settings.
 
-    target: {
-      files: {
-        'target': 'source',
-        'dist/mocha.css': 'lib/vendor/mocha.css',
-        'dist/harness.js': 'src/client/harness.js'
-        }
-      }
-    }
+```javascript
+target: {
+  files: {
+    'target': 'source',
+    'dist/mocha.css': 'lib/vendor/mocha.css',
+    'dist/harness.js': 'src/client/harness.js'
+  }
+}
+```
 
 Or like this:
 
-    target: {
-      files: [{
-        expand: true,
-        cwd: path.join('node_modules', module, 'dist'),
-        src: ['*.js'],
-        dest: 'lib/vendor'
-      }]
-    }
+```javascript
+target: {
+  files: [{
+    expand: true,
+    cwd: path.join('node_modules', module, 'dist'),
+    src: ['*.js'],
+    dest: 'lib/vendor'
+  }]
+}
+```
 
 If no options are specified, this method will simply pull in the copy task
 for your customization.
