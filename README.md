@@ -1,6 +1,6 @@
 # thehelp-project
 
-This project is designed to get a high quality grunt-based project automation setup in place very quickly.
+This project is designed to get high quality grunt-based project automation in place very quickly.
 
 ## Features
 
