@@ -59,7 +59,6 @@ The easiest way to use this project is to take all the defaults. Of course, this
 root
 ├ README.md       becomes doc/index.html
 ├ env.json        environment variables needed by your project
-├ dist/           optimized files are deposited here
 ├ docs/           all groc-generated doc files added here
 ├ src/            core source files
 ├ tasks/          any grunt tasks your project exposes
