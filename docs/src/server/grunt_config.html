@@ -1,17 +1,17 @@
 <!DOCTYPE html><html lang="en"><head><title>src/server/grunt_config</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="src/server/grunt_config"><meta name="groc-project-path" content="src/server/grunt_config.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/server/grunt_config.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="gruntconfig">GruntConfig</h1>
 
 <p>Configures grunt-based automation for the project. Just create an instance of this
-class, passing in <code>grunt</code>, then call <code>standardSetup</code>.</p>
+class, passing in <code>grunt</code>, then call <code>standardSetup()</code>.</p>
 
-<p>Registration for specific scenario is in each of the 'register-' methods below.
+<p>Registration for specific scenario is in each of the <code>registerXXX()</code> methods below.
 It's split out this way to keep related configuration in the same place, since
 most scenarios have config points in different parts of the config tree:</p>
 
 <ol>
-<li>loadTasks/loadNpmTasks calls</li>
-<li>overall task configuration</li>
-<li>any related watch tasks</li>
-<li>any related clean tasks</li>
+<li>loading the tasks themselves</li>
+<li>task configuration</li>
+<li>related watch tasks</li>
+<li>related clean tasks</li>
 </ol></div></div><div class="code"><div class="wrapper"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
@@ -23,30 +23,36 @@ most scenarios have config points in different parts of the config tree:</p>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">bowerSpecialCases</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">async</span><span class="o">:</span> <span class="s1">&#39;lib/async.js&#39;</span><span class="p">,</span>
+    <span class="nx">hoverintent</span><span class="o">:</span> <span class="s1">&#39;jquery.hoverIntent.js&#39;</span><span class="p">,</span>
+    <span class="nx">jquery</span><span class="o">:</span> <span class="s1">&#39;dist/jquery.js&#39;</span><span class="p">,</span>
+    <span class="nx">labjs</span><span class="o">:</span> <span class="s1">&#39;LAB.min.js&#39;</span><span class="p">,</span>
     <span class="nx">lodash</span><span class="o">:</span> <span class="s1">&#39;dist/lodash.compat.js&#39;</span><span class="p">,</span>
-    <span class="nx">requirejs</span><span class="o">:</span> <span class="s1">&#39;require.js&#39;</span>
+    <span class="nx">requirejs</span><span class="o">:</span> <span class="s1">&#39;require.js&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;spin.js&#39;</span><span class="o">:</span> <span class="s1">&#39;spin.js&#39;</span><span class="p">,</span>
+    <span class="nx">tipsy</span><span class="o">:</span> <span class="s1">&#39;src/jquery.tipsy.js&#39;</span>
   <span class="p">};</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">fs</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">GruntConfig</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="commonly-used-methods">Commonly-used Methods</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardSetup</code> sets up everything this project provides with the defaults.
-An easy one-stop shop.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">standardSetup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+An easy one-stop shop.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">standardSetup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
   <span class="k">this</span><span class="p">.</span><span class="nx">setupTimeGrunt</span><span class="p">();</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">registerWatch</span><span class="p">();</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">registerEnv</span><span class="p">();</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">registerClean</span><span class="p">();</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerWatch</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">watch</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerEnv</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">env</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerClean</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">clean</span><span class="p">);</span>
 
-  <span class="k">this</span><span class="p">.</span><span class="nx">registerTest</span><span class="p">();</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span><span class="p">();</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">registerStyle</span><span class="p">();</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">registerDoc</span><span class="p">();</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerTest</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">test</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">staticAnalysis</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerStyle</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">style</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerDoc</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">doc</span><span class="p">);</span>
 
-  <span class="k">this</span><span class="p">.</span><span class="nx">registerConnect</span><span class="p">();</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">registerInstall</span><span class="p">();</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardDefault</code> intalls a 'default' grunt handler (what runs when you just type
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerConnect</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">connect</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">registerShell</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">shell</span><span class="p">);</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardDefault</code> installs a 'default' grunt handler (what runs when you just type
 'grunt' on the command line) which does what you likely want it to do.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">standardDefault</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;setup&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;shell:npm-install&#39;</span><span class="p">,</span> <span class="s1">&#39;shell:bower-install&#39;</span><span class="p">]);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;staticanalysis&#39;</span><span class="p">,</span> <span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">]);</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="utility-methods">Utility Methods</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>modifiedInLast</code> allows you to limit the scope of any participating task's target
 files to the files modified in the last X minutes. X is defined by supplying the
@@ -89,8 +95,8 @@ functions to add them.</p></div></div><div class="code"><div class="wrapper"><sp
       <span class="nx">debounceDelay</span><span class="o">:</span> <span class="mi">200</span>
     <span class="p">}</span>
   <span class="p">});</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerEnv</code> sets up the <code>env</code> task to populate environment variables
-in the current context.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerEnv</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerEnv</code> sets up the <code>env</code> task to populate environment variables. By default it
+ uses data from 'env.json' in the current working directory (the root of your project).</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerEnv</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-env&#39;</span><span class="p">);</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{</span>
@@ -99,18 +105,18 @@ in the current context.</p></div></div><div class="code"><div class="wrapper"><s
     <span class="p">}</span>
   <span class="p">});</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerClean</code> deletes directories as specified in options, or in
-two default directories: 'public' and 'tmp.'</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerClean</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+three default directories: 'dist,' 'tmp,' and 'public.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerClean</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-clean&#39;</span><span class="p">);</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{</span>
-    <span class="kr">public</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;public/**/*&#39;</span><span class="p">]</span>
+    <span class="nx">dist</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;dist/**/*&#39;</span><span class="p">]</span>
     <span class="p">},</span>
     <span class="nx">tmp</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;tmp/**/*&#39;</span><span class="p">]</span>
     <span class="p">},</span>
-    <span class="nx">dist</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;dist/**/*&#39;</span><span class="p">]</span>
+    <span class="kr">public</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;public/**/*&#39;</span><span class="p">]</span>
     <span class="p">}</span>
   <span class="p">});</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerTest</code> does everything required to get a number of test-related
@@ -125,15 +131,18 @@ will automatically required</li>
 <li>reporter: when 'coverage' is not set, you can customize the reporter to anything
 you'd like. I prefer 'dot' when running under a watch task, for example.</li>
 <li>grep: use this to limit your run to specific tests</li>
-<li>bail: use this to cause the mocha run to stop after the first</li>
+<li>bail: use this to cause the mocha run to stop after the first failed test</li>
 </ul>
 
 <p><em>Note: the 'partial' option will force you to save the test-side of a given
 test target to get the tests to run, since our filter only sees the test
 files, not the source files. Even if it did, supplying those files to
-mocha would result in no tests run.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerTest</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sourceFiles</span><span class="p">)</span> <span class="p">{</span>
-  <span class="cm">/*jshint maxcomplexity: 8 */</span>
-  <span class="nx">sourceFiles</span> <span class="o">=</span> <span class="nx">sourceFiles</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">];</span>
+mocha would result in no tests run.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerTest</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/*jshint maxcomplexity: 9 */</span>
+
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
+  <span class="nx">options</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">src</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">];</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-mocha-cli&#39;</span><span class="p">);</span>
 
@@ -162,11 +171,11 @@ mocha would result in no tests run.</em></p></div></div><div class="code"><div c
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;watch.unit&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">files</span><span class="o">:</span> <span class="nx">sourceFiles</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s1">&#39;test/unit/**/*.js&#39;</span><span class="p">),</span>
+    <span class="nx">files</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">src</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s1">&#39;test/unit/**/*.js&#39;</span><span class="p">),</span>
     <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;unit&#39;</span><span class="p">]</span>
   <span class="p">});</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;watch.integration&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">files</span><span class="o">:</span> <span class="nx">sourceFiles</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s1">&#39;test/integration/**/*.js&#39;</span><span class="p">),</span>
+    <span class="nx">files</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">src</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s1">&#39;test/integration/**/*.js&#39;</span><span class="p">),</span>
     <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;integration&#39;</span><span class="p">]</span>
   <span class="p">});</span>
 
@@ -180,34 +189,38 @@ ability to run both of these whenever any javascript file changes in tne project
 the 'jshint' task we create two sub-tasks: 'src' and 'test.' Test has a
 frequently-encountered rule turned off.</p>
 
-<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">srcFiles</span><span class="p">,</span> <span class="nx">jshintrc</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">srcFiles</span> <span class="o">=</span> <span class="nx">srcFiles</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">];</span>
-  <span class="kd">var</span> <span class="nx">testFiles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;test/**/*.js&#39;</span><span class="p">];</span>
-  <span class="kd">var</span> <span class="nx">allFiles</span> <span class="o">=</span> <span class="nx">srcFiles</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">testFiles</span><span class="p">);</span>
+<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStaticAnalysis</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/*jshint maxcomplexity: 9 */</span>
 
-  <span class="nx">jshintrc</span> <span class="o">=</span> <span class="nx">jshintrc</span> <span class="o">||</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../../.jshintrc&#39;</span><span class="p">);</span>
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
+  <span class="nx">options</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">src</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">];</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;test/**/*.js&#39;</span><span class="p">];</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">all</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">all</span> <span class="o">||</span> <span class="nx">options</span><span class="p">.</span><span class="nx">src</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">test</span><span class="p">);</span>
+
+  <span class="nx">options</span><span class="p">.</span><span class="nx">jshintrc</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">jshintrc</span> <span class="o">||</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../../.jshintrc&#39;</span><span class="p">);</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-jshint&#39;</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;jshint&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">src</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="nx">srcFiles</span><span class="p">,</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">src</span><span class="p">,</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
     <span class="p">},</span>
     <span class="nx">test</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="nx">testFiles</span><span class="p">,</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span><span class="p">,</span>
       <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
         <span class="c1">//&quot;Expected an assignment or function call and instead saw an expression&quot;</span>
         <span class="s1">&#39;-W030&#39;</span><span class="o">:</span> <span class="kc">true</span>
       <span class="p">},</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
     <span class="p">},</span>
-    <span class="nx">options</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">readJSON</span><span class="p">(</span><span class="nx">jshintrc</span><span class="p">)</span>
+    <span class="nx">options</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">readJSON</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">jshintrc</span><span class="p">)</span>
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-complexity&#39;</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;complexity&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">all</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="nx">allFiles</span><span class="p">,</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">all</span><span class="p">,</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
     <span class="p">},</span>
     <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
@@ -221,7 +234,7 @@ frequently-encountered rule turned off.</p>
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;watch.staticanalysis&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">files</span><span class="o">:</span> <span class="nx">allFiles</span><span class="p">,</span>
+    <span class="nx">files</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">all</span><span class="p">,</span>
     <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;staticanalysis&#39;</span><span class="p">]</span>
   <span class="p">});</span>
 
@@ -233,21 +246,25 @@ specify your path to a JSON config file in the second parameter.</p>
 <p>Check the <a href="https://github.com/mdevils/node-jscs">jscs readme</a> for more information on
 what it does.</p>
 
-<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStyle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span> <span class="nx">jscsrc</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">files</span> <span class="o">=</span> <span class="nx">files</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/**/*.js&#39;</span><span class="p">];</span>
-  <span class="nx">jscsrc</span> <span class="o">=</span> <span class="nx">jscsrc</span> <span class="o">||</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../../.jscsrc&#39;</span><span class="p">);</span>
+<p><em>Note: Participates in the 'partial' filtration option.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerStyle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
+  <span class="nx">options</span><span class="p">.</span><span class="nx">files</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">files</span> <span class="o">||</span>
+    <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/**/*.js&#39;</span><span class="p">];</span>
+
+  <span class="nx">options</span><span class="p">.</span><span class="nx">jscsrc</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">jscsrc</span> <span class="o">||</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../../.jscsrc&#39;</span><span class="p">);</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-jscs-checker&#39;</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;jscs&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">all</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">files</span><span class="p">,</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
     <span class="p">},</span>
-    <span class="nx">options</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">readJSON</span><span class="p">(</span><span class="nx">jscsrc</span><span class="p">)</span>
+    <span class="nx">options</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">readJSON</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">jscsrc</span><span class="p">)</span>
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;watch.style&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
+    <span class="nx">files</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">files</span><span class="p">,</span>
     <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;jscs&#39;</span><span class="p">]</span>
   <span class="p">});</span>
 
@@ -258,15 +275,17 @@ nice documentation files in HTML. It also uses a custom-developed
 than the default groc stylesheet, recopied on every run.</p>
 
 <p><em>Note: Participates in the 'partial' filtration option. Highly recommended,
-as groc runs take a long time.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerDoc</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+as groc runs take a long time.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerDoc</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">loadTasks</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../../tasks&#39;</span><span class="p">));</span>
 
-  <span class="nx">files</span> <span class="o">=</span> <span class="nx">files</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;README.md&#39;</span><span class="p">];</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">all</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">all</span> <span class="o">||</span> <span class="p">[</span><span class="s1">&#39;src/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;tasks/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;README.md&#39;</span><span class="p">];</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-groc&#39;</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;groc&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">all</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">all</span><span class="p">,</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
     <span class="p">},</span>
     <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
@@ -275,7 +294,7 @@ as groc runs take a long time.</em></p></div></div><div class="code"><div class=
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;watch.doc&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span><span class="p">,</span>
+    <span class="nx">files</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">all</span><span class="p">,</span>
     <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;doc&#39;</span><span class="p">]</span>
   <span class="p">});</span>
 
@@ -288,19 +307,18 @@ as groc runs take a long time.</em></p></div></div><div class="code"><div class=
 Ensure that you don't call this method with options after configuring
 other copy targets, as it will overwrite those other settings.</p>
 
-<pre><code>target: {
+<pre><code class="javascript">target: {
   files: {
     'target': 'source',
     'dist/mocha.css': 'lib/vendor/mocha.css',
     'dist/harness.js': 'src/client/harness.js'
-    }
   }
 }
 </code></pre>
 
 <p>Or like this:</p>
 
-<pre><code>target: {
+<pre><code class="javascript">target: {
   files: [{
     expand: true,
     cwd: path.join('node_modules', module, 'dist'),
@@ -328,9 +346,9 @@ task, which runs a basic file server. Two different targets are provided:</p>
 which means that it is only useful for grunt-based testing.</li>
 <li>keepalive: A server on 3000 that runs until explicitly stopped - good
 for active development.</li>
-</ul></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerConnect</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</ul></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerConnect</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-connect&#39;</span><span class="p">);</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">,</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{</span>
     <span class="nx">test</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">base</span><span class="o">:</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
@@ -348,15 +366,21 @@ for active development.</li>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerMocha</code> pulls in <code>grunt-mocha</code> which uses <code>phantomjs</code>
 and a custom bridge to run in-browser tests on the command line. You're
 just responsible for the collection of URLs to hit. You might consider using
-the port 3001 urls available with the <code>connect</code> task above.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerMocha</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">urls</span><span class="p">,</span> <span class="nx">reporter</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">reporter</span> <span class="o">=</span> <span class="nx">reporter</span> <span class="o">||</span> <span class="s1">&#39;Spec&#39;</span><span class="p">;</span>
+the port 3001 urls available with the <code>connect</code> task above.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerMocha</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">urls</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Need to provide array of urls to registerMocha()!&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">options</span><span class="p">.</span><span class="nx">reporter</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">reporter</span> <span class="o">||</span> <span class="s1">&#39;spec&#39;</span><span class="p">;</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-mocha&#39;</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;mocha&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">urls</span><span class="o">:</span> <span class="nx">urls</span><span class="p">,</span>
-        <span class="nx">reporter</span><span class="o">:</span> <span class="nx">reporter</span><span class="p">,</span>
+        <span class="nx">urls</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">urls</span><span class="p">,</span>
+        <span class="nx">reporter</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">reporter</span><span class="p">,</span>
         <span class="nx">run</span><span class="o">:</span> <span class="kc">false</span>
       <span class="p">}</span>
     <span class="p">}</span>
@@ -442,33 +466,36 @@ If specified, standalone versions of that library can be produced as well
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopyFromBower</code> uses <code>grunt-contrib-copy</code> to copy all files installed
 by bower of the form 'bower_components/[module]/[module].js' to 'lib/vendor'.
 You can use the <code>bowerSpecialCases</code> hash to override the default expected file
-location.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromBower</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">target</span> <span class="o">=</span> <span class="nx">target</span> <span class="o">||</span> <span class="s1">&#39;lib/vendor&#39;</span><span class="p">;</span>
-  <span class="nx">source</span> <span class="o">=</span> <span class="nx">source</span> <span class="o">||</span> <span class="s1">&#39;bower_components&#39;</span><span class="p">;</span>
+location.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopyFromBower</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
   <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">files</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="kd">var</span> <span class="nx">dirs</span><span class="p">;</span>
+
+  <span class="nx">options</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">target</span> <span class="o">||</span> <span class="s1">&#39;lib/vendor&#39;</span><span class="p">;</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">source</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">source</span> <span class="o">||</span> <span class="s1">&#39;bower_components&#39;</span><span class="p">;</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">registerCopy</span><span class="p">();</span>
 
-  <span class="kd">var</span> <span class="nx">dirs</span><span class="p">;</span>
-
   <span class="k">try</span> <span class="p">{</span>
-    <span class="nx">dirs</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">source</span><span class="p">);</span>
+    <span class="nx">dirs</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">source</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;registerCopyFromBower: &#39;</span> <span class="o">+</span>
-      <span class="s1">&#39;Couldn\&#39;t load installed bower components.&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span>
+      <span class="s1">&#39;registerCopyFromBower: Couldn\&#39;t load installed bower components.&#39;</span>
+    <span class="p">);</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="p">}</span>
 
   <span class="nx">_</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">dirs</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">filename</span> <span class="o">=</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">bowerSpecialCases</span><span class="p">[</span><span class="nx">dir</span><span class="p">]</span> <span class="o">||</span> <span class="nx">dir</span> <span class="o">+</span> <span class="s1">&#39;.js&#39;</span><span class="p">;</span>
 
-    <span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">filename</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">source</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">filename</span><span class="p">);</span>
 
     <span class="k">try</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">_this</span><span class="p">.</span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">file</span><span class="p">).</span><span class="nx">isFile</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nx">files</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">filename</span><span class="p">))]</span> <span class="o">=</span> <span class="nx">file</span><span class="p">;</span>
+        <span class="nx">files</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">target</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">filename</span><span class="p">))]</span> <span class="o">=</span> <span class="nx">file</span><span class="p">;</span>
       <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
@@ -482,23 +509,19 @@ location.</p></div></div><div class="code"><div class="wrapper"><span class="nx"
       <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span>
     <span class="p">});</span>
   <span class="p">}</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerInstall</code> uses <code>grunt-shell</code> to run 'npm install' and 'bower install'
-for you. Use with 'registerCopyFromDist' and 'registerCopyFromBower' for complete
-setup tasks.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerInstall</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerShell</code> makes the 'shell' task available if no options are required. Here's an
+example of how to add <code>bower install</code> to your grunt tasks:
+```javascript
+registerShell({
+  'bower-install': {
+     command: 'bower install',
+     options: {
+       failOnError: true
+     }
+   }</p></div></div><div class="code"><div class="wrapper"><span class="c1">// )</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>```</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerShell</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-shell&#39;</span><span class="p">);</span>
 
-  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;shell&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="s1">&#39;bower-install&#39;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">command</span><span class="o">:</span> <span class="s1">&#39;bower install&#39;</span><span class="p">,</span>
-      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">failOnError</span><span class="o">:</span> <span class="kc">true</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;npm-install&#39;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">command</span><span class="o">:</span> <span class="s1">&#39;npm install&#39;</span><span class="p">,</span>
-      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">failOnError</span><span class="o">:</span> <span class="kc">true</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;shell&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+  <span class="p">}</span>
 <span class="p">};</span></div></div></div></div></body></html>
