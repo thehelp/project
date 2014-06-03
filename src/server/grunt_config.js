@@ -61,7 +61,6 @@ files to the files modified in the last X minutes. X is defined by supplying the
 ```
 grunt watch:doc --partial=2
 ```
-
 */
 GruntConfig.prototype.modifiedInLast = function() {
   var minutes = parseInt(this.grunt.option('partial'), 10);
@@ -385,19 +384,21 @@ GruntConfig.prototype.registerCopy = function(options) {
   }
 };
 
-// `registerShell` makes the 'shell' task available if no options are required. Here's an
-// example of how to add `bower install` to your grunt tasks:
-//
-// ```javascript
-// registerShell({
-//   'bower-install': {
-//      command: 'bower install',
-//      options: {
-//        failOnError: true
-//      }
-//    }
-// })
-// ```
+/*
+`registerShell` makes the 'shell' task available if no options are required. Here's an
+example of how to add `bower install` to your grunt tasks:
+
+```javascript
+registerShell({
+  'bower-install': {
+     command: 'bower install',
+     options: {
+       failOnError: true
+     }
+   }
+})
+```
+*/
 GruntConfig.prototype.registerShell = function(options) {
   this.loadLocalNpm('grunt-shell');
 
