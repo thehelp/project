@@ -4,7 +4,7 @@
   "main": "src/server/index.js",
 
   "dependencies": {
-    "groc": "git+ssh://git@github.com:scottnonnenberg/groc#v0.6.3",
+    "groc": "git+ssh://git@github.com:scottnonnenberg/groc#v0.6.4",
     "grunt-complexity": "0.1.51",
     "grunt-contrib-clean": "0.5.0",
     "grunt-contrib-copy": "0.5.0",
@@ -22,7 +22,7 @@
     "blanket": "git+ssh://git@github.com:scottnonnenberg/blanket#v1.1.6",
     "chai": "1.9.1",
     "grunt": "0.4.5",
-    "sinon": "1.10.1"
+    "sinon": "1.10.2"
   },
 
   "author": "Scott Nonnenberg",
