@@ -56,7 +56,6 @@ Even on non-OSX, `easy_install` is still the the right way to install it. You'll
 The easiest way to use this project is to take all the defaults. Of course, this means that you'll have to structure your project in the way the project expects:
 
 ```
-root
 ├ README.md       becomes doc/index.html
 ├ env.json        environment variables needed by your project
 ├ docs/           all groc-generated doc files added here
@@ -215,6 +214,8 @@ this.registerDoc();
 * `grunt interactive` is now `grunt manual` (still excluded from `grunt test` and included in `grunt test-all`)
 * Overhaul of this readme
 * All client-side development task configuration removed, to be released in a forthcoming `thehelp-client-project`: `registerConnect()`, `registerMocha()`, `registerOptimize()`, `registerCopyFromBower()` and `registerCopyFromDist()`
+* Update to latest version of my `groc` fork
+* Update dev dependencies
 
 ### 2.5.2 (2014-05-27)
 

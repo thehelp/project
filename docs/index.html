@@ -53,10 +53,8 @@
 
 <p>The easiest way to use this project is to take all the defaults. Of course, this means that you'll have to structure your project in the way the project expects:</p>
 
-<pre><code>root
-├ README.md       becomes doc/index.html
+<pre><code>├ README.md       becomes doc/index.html
 ├ env.json        environment variables needed by your project
-├ dist/           optimized files are deposited here
 ├ docs/           all groc-generated doc files added here
 ├ src/            core source files
 ├ tasks/          any grunt tasks your project exposes
@@ -208,6 +206,8 @@ this.registerDoc();
 <li><code>grunt interactive</code> is now <code>grunt manual</code> (still excluded from <code>grunt test</code> and included in <code>grunt test-all</code>)</li>
 <li>Overhaul of this readme</li>
 <li>All client-side development task configuration removed, to be released in a forthcoming <code>thehelp-client-project</code>: <code>registerConnect()</code>, <code>registerMocha()</code>, <code>registerOptimize()</code>, <code>registerCopyFromBower()</code> and <code>registerCopyFromDist()</code></li>
+<li>Update to latest version of my <code>groc</code> fork</li>
+<li>Update dev dependencies</li>
 </ul>
 
 <h3 id="252-2014-05-27">2.5.2 (2014-05-27)</h3>
