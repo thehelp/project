@@ -39,7 +39,16 @@ To use code coverage functionality, you'll need to have [`blanket`](https://gith
 npm install blanket --save-dev
 ```
 
-If you'd like to fine-tune the files checked for code coverage, take a look at Blanket's [node getting started](https://github.com/alex-seville/blanket/blob/master/docs/getting_started_node.md) documentation.
+In your package.json you'll need some configuration information to let Blanket know which files you wnat to instrument for code coverage. I usually use something like this:
+
+```
+  "config": {
+    "blanket": {
+      "data-cover-only": "src",
+      "data-cover-never": "['lib/','node_modules/','test/','src/client']"
+    }
+  },
+```
 
 ### Documentation generation
 

@@ -38,7 +38,15 @@
 <pre><code>npm install blanket --save-dev
 </code></pre>
 
-<p>If you'd like to fine-tune the files checked for code coverage, take a look at Blanket's <a href="https://github.com/alex-seville/blanket/blob/master/docs/getting_started_node.md">node getting started</a> documentation.</p>
+<p>In your package.json you'll need some configuration information to let Blanket know which files you wnat to instrument for code coverage. I usually use something like this:</p>
+
+<pre><code>  "config": {
+    "blanket": {
+      "data-cover-only": "src",
+      "data-cover-never": "['lib/','node_modules/','test/','src/client']"
+    }
+  },
+</code></pre>
 
 <h3 id="documentation-generation">Documentation generation</h3>
 
