@@ -13,7 +13,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
@@ -856,7 +855,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "JavaScript"
         },
-        "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/Gruntfile.js",
         "projectPath": "Gruntfile.js",
         "targetPath": "Gruntfile",
         "pageTitle": "Gruntfile",
@@ -902,7 +900,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "JavaScript"
                 },
-                "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/src/server/grunt_config.js",
                 "projectPath": "src/server/grunt_config.js",
                 "targetPath": "src/server/grunt_config",
                 "pageTitle": "src/server/grunt_config",
@@ -985,7 +982,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "JavaScript"
                 },
-                "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/src/server/index.js",
                 "projectPath": "src/server/index.js",
                 "targetPath": "src/server/index",
                 "pageTitle": "src/server/index",
@@ -1017,7 +1013,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/scottnonnenberg/Development/thehelp/project/tasks/fix_groc_stylesheet.js",
             "projectPath": "tasks/fix_groc_stylesheet.js",
             "targetPath": "tasks/fix_groc_stylesheet",
             "pageTitle": "tasks/fix_groc_stylesheet",
