@@ -35,6 +35,6 @@
   "author": "Scott Nonnenberg",
   "repository": {
     "type": "git",
-    "url": "git@infra/thehelp-project"
+    "url": "git@github.com:thehelp/project.git"
   }
 }
