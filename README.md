@@ -211,8 +211,11 @@ this.registerDoc();
 
 ## Some additional notes
 
-* groc - using my own fork
-* blanket - using my own fork
+This project uses my fork of `groc` for a few reasons. Without my changes:
+
+* Full file paths are generated into behavior.js
+* `jade` dependency is locked to pre-1.x
+* Package is not protected against future breaking changes due to '>=' dependency versions
 
 ## History
 

@@ -199,9 +199,12 @@ this.registerDoc();
 
 <h2 id="some-additional-notes">Some additional notes</h2>
 
+<p>This project uses my fork of <code>groc</code> for a few reasons. Without my changes:</p>
+
 <ul>
-<li>groc - using my own fork</li>
-<li>blanket - using my own fork</li>
+<li>Full file paths are generated into behavior.js</li>
+<li><code>jade</code> dependency is locked to pre-1.x</li>
+<li>Package is not protected against future breaking changes due to '>=' dependency versions</li>
 </ul>
 
 <h2 id="history">History</h2>
