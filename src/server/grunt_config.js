@@ -281,7 +281,7 @@ _Note: Participates in the 'partial' filtration option._
 GruntConfig.prototype.registerStyle = function(options) {
   options = options || {};
 
-  options.files = options.files ||
+  options.all = options.all ||
     ['src/**/*.js', '*.js', 'tasks/**/*.js', 'test/**/*.js'];
 
   options.jscsrc = options.jscsrc || path.join(__dirname, '../../.jscsrc');
@@ -289,14 +289,14 @@ GruntConfig.prototype.registerStyle = function(options) {
   this.loadLocalNpm('grunt-jscs-checker');
   this.grunt.config('jscs', {
     all: {
-      src: options.files,
+      src: options.all,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: this.grunt.file.readJSON(options.jscsrc)
   });
 
   this.grunt.config('watch.style', {
-    files: options.files,
+    files: options.all,
     tasks: ['jscs']
   });
 
