@@ -11,7 +11,6 @@ most scenarios have config points in different parts of the config tree:
 2. task configuration
 3. related watch tasks
 4. related clean tasks
-
 */
 
 'use strict';
@@ -45,10 +44,13 @@ GruntConfig.prototype.standardSetup = function(options) {
   this.registerShell(options.shell);
 };
 
+GruntConfig.prototype.defaultTasks = ['test', 'staticanalysis', 'style', 'doc'];
+
 // `standardDefault` installs a 'default' grunt handler (what runs when you just type
-// 'grunt' on the command line) which does what you likely want it to do.
+// 'grunt' on the command line) which does what you likely want it to do. You can get
+// access to the list of tasks with the `defaultTasks` key.
 GruntConfig.prototype.standardDefault = function() {
-  this.grunt.registerTask('default', ['test', 'staticanalysis', 'style', 'doc']);
+  this.grunt.registerTask('default', this.defaultTasks);
 };
 
 // ## Utility Methods
@@ -80,8 +82,8 @@ GruntConfig.prototype.modifiedInLast = function() {
 // `loadLocalNpm` gets around the limitation in `grunt.loadNpmTasks` - that it always
 // pulls locally-installed modules. The whole point of this project is to take the
 // difficulty out of using all of these grunt plugins. This method ensures that
-// any project using 'thehelp-project' needs only to add 'thehelp-project' as
-// a dependency, not the various grunt plugins.
+// any project using 'thehelp-project' needs only add 'thehelp-project' as a dependency,
+// not the various grunt plugins.
 GruntConfig.prototype.loadLocalNpm = function(name, root, delta) {
   root = root || __dirname;
   delta = delta || '../..';
@@ -116,7 +118,7 @@ GruntConfig.prototype.registerEnv = function(options) {
   this.loadLocalNpm('grunt-env');
 
   this.grunt.config('env', options || {
-    all: {
+    default: {
       src: 'env.json'
     }
   });
@@ -154,10 +156,9 @@ you'd like. I prefer 'dot' when running under a watch task, for example.
 + grep: use this to limit your run to specific tests
 + bail: use this to cause the mocha run to stop after the first failed test
 
-_Note: the 'partial' option will force you to save the test-side of a given
-test target to get the tests to run, since our filter only sees the test
-files, not the source files. Even if it did, supplying those files to
-mocha would result in no tests run._
+_Note: the 'partial' option will force you to save the test files themselves to get tests
+to run, since that's the set of files supplied to mocha. Even if we watch all files, we
+still provide only the set of test-containing files to mocha._
 */
 GruntConfig.prototype.registerTest = function(options) {
   /*jshint maxcomplexity: 9 */
@@ -236,7 +237,7 @@ GruntConfig.prototype.registerStaticAnalysis = function(options) {
     test: {
       src: options.test,
       options: {
-        //"Expected an assignment or function call and instead saw an expression"
+        //Off: "Expected an assignment or function call and instead saw an expression"
         '-W030': true
       },
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
@@ -271,7 +272,7 @@ GruntConfig.prototype.registerStaticAnalysis = function(options) {
 
 /*
 `registerStyle` sets up one task: 'jscs' with a default set of rules. You can
-specify your path to a JSON config file in the second parameter.
+specify your path to a JSON config file with the `jscsrc` key.
 
 Check the [jscs readme](https://github.com/mdevils/node-jscs) for more information on
 what it does.
@@ -309,8 +310,11 @@ nice documentation files in HTML. It also uses a custom-developed
 [`fix-groc-stylesheet`](../../tasks/fix_groc_stylesheet.html) task to do better
 than the default groc stylesheet, recopied on every run.
 
-_Note: Participates in the 'partial' filtration option. Highly recommended,
-as groc runs take a long time._
+_Note: Participates in the 'partial' filtration option. Highly recommended when making
+many edits to one file, as groc runs take a long time. However, note that 'behavior.js',
+which contains site navigation javascript data, will generated as if only the files passed
+to it are available. You'll need to do a final complete run to restore your complete
+'behavior.js.'_
 */
 GruntConfig.prototype.registerDoc = function(options) {
   options = options || {};
@@ -343,33 +347,33 @@ GruntConfig.prototype.registerDoc = function(options) {
 };
 
 /*
-`registerCopy` uses the `grunt-contrib-copy` task to copy files.
-Ensure that you don't call this method with options after configuring
-other copy targets, as it will overwrite those other settings.
+`registerCopy` uses the `grunt-contrib-copy` task to copy files. You can provide your
+set of file copies file by file:
 
 ```javascript
-target: {
+registerCopy({
   files: {
     'target': 'source',
     'dist/mocha.css': 'lib/vendor/mocha.css',
     'dist/harness.js': 'src/client/harness.js'
   }
-}
+})
 ```
 
-Or like this:
+Or in wildcard groups like this:
 
 ```javascript
-target: {
+registerCopy({
   files: [{
     expand: true,
     cwd: path.join('node_modules', module, 'dist'),
     src: ['*.js'],
     dest: 'lib/vendor'
   }]
-}
+})
 ```
 
+[More information on configuring file lists.](http://gruntjs.com/configuring-tasks#files)
 If no options are specified, this method will simply pull in the copy task
 for your customization.
 */
@@ -380,7 +384,7 @@ GruntConfig.prototype.registerCopy = function(options) {
   }
 
   if (options) {
-    this.grunt.config('copy', options);
+    this.grunt.config('copy.default', options);
   }
 };
 

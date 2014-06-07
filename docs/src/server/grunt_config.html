@@ -36,9 +36,12 @@ An easy one-stop shop.</p></div></div><div class="code"><div class="wrapper"><sp
   <span class="k">this</span><span class="p">.</span><span class="nx">registerDoc</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">doc</span><span class="p">);</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">registerShell</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">shell</span><span class="p">);</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardDefault</code> installs a 'default' grunt handler (what runs when you just type
-'grunt' on the command line) which does what you likely want it to do.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">standardDefault</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;staticanalysis&#39;</span><span class="p">,</span> <span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">]);</span>
+<span class="p">};</span>
+
+<span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">defaultTasks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;staticanalysis&#39;</span><span class="p">,</span> <span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">];</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>standardDefault</code> installs a 'default' grunt handler (what runs when you just type
+'grunt' on the command line) which does what you likely want it to do. You can get
+access to the list of tasks with the <code>defaultTasks</code> key.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">standardDefault</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">defaultTasks</span><span class="p">);</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="utility-methods">Utility Methods</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>modifiedInLast</code> allows you to limit the scope of any participating task's target
 files to the files modified in the last X minutes. X is defined by supplying the
 'partial' option on the command line. For example:</p>
@@ -60,8 +63,8 @@ files to the files modified in the last X minutes. X is defined by supplying the
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>loadLocalNpm</code> gets around the limitation in <code>grunt.loadNpmTasks</code> - that it always
 pulls locally-installed modules. The whole point of this project is to take the
 difficulty out of using all of these grunt plugins. This method ensures that
-any project using 'thehelp-project' needs only to add 'thehelp-project' as
-a dependency, not the various grunt plugins.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadLocalNpm</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">root</span><span class="p">,</span> <span class="nx">delta</span><span class="p">)</span> <span class="p">{</span>
+any project using 'thehelp-project' needs only add 'thehelp-project' as a dependency,
+not the various grunt plugins.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadLocalNpm</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">root</span><span class="p">,</span> <span class="nx">delta</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">root</span> <span class="o">=</span> <span class="nx">root</span> <span class="o">||</span> <span class="nx">__dirname</span><span class="p">;</span>
   <span class="nx">delta</span> <span class="o">=</span> <span class="nx">delta</span> <span class="o">||</span> <span class="s1">&#39;../..&#39;</span><span class="p">;</span>
 
@@ -85,7 +88,7 @@ functions to add them.</p></div></div><div class="code"><div class="wrapper"><sp
   <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-env&#39;</span><span class="p">);</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{</span>
-    <span class="nx">all</span><span class="o">:</span> <span class="p">{</span>
+    <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;env.json&#39;</span>
     <span class="p">}</span>
   <span class="p">});</span>
@@ -119,10 +122,9 @@ you'd like. I prefer 'dot' when running under a watch task, for example.</li>
 <li>bail: use this to cause the mocha run to stop after the first failed test</li>
 </ul>
 
-<p><em>Note: the 'partial' option will force you to save the test-side of a given
-test target to get the tests to run, since our filter only sees the test
-files, not the source files. Even if it did, supplying those files to
-mocha would result in no tests run.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerTest</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+<p><em>Note: the 'partial' option will force you to save the test files themselves to get tests
+to run, since that's the set of files supplied to mocha. Even if we watch all files, we
+still provide only the set of test-containing files to mocha.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerTest</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="cm">/*jshint maxcomplexity: 9 */</span>
 
   <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
@@ -194,7 +196,7 @@ frequently-encountered rule turned off.</p>
     <span class="nx">test</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">src</span><span class="o">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span><span class="p">,</span>
       <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-        <span class="c1">//&quot;Expected an assignment or function call and instead saw an expression&quot;</span>
+        <span class="c1">//Off: &quot;Expected an assignment or function call and instead saw an expression&quot;</span>
         <span class="s1">&#39;-W030&#39;</span><span class="o">:</span> <span class="kc">true</span>
       <span class="p">},</span>
       <span class="nx">filter</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;partial&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">modifiedInLast</span><span class="p">()</span> <span class="o">:</span> <span class="kc">null</span>
@@ -226,7 +228,7 @@ frequently-encountered rule turned off.</p>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;staticanalysis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;jshint&#39;</span><span class="p">,</span> <span class="s1">&#39;complexity&#39;</span><span class="p">]);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;sa&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;staticanalysis&#39;</span><span class="p">]);</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerStyle</code> sets up one task: 'jscs' with a default set of rules. You can
-specify your path to a JSON config file in the second parameter.</p>
+specify your path to a JSON config file with the <code>jscsrc</code> key.</p>
 
 <p>Check the <a href="https://github.com/mdevils/node-jscs">jscs readme</a> for more information on
 what it does.</p>
@@ -259,8 +261,11 @@ nice documentation files in HTML. It also uses a custom-developed
 <a href="../../tasks/fix_groc_stylesheet.html"><code>fix-groc-stylesheet</code></a> task to do better
 than the default groc stylesheet, recopied on every run.</p>
 
-<p><em>Note: Participates in the 'partial' filtration option. Highly recommended,
-as groc runs take a long time.</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerDoc</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+<p><em>Note: Participates in the 'partial' filtration option. Highly recommended when making
+many edits to one file, as groc runs take a long time. However, note that 'behavior.js',
+which contains site navigation javascript data, will generated as if only the files passed
+to it are available. You'll need to do a final complete run to restore your complete
+'behavior.js.'</em></p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerDoc</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">loadTasks</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../../tasks&#39;</span><span class="p">));</span>
@@ -288,32 +293,32 @@ as groc runs take a long time.</em></p></div></div><div class="code"><div class=
   <span class="p">});</span>
 
   <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;groc&#39;</span><span class="p">,</span> <span class="s1">&#39;fix-groc-stylesheet&#39;</span><span class="p">]);</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopy</code> uses the <code>grunt-contrib-copy</code> task to copy files.
-Ensure that you don't call this method with options after configuring
-other copy targets, as it will overwrite those other settings.</p>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerCopy</code> uses the <code>grunt-contrib-copy</code> task to copy files. You can provide your
+set of file copies file by file:</p>
 
-<pre><code class="javascript">target: {
+<pre><code class="javascript">registerCopy({
   files: {
     'target': 'source',
     'dist/mocha.css': 'lib/vendor/mocha.css',
     'dist/harness.js': 'src/client/harness.js'
   }
-}
+})
 </code></pre>
 
-<p>Or like this:</p>
+<p>Or in wildcard groups like this:</p>
 
-<pre><code class="javascript">target: {
+<pre><code class="javascript">registerCopy({
   files: [{
     expand: true,
     cwd: path.join('node_modules', module, 'dist'),
     src: ['*.js'],
     dest: 'lib/vendor'
   }]
-}
+})
 </code></pre>
 
-<p>If no options are specified, this method will simply pull in the copy task
+<p><a href="http://gruntjs.com/configuring-tasks#files">More information on configuring file lists.</a>
+If no options are specified, this method will simply pull in the copy task
 for your customization.</p></div></div><div class="code"><div class="wrapper"><span class="nx">GruntConfig</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">registerCopy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">copyRegistered</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">loadLocalNpm</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-copy&#39;</span><span class="p">);</span>
@@ -321,7 +326,7 @@ for your customization.</p></div></div><div class="code"><div class="wrapper"><s
   <span class="p">}</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;copy.default&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>registerShell</code> makes the 'shell' task available if no options are required. Here's an
 example of how to add <code>bower install</code> to your grunt tasks:</p>

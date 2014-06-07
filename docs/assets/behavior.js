@@ -47,16 +47,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "Code coverage",
-                    "slug": "code-coverage"
-                  },
-                  "depth": 3
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 3,
-                    "title": "Documentation generation",
-                    "slug": "documentation-generation"
+                    "title": "Your Gruntfile",
+                    "slug": "your-gruntfile"
                   },
                   "depth": 3
                 }, {
@@ -71,8 +63,16 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "Your Gruntfile",
-                    "slug": "your-gruntfile"
+                    "title": "Code coverage",
+                    "slug": "code-coverage"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Documentation generation",
+                    "slug": "documentation-generation"
                   },
                   "depth": 3
                 }
@@ -458,16 +458,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "Code coverage",
-                "slug": "code-coverage"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Documentation generation",
-                "slug": "documentation-generation"
+                "title": "Your Gruntfile",
+                "slug": "your-gruntfile"
               },
               "depth": 3
             }, {
@@ -482,8 +474,16 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "Your Gruntfile",
-                "slug": "your-gruntfile"
+                "title": "Code coverage",
+                "slug": "code-coverage"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Documentation generation",
+                "slug": "documentation-generation"
               },
               "depth": 3
             }

@@ -1,21 +1,19 @@
 # thehelp-project
 
-This project is designed to get high quality grunt-based project automation in place very quickly.
+This project is designed to get high quality grunt-based project automation in place very quickly, with just one entry in your package.json.
 
 ## Features
 
-Grunt task setup:
-
-* `time-grunt`
-* `env`, loading environment variables from env.json
-* `mocha-cli` for 'unit', 'integration' and 'manual' tasks, running everything underneath 'test/<test type>' excluding the 'client' subdirectory
+* [`time-grunt`](https://github.com/sindresorhus/time-grunt), tracking how long your grunt tasks take
+* [`env`](https://github.com/jsoverson/grunt-env), loading environment variables from env.json
+* [`mocha-cli`](https://github.com/Rowno/grunt-mocha-cli) for 'unit', 'integration' and 'manual' tasks, running [`mocha`](http://visionmedia.github.io/mocha/) tests underneath 'test/<test type>' excluding the 'client' subdirectory
 * command-line options supported for tests: 'grep', 'coverage', 'reporter' and 'bail'
-* staticanalysis, encompassing two tasks: `jshint` and `complexity`
-* style, using the highly-configurable `jscs`
-* doc, wrapping two tasks: `groc` and `fix-groc-stylesheet`
-* `watch` core setup and subtasks for tests, static analysis, style and documentation generation
-* `modifiedInLast()` method to filter files processed using the grunt 'partial' command-line option
-* `clean`, deleting 'public/*', 'tmp/*', and 'dist/*' by default, and extended to include files under doc if you call `registerDoc()`
+* static analysis, using two tasks: [`jshint`](http://www.jshint.com/) and [`complexity`](https://github.com/philbooth/complexity-report)
+* style checking, using the highly-configurable [`jscs`](https://github.com/mdevils/node-jscs)
+* documentation generation via [`groc`](https://github.com/nevir/groc) (with a few stylesheet tweaks)
+* [`watch`](https://github.com/gruntjs/grunt-contrib-watch) core setup and subtasks for tests, static analysis, style and documentation generation
+* grunt 'partial' command-line option to cut down watch task run times (via `modifiedInLast()`)
+* [`clean`](https://github.com/gruntjs/grunt-contrib-clean), deleting everything under 'public/', 'tmp/', and 'dist/' by default, and extended to include files under 'doc/' along with documentation generation setup
 
 ## Setup
 
@@ -31,34 +29,21 @@ Then make sure you have the grunt command available:
 npm install -g grunt-cli
 ```
 
-### Code coverage
+### Your Gruntfile
 
-To use code coverage functionality, you'll need to have [`blanket`](https://github.com/alex-seville/blanket) installed as a dev dependency at the top level in your project:
+Now, again using all the defaults, you can use this as your whole Gruntfile:
 
+```javascript
+var GruntConfig = require('thehelp-project').GruntConfig;
+
+module.exports = function(grunt) {
+  var config = new GruntConfig(grunt);
+
+  config.standardSetup();
+  config.standardDefault();
+};
 ```
-npm install blanket --save-dev
-```
-
-In your package.json you'll need some configuration information to let Blanket know which files you wnat to instrument for code coverage. I usually use something like this:
-
-```
-  "config": {
-    "blanket": {
-      "data-cover-only": "src",
-      "data-cover-never": "['lib/','node_modules/','test/','src/client']"
-    }
-  },
-```
-
-### Documentation generation
-
-To use [`groc`](https://github.com/nevir/groc)-based documentation generation, you'll need to have [Pygments](http://pygments.org/docs/installation/) installed. On OSX, the easiest way to install it is:
-
-```
-sudo easy_install Pygments
-```
-
-Even on non-OSX, `easy_install` is still the the right way to install it. You'll just need to pull down [Python](http://www.python.org/getit/) to get it.
+With just that you've got quite a few new grunt tasks available to you! You can take a look by typing `grunt --help`, or you can just type `grunt` and the default task will do quite a bit. But you may want to do a little more setup first...
 
 ### Expected project structure
 
@@ -77,25 +62,41 @@ The easiest way to use this project is to take all the defaults. Of course, this
   └ manual/       manual tests (will not be run as part of 'grunt test')
 ```
 
-### Your Gruntfile
+### Code coverage
 
-Now, again using all the defaults, you can use this as your whole Gruntfile:
+To use code coverage functionality, you'll need to have [`blanket`](https://github.com/alex-seville/blanket) installed as a dev dependency at the top level in your project:
 
-```javascript
-var GruntConfig = require('thehelp-project').GruntConfig;
-
-module.exports = function(grunt) {
-  var config = new GruntConfig(grunt);
-
-  config.standardSetup();
-  config.standardDefault();
-};
 ```
-Now you've got quite a few new grunt tasks available to you! You can take a look by typing `grunt --help`, or you can just type `grunt` and the default task will do quite a bit. Here are the details...
+npm install blanket --save-dev
+```
+
+In your package.json you'll need some configuration information to let `blanket` know which files you want to instrument for code coverage. I usually use something like this:
+
+```
+"config": {
+  "blanket": {
+    "data-cover-only": "src",
+    "data-cover-never": "['lib/','node_modules/','test/','src/client']"
+  }
+}
+```
+
+### Documentation generation
+
+To use `groc`-based documentation generation, you'll need to have [Pygments](http://pygments.org/docs/installation/) installed. On OSX, the easiest way to install it is:
+
+```
+sudo easy_install Pygments
+```
+
+Even on non-OSX, `easy_install` is still the the right way to install it. You'll just need to pull down [Python](http://www.python.org/getit/) to get it.
+
 
 ## Usage
 
 ### Testing
+
+Put some `mocha` tests in place, then try these commands:
 
 ```
 grunt unit
@@ -132,7 +133,7 @@ grunt style
 
 ### Generate documentation
 
-To generate html files from markdown in your source files' comments `groc` is used.
+`groc` generates html files from markdown in your source files' comments.
 
 ```
 grunt doc
@@ -167,9 +168,10 @@ Because, for large projects, you may not want to run these entire tasks every ti
 ```
 grunt watch:staticanalysis
 grunt watch:doc --partial 3
-
-# note: unit and integration only watch the test files
 grunt watch:unit
+
+# note: when filtering, you'll need to modify the test files
+grunt watch:unit --partial 3
 ```
 
 ### Going past the defaults
@@ -196,7 +198,7 @@ config.standardSetup({
 
 ```
 
-If you would like to eliminate setup for a given task completely, you can always bypass the `standardSetup()` function. This example just loads what it needs - it will add test-related tasks later:
+If you would like to eliminate setup for a given task completely, you can always bypass the `standardSetup()` function. This example just loads what it needs - it will add its own test-related tasks later:
 
 ```javascript
 this.setupTimeGrunt();
@@ -213,9 +215,11 @@ this.registerDoc();
 
 This project uses my fork of `groc` for a few reasons. Without my changes:
 
-* Full file paths are generated into behavior.js
+* Full file paths from original machine are generated into behavior.js
 * `jade` dependency is locked to pre-1.x
 * Package is not protected against future breaking changes due to '>=' dependency versions
+
+Lastly, this project is really just a collection of other open-source projects. Many thanks to everyone before me who has provided such value to the community. I hope to continue that fine tradition.
 
 ## History
 
