@@ -223,12 +223,12 @@ Lastly, this project is really just a collection of other open-source projects. 
 
 ## History
 
-### 3.0.0 (2014-06-02)
+### 3.0.0 (2014-06-07)
 
 * Every `registerXXX()` method now takes one options parameter, looking for keys on it, instead of direct parameters.
-* `standardSetup()` now takes an options parameter. `options.watch` is passed to `registerWatch()`, for example.
+* `standardSetup()` now takes an `options` parameter, allowing for full customization without calling `registerXXX()` methods directly. `options.watch` is passed to `registerWatch()`, for example.
 * `grunt interactive` is now `grunt manual` (still excluded from `grunt test` and included in `grunt test-all`)
-* Overhaul of this readme
+* Overhaul of all documentation
 * All client-side development task configuration removed, to be released in a forthcoming `thehelp-client-project`: `registerConnect()`, `registerMocha()`, `registerOptimize()`, `registerCopyFromBower()` and `registerCopyFromDist()`
 * Update to latest version of my `groc` fork
 * Update dev dependencies

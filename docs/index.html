@@ -212,13 +212,13 @@ this.registerDoc();
 
 <h2 id="history">History</h2>
 
-<h3 id="300-2014-06-02">3.0.0 (2014-06-02)</h3>
+<h3 id="300-2014-06-07">3.0.0 (2014-06-07)</h3>
 
 <ul>
 <li>Every <code>registerXXX()</code> method now takes one options parameter, looking for keys on it, instead of direct parameters.</li>
-<li><code>standardSetup()</code> now takes an options parameter. <code>options.watch</code> is passed to <code>registerWatch()</code>, for example.</li>
+<li><code>standardSetup()</code> now takes an <code>options</code> parameter, allowing for full customization without calling <code>registerXXX()</code> methods directly. <code>options.watch</code> is passed to <code>registerWatch()</code>, for example.</li>
 <li><code>grunt interactive</code> is now <code>grunt manual</code> (still excluded from <code>grunt test</code> and included in <code>grunt test-all</code>)</li>
-<li>Overhaul of this readme</li>
+<li>Overhaul of all documentation</li>
 <li>All client-side development task configuration removed, to be released in a forthcoming <code>thehelp-client-project</code>: <code>registerConnect()</code>, <code>registerMocha()</code>, <code>registerOptimize()</code>, <code>registerCopyFromBower()</code> and <code>registerCopyFromDist()</code></li>
 <li>Update to latest version of my <code>groc</code> fork</li>
 <li>Update dev dependencies</li>
