@@ -23,15 +23,16 @@ First, install the project as a dev dependency:
 npm install thehelp-project --save-dev
 ```
 
-Then make sure you have the grunt command available:
+Then make sure you have the grunt installed locally and the `grunt` command available:
 
 ```
+npm install grunt --save-dev
 npm install -g grunt-cli
 ```
 
 ### Your Gruntfile
 
-Now, again using all the defaults, you can use this as your whole Gruntfile:
+The easiest way to use this project is to take all the defaults. To do that, you can use this as your whole Gruntfile:
 
 ```javascript
 var GruntConfig = require('thehelp-project').GruntConfig;
@@ -47,7 +48,7 @@ With just that you've got quite a few new grunt tasks available to you! You can 
 
 ### Expected project structure
 
-The easiest way to use this project is to take all the defaults. Of course, this means that you'll have to structure your project in the way the project expects:
+Now, again using all the defaults, you'll have to structure your project in the way `thehelp-project` expects:
 
 ```
 ├ README.md       becomes doc/index.html

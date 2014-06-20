@@ -24,14 +24,15 @@
 <pre><code>npm install thehelp-project --save-dev
 </code></pre>
 
-<p>Then make sure you have the grunt command available:</p>
+<p>Then make sure you have the grunt installed locally and the <code>grunt</code> command available:</p>
 
-<pre><code>npm install -g grunt-cli
+<pre><code>npm install grunt --save-dev
+npm install -g grunt-cli
 </code></pre>
 
 <h3 id="your-gruntfile">Your Gruntfile</h3>
 
-<p>Now, again using all the defaults, you can use this as your whole Gruntfile:</p>
+<p>The easiest way to use this project is to take all the defaults. To do that, you can use this as your whole Gruntfile:</p>
 
 <pre><code class="javascript">var GruntConfig = require('thehelp-project').GruntConfig;
 
@@ -47,7 +48,7 @@ module.exports = function(grunt) {
 
 <h3 id="expected-project-structure">Expected project structure</h3>
 
-<p>The easiest way to use this project is to take all the defaults. Of course, this means that you'll have to structure your project in the way the project expects:</p>
+<p>Now, again using all the defaults, you'll have to structure your project in the way <code>thehelp-project</code> expects:</p>
 
 <pre><code>├ README.md       becomes doc/index.html
 ├ env.json        environment variables needed by your project
