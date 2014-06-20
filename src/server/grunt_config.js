@@ -321,7 +321,7 @@ GruntConfig.prototype.registerDoc = function(options) {
 
   this.grunt.loadTasks(path.join(__dirname, '../../tasks'));
 
-  options.all = options.all || ['src/**/*.js', 'tasks/**/*.js', '*.js', 'README.md'];
+  options.all = options.all || ['src/**/*.js', 'tasks/**/*.js', '*.js', '*.md'];
 
   this.loadLocalNpm('grunt-groc');
   this.grunt.config('groc', {
