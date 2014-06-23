@@ -246,6 +246,10 @@ Possible changes on the horizon (as of 2014-06-22):
 * Add [grunt-jsbeautifier](https://github.com/vkadam/grunt-jsbeautifier), with VERIFY_ONLY
 * Experiment with `groc`'s jsdoc-style keyword support (mostly for this project's documentation)
 
+### Support
+
+Use [Github Issues](https://github.com/thehelp/project/issues) for feature requests and bugs. Use [StackOverflow](http://stackoverflow.com/search?q=thehelp) for troubleshooting. For discussion about the future of TheHelp, new projects, big new features, [join the mailing list](https://groups.google.com/forum/#!forum/thehelp-discussion).
+
 ### Contributions
 
 Please submit all pull requests with:
