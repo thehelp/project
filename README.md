@@ -148,6 +148,7 @@ Some tips:
 
 * If you use multiline comments (`/* ... */`) then you can use lists and other multiline constructs. Use something other than `*` for list delimiters.
 * You can exclude a given comment from the documentation by removing its leading space. Very useful for jshint exceptions: (`/*jshint camelcase: false */`)
+* While `groc` generates to your target directory normally, it will generate into the root when publishing to github pages. For example, your readme/index.html will be in the root directory.
 
 ### Clean
 
@@ -248,10 +249,9 @@ Possible changes on the horizon (as of 2014-06-22):
 * Pull tests into documentation, linking back to tests
 * Preparing a new release of node module - ensure version entry in History.md, use that text for tag and commit, update package.json version
 * Pull a list of contributors, add to readme ([this or something like it](https://github.com/dtrejo/node-authors))
-* Publish grunt-generated documentation up to github, perhaps solve that README.md vs. docs/index.html link location problem
 * Audit dependencies - the right style of version: either 0.n.m/0.n.x or n.m.o/n.m.x/n.x
 * Add [grunt-jsbeautifier](https://github.com/vkadam/grunt-jsbeautifier), with VERIFY_ONLY
-* Experiment with `groc`'s jsdoc-style keyword support (mostly for this project's documentation)
+* Experiment with `groc`'s jsdoc-style keyword support (mostly for this project's documentation; no changes to this project should be needed)
 
 ### Support
 
