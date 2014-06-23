@@ -48,10 +48,11 @@ With just that you've got quite a few new grunt tasks available to you! You can 
 
 ### Expected project structure
 
-Now, again using all the defaults, you'll have to structure your project in the way `thehelp-project` expects:
+To use all the defaults you'll have to structure your project the way `thehelp-project` expects:
 
 ```
 ├ README.md       becomes doc/index.html
+├ *.md            becomes doc/*.html
 ├ env.json        environment variables needed by your project
 ├ docs/           all groc-generated doc files added here
 ├ src/            core source files
@@ -140,6 +141,11 @@ grunt style
 grunt doc
 ```
 
+Some tips:
+
+* If you use multiline comments (`/* ... */`) then you can use lists and other multiline constructs. Use something other than `*` for list delimiters.
+* You can exclude a given comment from the documentation by removing its leading space. Very useful for jshint exceptions: (`/*jshint camelcase: false */`)
+
 ### Clean
 
 Three directories are registered by default: 'dist/', 'tmp/', and 'public/'. If you set documentation generation up with `standardSetup()` or call `registerDoc()` a fourth directory will be added: 'doc/'
@@ -151,8 +157,6 @@ grunt clean:dist
 grunt clean:public
 grunt clean:doc
 ```
-
-## Advanced
 
 ### Watch
 
@@ -175,7 +179,7 @@ grunt watch:unit
 grunt watch:unit --partial 3
 ```
 
-### Going past the defaults
+## Configuration
 
 The first level of customization is adding to what `thehelp-project` provides. For example, if you'd like to add a new `clean` target, you can add to its grunt configuration with a targeted update:
 
@@ -214,11 +218,42 @@ this.registerDoc();
 
 ## Some additional notes
 
+### Why this project?
+
+I have a lot of projects. For a while I was using a large collection of shell scripts to give me all the project automation I needed, but that was constly to maintain. Big dependency lists in `package.json`, a lot of file copying to start a new project, and a pain to roll out a new feature to all projects.
+
+When I started playing with grunt, I realized that I could radically improve my approach here, now that we were in code. One unit to pull down, and quite a few things would be in place immediately.
+
+### Goals
+
+The goal of `thehelp-project` is to encompass basic project automation which all node projects might want. Nothing specific to the client side, or servers, or full web applications. Just node: node modules, command-line utilities, etc.
+
+### Roadmap
+
+I've been using this code in some form since September 2013, and in its current form since November 2013. I'm using it in something like 15 projects, so I feel all breaking changes. I plan to follow [semver](http://semver.org/) like this:
+
+* n.n.__X__ (patch): bug fixes, patch and minor version dependency updates
+* n.__X__.n (minor version): new features (which may generate new warnings/errors in your project)
+* __X__.n.n (major version): API breaking changes, removed features, major version dependency updates
+
+Possible changes on the horizon (as of 2014-06-22):
+
+* add [grunt-jsbeautifier](https://github.com/vkadam/grunt-jsbeautifier), with VERIFY_ONLY
+* experiment with `groc`'s jsdoc-style keyword support (mostly for this project's documentation)
+
+### Contributions
+
+Please submit all pull requests with documentation/justification, and a description of how you tested the change. I may ask you to use a `git rebase` to ensure that your commits are not interleaved with commits already in the history. And of course make sure `grunt` completes successfully. :0)
+
+### Technical
+
 This project uses my fork of `groc` for a few reasons. Without my changes:
 
 * Full file paths from original machine are generated into behavior.js
 * `jade` dependency is locked to pre-1.x
 * Package is not protected against future breaking changes due to '>=' dependency versions
+
+### Thanks
 
 Lastly, this project is really just a collection of other open-source projects. Many thanks to everyone before me who has provided such value to the community. I hope to continue that fine tradition.
 
