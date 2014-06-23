@@ -243,7 +243,13 @@ Possible changes on the horizon (as of 2014-06-22):
 
 ### Contributions
 
-Please submit all pull requests with documentation/justification, and a description of how you tested the change. I may ask you to use a `git rebase` to ensure that your commits are not interleaved with commits already in the history. And of course make sure `grunt` completes successfully. :0)
+Please submit all pull requests with:
+
+* Justification - why is this change worthwhile? Link to issues, use code samples, etc.
+* Documentation changes for your code updates. Be sure to check the `groc`-generated HTML too.
+* A description of how you tested the change
+
+I may ask you to use a `git rebase` to ensure that your commits are not interleaved with commits already in the history. And of course, make sure `grunt` completes successfully. :0)
 
 ### Technical
 
