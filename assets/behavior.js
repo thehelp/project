@@ -844,45 +844,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           ]
         }
       ]
-    }, {
-      "type": "folder",
-      "data": {
-        "path": "tasks",
-        "title": "tasks"
-      },
-      "depth": 1,
-      "children": [
-        {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".js"],
-              "pygmentsLexer": "javascript",
-              "multiLineComment": ["/*", "*", "*/"],
-              "singleLineComment": ["//"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "JavaScript"
-            },
-            "projectPath": "tasks/fix_groc_stylesheet.js",
-            "targetPath": "tasks/fix_groc_stylesheet",
-            "pageTitle": "tasks/fix_groc_stylesheet",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "fix-groc-stylesheet",
-                "slug": "fix-groc-stylesheet",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "fix-groc-stylesheet"
-          },
-          "depth": 2,
-          "outline": []
-        }
-      ]
     }
   ];
 
