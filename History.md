@@ -1,3 +1,11 @@
+## 3.1.0 (2014-06-23)
+
+* '.md' files in the root directory now processed to 'docs/*.html' by doc task
+* Patch updates: `time-grunt`
+* Minor version updates: `grunt-complexity`, `grunt-jscs-checker`, `grunt-mocha-cli`
+* Remove docs directory from repo
+* Add high-level stuff to readme
+
 ## 3.0.0 (2014-06-07)
 
 * Every `registerXXX()` method now takes one options parameter, looking for keys on it, instead of direct parameters.
@@ -5,7 +13,7 @@
 * `grunt interactive` is now `grunt manual` (still excluded from `grunt test` and included in `grunt test-all`)
 * Overhaul of all documentation
 * All client-side development task configuration removed, to be released in a forthcoming `thehelp-client-project`: `registerConnect()`, `registerMocha()`, `registerOptimize()`, `registerCopyFromBower()` and `registerCopyFromDist()`
-* Update to latest version of my `groc` fork and other dependencies
+* Update to latest version of my `groc` fork
 * Update dev dependencies
 
 ## 2.5.2 (2014-05-27)
