@@ -260,7 +260,15 @@ Use [Github Issues](https://github.com/thehelp/project/issues) for feature reque
 
 ### Contributions
 
-Please submit all pull requests with:
+First, you'll need a file 'env.json' in your root directory with contents like this:
+
+```json
+{
+  "VAR": "value"
+}
+```
+
+When you have some changes ready, please submit a pull request with:
 
 * Justification - why is this change worthwhile? Link to issues, use code samples, etc.
 * Documentation changes for your code updates. Be sure to check the `groc`-generated HTML too.
