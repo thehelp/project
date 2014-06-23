@@ -485,6 +485,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 2,
+            "title": "3.2.0 (2014-06-23)",
+            "slug": "320-2014-06-23"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
             "title": "3.1.0 (2014-06-23)",
             "slug": "310-2014-06-23"
           },
