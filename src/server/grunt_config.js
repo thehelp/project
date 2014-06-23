@@ -319,8 +319,6 @@ to it are available. You'll need to do a final complete run to restore your comp
 GruntConfig.prototype.registerDoc = function(options) {
   options = options || {};
 
-  this.grunt.loadTasks(path.join(__dirname, '../../tasks'));
-
   options.all = options.all || ['src/**/*.js', 'tasks/**/*.js', '*.js', '*.md'];
   options.out = options.out || 'docs/';
 
@@ -345,7 +343,7 @@ GruntConfig.prototype.registerDoc = function(options) {
     src: ['docs/src/**/*', 'docs/tasks/**/*', 'docs/*.html']
   });
 
-  this.grunt.registerTask('doc', ['groc', 'fix-groc-stylesheet']);
+  this.grunt.registerTask('doc', ['groc']);
 };
 
 /*
