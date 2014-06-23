@@ -19,13 +19,13 @@ This project is designed to get high quality grunt-based project automation in p
 
 First, install the project as a dev dependency:
 
-```shell
+```bash
 npm install thehelp-project --save-dev
 ```
 
 Then make sure you have the grunt installed locally and the `grunt` command available:
 
-```shell
+```bash
 npm install grunt --save-dev
 npm install -g grunt-cli
 ```
@@ -68,7 +68,7 @@ To use all the defaults you'll have to structure your project the way `thehelp-p
 
 To use code coverage functionality, you'll need to have [`blanket`](https://github.com/alex-seville/blanket) installed as a dev dependency at the top level in your project:
 
-```shell
+```bash
 npm install blanket --save-dev
 ```
 
@@ -87,7 +87,7 @@ In your package.json you'll need some configuration information to let `blanket`
 
 To use `groc`-based documentation generation, you'll need to have [Pygments](http://pygments.org/docs/installation/) installed. On OSX, the easiest way to install it is:
 
-```shell
+```bash
 sudo easy_install Pygments
 ```
 
@@ -100,7 +100,7 @@ Even on non-OSX, `easy_install` is still the the right way to install it. You'll
 
 Put some `mocha` tests in place, then try these commands:
 
-```shell
+```bash
 grunt unit
 grunt integration
 grunt manual
@@ -120,7 +120,7 @@ grunt test-all --coverage > result.html && open result.html
 
 For static analysis delivered by `jshint` and `complexity`:
 
-```shell
+```bash
 grunt sa
 grunt staticanalysis
 ```
@@ -129,7 +129,7 @@ grunt staticanalysis
 
 For code style checking, delivered by `jscs`:
 
-```shell
+```bash
 grunt style
 ```
 
@@ -137,7 +137,7 @@ grunt style
 
 `groc` generates html files from markdown in your source files' comments. Take a look at the docs for this project for an example: [https://thehelp.github.com/project](https://thehelp.github.com/project) (navigation in the top-right).
 
-```shell
+```bash
 grunt doc
 
 # automatically publishes generated docs to github pages
@@ -154,7 +154,7 @@ Some tips:
 
 Three directories are registered by default: 'dist/', 'tmp/', and 'public/'. If you set documentation generation up with `standardSetup()` or call `registerDoc()` a fourth directory will be added: 'doc/'
 
-```shell
+```bash
 grunt clean
 grunt clean:tmp
 grunt clean:dist
@@ -174,7 +174,7 @@ Five sub-tasks are supported for the `watch` file-watching task from `grunt-cont
 
 Because, for large projects, you may not want to run these entire tasks every time one file changes, a `partial` option is available which limits the set of files to the set modified in the last N minutes.
 
-```shell
+```bash
 grunt watch:staticanalysis
 grunt watch:doc --partial 3
 grunt watch:unit
