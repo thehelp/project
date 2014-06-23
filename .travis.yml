@@ -2,5 +2,5 @@ language: node_js
 node_js:
   - "0.10"
 install:
-  - install -g grunt-cli
+  - npm install -g grunt-cli
   - sudo easy_install Pygments
