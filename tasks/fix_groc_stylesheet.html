@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="en"><head><title>tasks/fix_groc_stylesheet</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="tasks/fix_groc_stylesheet"><meta name="groc-project-path" content="tasks/fix_groc_stylesheet.js"><meta name="groc-github-url" content="https://github.com/thehelp/project"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/thehelp/project/blob/master/tasks/fix_groc_stylesheet.js">tasks/fix_groc_stylesheet.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="fix-groc-stylesheet">fix-groc-stylesheet</h1>
+
+<p>This grunt task should be run after the <code>groc</code> task to ensure that we
+keep the CSS updates required to make its output look reasonable.</p></div></div><div class="code"><div class="wrapper"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>You can supply your own <code>source</code> on the grunt configuration for this task and it will
+override the default supplied here.</p></div></div><div class="code"><div class="wrapper"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;fix-groc-stylesheet&#39;</span><span class="p">,</span> <span class="s1">&#39;Replace generated groc style sheet.&#39;</span><span class="p">,</span>
+    <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">({</span>
+        <span class="nx">source</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../src/style.css&#39;</span><span class="p">),</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;docs/assets/style.css&#39;</span>
+      <span class="p">});</span>
+
+      <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">source</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">);</span>
+<span class="p">};</span></div></div></div></div></body></html>
