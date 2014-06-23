@@ -252,6 +252,7 @@ Possible changes on the horizon (as of 2014-06-22):
 * Audit dependencies - the right style of version: either 0.n.m/0.n.x or n.m.o/n.m.x/n.x
 * Add [grunt-jsbeautifier](https://github.com/vkadam/grunt-jsbeautifier), with VERIFY_ONLY
 * Experiment with `groc`'s jsdoc-style keyword support (mostly for this project's documentation; no changes to this project should be needed)
+* Optimize grunt startup time by only loading tasks we know we'll need (takes 1.1 - 1.2 seconds to start grunt for this project on a Core i7/SSD machine)
 
 ### Support
 
