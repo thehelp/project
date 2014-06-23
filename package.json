@@ -25,6 +25,10 @@
     "sinon": "1.10.2"
   },
 
+  "scripts": {
+    "test": "grunt"
+  },
+
   "config": {
     "blanket": {
       "data-cover-only": "src",
