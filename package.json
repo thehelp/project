@@ -32,9 +32,23 @@
     }
   },
 
-  "author": "Scott Nonnenberg",
+  "description:": "gets high quality grunt-based project automation in place very quickly",
+  "keywords": [
+    "grunt",
+    "thehelp",
+    "watch",
+    "code coverage",
+    "documentation",
+    "mocha"
+  ],
+
+  "author": "Scott Nonnenberg <scott@nonnenberg.com>",
+  "license": "MIT",
+
+  "homepage": "https://github.com/thehelp/project",
   "repository": {
     "type": "git",
     "url": "git@github.com:thehelp/project.git"
-  }
+  },
+  "bugs": "https://github.com/thehelp/project/issues"
 }
