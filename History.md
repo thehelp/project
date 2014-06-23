@@ -1,3 +1,9 @@
+## 3.2.0 (2014-06-23)
+
+* `doc` command can now take a truthy `github` key or '--publish-docs' command-line option to publish docs to github pages
+* Upgrade to a newer version of `groc` fork, and remove 'fix-groc-stylesheet' task, since the vertical space tweaks are in `groc`'s stylesheet. This was needed for github pages publish.
+* TravisCI support
+
 ## 3.1.0 (2014-06-23)
 
 * '.md' files in the root directory now processed to 'docs/*.html' by doc task
