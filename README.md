@@ -238,8 +238,13 @@ I've been using this code in some form since September 2013, and in its current 
 
 Possible changes on the horizon (as of 2014-06-22):
 
-* add [grunt-jsbeautifier](https://github.com/vkadam/grunt-jsbeautifier), with VERIFY_ONLY
-* experiment with `groc`'s jsdoc-style keyword support (mostly for this project's documentation)
+* Pull tests into documentation, linking back to tests
+* Preparing a new release of node module - ensure version entry in History.md, use that text for tag and commit, update package.json version
+* Pull a list of contributors, add to readme ([this or something like it](https://github.com/dtrejo/node-authors))
+* Publish grunt-generated documentation up to github, perhaps solve that README.md vs. docs/index.html link location problem
+* Audit dependencies - the right style of version: either 0.n.m/0.n.x or n.m.o/n.m.x/n.x
+* Add [grunt-jsbeautifier](https://github.com/vkadam/grunt-jsbeautifier), with VERIFY_ONLY
+* Experiment with `groc`'s jsdoc-style keyword support (mostly for this project's documentation)
 
 ### Contributions
 
