@@ -330,7 +330,7 @@ GruntConfig.prototype.registerDoc = function(options) {
     },
     options: {
       out: options.out,
-      github: options.github || this.grunt.option('publish-docs')
+      github: options.github || this.grunt.option('publish-docs') || false
     }
   });
 
