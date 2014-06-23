@@ -322,6 +322,7 @@ GruntConfig.prototype.registerDoc = function(options) {
   this.grunt.loadTasks(path.join(__dirname, '../../tasks'));
 
   options.all = options.all || ['src/**/*.js', 'tasks/**/*.js', '*.js', '*.md'];
+  options.out = options.out || 'docs/';
 
   this.loadLocalNpm('grunt-groc');
   this.grunt.config('groc', {
@@ -330,7 +331,8 @@ GruntConfig.prototype.registerDoc = function(options) {
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: {
-      out: 'docs/'
+      out: options.out,
+      github: options.github || this.grunt.option('publish-docs')
     }
   });
 

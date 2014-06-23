@@ -10,6 +10,10 @@ var GruntConfig = require('./src/server/index').GruntConfig;
 module.exports = function(grunt) {
   var config = new GruntConfig(grunt);
 
-  config.standardSetup();
+  config.standardSetup({
+    doc: {
+      github: true
+    }
+  });
   config.standardDefault();
 };
