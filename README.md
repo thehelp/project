@@ -135,10 +135,13 @@ grunt style
 
 ### Generate documentation
 
-`groc` generates html files from markdown in your source files' comments.
+`groc` generates html files from markdown in your source files' comments. Take a look at the docs for this project for an example: [https://thehelp.github.com/project](https://thehelp.github.com/project) (navigation in the top-right).
 
 ```
 grunt doc
+
+# automatically publishes generated docs to github pages
+grunt doc --publish-docs
 ```
 
 Some tips:
@@ -215,6 +218,10 @@ this.registerStaticAnalysis();
 this.registerStyle();
 this.registerDoc();
 ```
+
+## Detailed Documentation
+
+Detailed docs be found at this project's GitHub Pages, thanks to `groc`: [http://thehelp.github.io/project/src/server/grunt_config.html](http://thehelp.github.io/project/src/server/grunt_config.html)
 
 ## Some additional notes
 
