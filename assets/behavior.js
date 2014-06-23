@@ -148,6 +148,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 2,
+                "title": "Detailed Documentation",
+                "slug": "detailed-documentation"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
                 "title": "Some additional notes",
                 "slug": "some-additional-notes"
               },
@@ -342,6 +350,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "level": 2,
             "title": "Configuration",
             "slug": "configuration"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Detailed Documentation",
+            "slug": "detailed-documentation"
           },
           "depth": 2
         }, {

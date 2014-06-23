@@ -21,12 +21,12 @@
 
 <p>First, install the project as a dev dependency:</p>
 
-<pre><code>npm install thehelp-project --save-dev
+<pre><code class="bash">npm install thehelp-project --save-dev
 </code></pre>
 
 <p>Then make sure you have the grunt installed locally and the <code>grunt</code> command available:</p>
 
-<pre><code>npm install grunt --save-dev
+<pre><code class="bash">npm install grunt --save-dev
 npm install -g grunt-cli
 </code></pre>
 
@@ -67,15 +67,17 @@ module.exports = function(grunt) {
 
 <p>To use code coverage functionality, you'll need to have <a href="https://github.com/alex-seville/blanket"><code>blanket</code></a> installed as a dev dependency at the top level in your project:</p>
 
-<pre><code>npm install blanket --save-dev
+<pre><code class="bash">npm install blanket --save-dev
 </code></pre>
 
 <p>In your package.json you'll need some configuration information to let <code>blanket</code> know which files you want to instrument for code coverage. I usually use something like this:</p>
 
-<pre><code>"config": {
-  "blanket": {
-    "data-cover-only": "src",
-    "data-cover-never": "['lib/','node_modules/','test/','src/client']"
+<pre><code class="json">{
+  "config": {
+    "blanket": {
+      "data-cover-only": "src",
+      "data-cover-never": "['lib/','node_modules/','test/','src/client']"
+    }
   }
 }
 </code></pre>
@@ -84,7 +86,7 @@ module.exports = function(grunt) {
 
 <p>To use <code>groc</code>-based documentation generation, you'll need to have <a href="http://pygments.org/docs/installation/">Pygments</a> installed. On OSX, the easiest way to install it is:</p>
 
-<pre><code>sudo easy_install Pygments
+<pre><code class="bash">sudo easy_install Pygments
 </code></pre>
 
 <p>Even on non-OSX, <code>easy_install</code> is still the the right way to install it. You'll just need to pull down <a href="http://www.python.org/getit/">Python</a> to get it.</p>
@@ -95,7 +97,7 @@ module.exports = function(grunt) {
 
 <p>Put some <code>mocha</code> tests in place, then try these commands:</p>
 
-<pre><code>grunt unit
+<pre><code class="bash">grunt unit
 grunt integration
 grunt manual
 
@@ -114,7 +116,7 @@ grunt test-all --coverage &gt; result.html &amp;&amp; open result.html
 
 <p>For static analysis delivered by <code>jshint</code> and <code>complexity</code>:</p>
 
-<pre><code>grunt sa
+<pre><code class="bash">grunt sa
 grunt staticanalysis
 </code></pre>
 
@@ -122,14 +124,17 @@ grunt staticanalysis
 
 <p>For code style checking, delivered by <code>jscs</code>:</p>
 
-<pre><code>grunt style
+<pre><code class="bash">grunt style
 </code></pre>
 
 <h3 id="generate-documentation">Generate documentation</h3>
 
-<p><code>groc</code> generates html files from markdown in your source files' comments.</p>
+<p><code>groc</code> generates html files from markdown in your source files' comments. Take a look at the docs for this project for an example: <a href="https://thehelp.github.com/project">https://thehelp.github.com/project</a> (navigation in the top-right).</p>
 
-<pre><code>grunt doc
+<pre><code class="bash">grunt doc
+
+# automatically publishes generated docs to github pages
+grunt doc --publish-docs
 </code></pre>
 
 <p>Some tips:</p>
@@ -137,13 +142,14 @@ grunt staticanalysis
 <ul>
 <li>If you use multiline comments (<code>/* ... */</code>) then you can use lists and other multiline constructs. Use something other than <code>*</code> for list delimiters.</li>
 <li>You can exclude a given comment from the documentation by removing its leading space. Very useful for jshint exceptions: (<code>/*jshint camelcase: false */</code>)</li>
+<li>While <code>groc</code> generates to your target directory normally, it will generate into the root when publishing to github pages. For example, your readme/index.html will be in the root directory.</li>
 </ul>
 
 <h3 id="clean">Clean</h3>
 
 <p>Three directories are registered by default: 'dist/', 'tmp/', and 'public/'. If you set documentation generation up with <code>standardSetup()</code> or call <code>registerDoc()</code> a fourth directory will be added: 'doc/'</p>
 
-<pre><code>grunt clean
+<pre><code class="bash">grunt clean
 grunt clean:tmp
 grunt clean:dist
 grunt clean:public
@@ -164,7 +170,7 @@ grunt clean:doc
 
 <p>Because, for large projects, you may not want to run these entire tasks every time one file changes, a <code>partial</code> option is available which limits the set of files to the set modified in the last N minutes.</p>
 
-<pre><code>grunt watch:staticanalysis
+<pre><code class="bash">grunt watch:staticanalysis
 grunt watch:doc --partial 3
 grunt watch:unit
 
@@ -176,7 +182,7 @@ grunt watch:unit --partial 3
 
 <p>The first level of customization is adding to what <code>thehelp-project</code> provides. For example, if you'd like to add a new <code>clean</code> target, you can add to its grunt configuration with a targeted update:</p>
 
-<pre><code>grunt.config('clean.build', {
+<pre><code class="javascript">grunt.config('clean.build', {
   src: ['build/**/*']
 })
 </code></pre>
@@ -204,6 +210,10 @@ this.registerStaticAnalysis();
 this.registerStyle();
 this.registerDoc();
 </code></pre>
+
+<h2 id="detailed-documentation">Detailed Documentation</h2>
+
+<p>Detailed docs be found at this project's GitHub Pages, thanks to <code>groc</code>: <a href="http://thehelp.github.io/project/src/server/grunt_config.html">http://thehelp.github.io/project/src/server/grunt_config.html</a></p>
 
 <h2 id="some-additional-notes">Some additional notes</h2>
 
@@ -233,10 +243,10 @@ this.registerDoc();
 <li>Pull tests into documentation, linking back to tests</li>
 <li>Preparing a new release of node module - ensure version entry in History.md, use that text for tag and commit, update package.json version</li>
 <li>Pull a list of contributors, add to readme (<a href="https://github.com/dtrejo/node-authors">this or something like it</a>)</li>
-<li>Publish grunt-generated documentation up to github, perhaps solve that README.md vs. docs/index.html link location problem</li>
 <li>Audit dependencies - the right style of version: either 0.n.m/0.n.x or n.m.o/n.m.x/n.x</li>
 <li>Add <a href="https://github.com/vkadam/grunt-jsbeautifier">grunt-jsbeautifier</a>, with VERIFY_ONLY</li>
-<li>Experiment with <code>groc</code>'s jsdoc-style keyword support (mostly for this project's documentation)</li>
+<li>Experiment with <code>groc</code>'s jsdoc-style keyword support (mostly for this project's documentation; no changes to this project should be needed)</li>
+<li>Optimize grunt startup time by only loading tasks we know we'll need (takes 1.1 - 1.2 seconds to start grunt for this project on a Core i7/SSD machine)</li>
 </ul>
 
 <h3 id="support">Support</h3>
@@ -245,7 +255,14 @@ this.registerDoc();
 
 <h3 id="contributions">Contributions</h3>
 
-<p>Please submit all pull requests with:</p>
+<p>First, you'll need a file 'env.json' in your root directory with contents like this:</p>
+
+<pre><code class="json">{
+  "VAR": "value"
+}
+</code></pre>
+
+<p>When you have some changes ready, please submit a pull request with:</p>
 
 <ul>
 <li>Justification - why is this change worthwhile? Link to issues, use code samples, etc.</li>
