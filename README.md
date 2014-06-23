@@ -75,10 +75,12 @@ npm install blanket --save-dev
 In your package.json you'll need some configuration information to let `blanket` know which files you want to instrument for code coverage. I usually use something like this:
 
 ```json
-"config": {
-  "blanket": {
-    "data-cover-only": "src",
-    "data-cover-never": "['lib/','node_modules/','test/','src/client']"
+{
+  "config": {
+    "blanket": {
+      "data-cover-only": "src",
+      "data-cover-never": "['lib/','node_modules/','test/','src/client']"
+    }
   }
 }
 ```
@@ -204,7 +206,6 @@ config.standardSetup({
     jscsrc: '.jscsrc'
   }
 })
-
 ```
 
 If you would like to eliminate setup for a given task completely, you can always bypass the `standardSetup()` function. This example just loads what it needs - it will add its own test-related tasks later:
