@@ -33,6 +33,7 @@ GruntConfig.prototype.standardSetup = function(options) {
 
   this.setupTimeGrunt();
   this.registerWatch(options.watch);
+  this.registerJsonLint(options.env);
   this.registerEnv(options.env);
   this.registerClean(options.clean);
 
@@ -44,7 +45,9 @@ GruntConfig.prototype.standardSetup = function(options) {
   this.registerShell(options.shell);
 };
 
-GruntConfig.prototype.defaultTasks = ['test', 'staticanalysis', 'style', 'doc'];
+GruntConfig.prototype.defaultTasks = [
+  'jsonlint', 'test', 'staticanalysis', 'style', 'doc'
+];
 
 // `standardDefault` installs a 'default' grunt handler (what runs when you just type
 // 'grunt' on the command line) which does what you likely want it to do. You can get
@@ -108,6 +111,19 @@ GruntConfig.prototype.registerWatch = function(options) {
   this.grunt.config('watch', options || {
     options: {
       debounceDelay: 200
+    }
+  });
+};
+
+// `registerJsonLint` sets up the `jsonlint` task to ensure JSON is well-formed (giving
+// far better error messages than a basic `JSON.parse`). Set up by default to lint every
+// *.json file in the root directory of the project.
+GruntConfig.prototype.registerJsonLint = function(options) {
+  this.loadLocalNpm('grunt-jsonlint');
+
+  this.grunt.config('jsonlint', options || {
+    default: {
+      src: ['*.json']
     }
   });
 };

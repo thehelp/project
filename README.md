@@ -10,6 +10,7 @@ This project is designed to get high quality grunt-based project automation in p
 * command-line options supported for tests: 'grep', 'coverage', 'reporter' and 'bail'
 * static analysis, using two tasks: [`jshint`](http://www.jshint.com/) and [`complexity`](https://github.com/philbooth/complexity-report)
 * style checking, using the highly-configurable [`jscs`](https://github.com/mdevils/node-jscs)
+* json linting, using [`jsonlint`](https://github.com/zaach/jsonlint)
 * documentation generation via [`groc`](https://github.com/nevir/groc) (with a few stylesheet tweaks)
 * [`watch`](https://github.com/gruntjs/grunt-contrib-watch) core setup and subtasks for tests, static analysis, style and documentation generation
 * grunt 'partial' command-line option to cut down watch task run times (via `modifiedInLast()`)
@@ -133,6 +134,14 @@ For code style checking, delivered by `jscs`:
 
 ```bash
 grunt style
+```
+
+### JSON lint
+
+To ensure that all *.json files in the root directory of your project are well-formed:
+
+```bash
+grunt jsonlint
 ```
 
 ### Generate documentation
