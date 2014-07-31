@@ -1,3 +1,10 @@
+## 3.3.0 (2014-07-31)
+
+* `jsonlint` task added to default - verifies that *.json files in root dir are well-formed
+* Minor version updates: `grunt-contrib-clean`, `time-grunt`
+* Patch updates: `grunt-jscs` (moving to new name; previously `grunt-jscs-checker`)
+* Update dev dependencies
+
 ## 3.2.0 (2014-06-23)
 
 * `doc` command can now take a truthy `github` key or '--publish-docs' command-line option to publish docs to github pages
