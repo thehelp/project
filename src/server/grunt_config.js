@@ -303,7 +303,7 @@ GruntConfig.prototype.registerStyle = function(options) {
 
   options.jscsrc = options.jscsrc || path.join(__dirname, '../../.jscsrc');
 
-  this.loadLocalNpm('grunt-jscs-checker');
+  this.loadLocalNpm('grunt-jscs');
   this.grunt.config('jscs', {
     all: {
       src: options.all,
