@@ -1,3 +1,9 @@
+## 3.3.1 (2014-08-27)
+
+* Update `groc` to version that doesn't fall prey to breaking changes in `underscore` 1.7
+* Major version updates: `grunt-shell`, `time-grunt` (strange; these don't seem to introduce breaking changes)
+* Minor version updates: `grunt-mocha-cli`
+
 ## 3.3.0 (2014-07-31)
 
 * `jsonlint` task added to default - verifies that *.json files in root dir are well-formed
