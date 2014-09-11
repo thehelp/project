@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/thehelp/project.svg?branch=master)](https://travis-ci.org/thehelp/project)
+
 # thehelp-project
 
 This project is designed to get high quality grunt-based project automation in place very quickly, with just one entry in your package.json.
