@@ -16,13 +16,16 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
-        "firstHeader": {
+        "title": "index"
+      },
+      "depth": 1,
+      "outline": [
+        {
           "type": "heading",
           "data": {
             "level": 1,
             "title": "thehelp-project",
-            "slug": "thehelp-project",
-            "isFileHeader": true
+            "slug": "thehelp-project"
           },
           "depth": 1,
           "children": [
@@ -108,6 +111,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "level": 3,
                     "title": "Code style",
                     "slug": "code-style"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "JSON lint",
+                    "slug": "json-lint"
                   },
                   "depth": 3
                 }, {
@@ -229,212 +240,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 2
             }
           ]
-        },
-        "title": "thehelp-project"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Features",
-            "slug": "features"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Setup",
-            "slug": "setup"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Your Gruntfile",
-                "slug": "your-gruntfile"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Expected project structure",
-                "slug": "expected-project-structure"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Code coverage",
-                "slug": "code-coverage"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Documentation generation",
-                "slug": "documentation-generation"
-              },
-              "depth": 3
-            }
-          ]
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Usage",
-            "slug": "usage"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Testing",
-                "slug": "testing"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Static analysis",
-                "slug": "static-analysis"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Code style",
-                "slug": "code-style"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Generate documentation",
-                "slug": "generate-documentation"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Clean",
-                "slug": "clean"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Watch",
-                "slug": "watch"
-              },
-              "depth": 3
-            }
-          ]
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Configuration",
-            "slug": "configuration"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Detailed Documentation",
-            "slug": "detailed-documentation"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Some additional notes",
-            "slug": "some-additional-notes"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Why this project?",
-                "slug": "why-this-project"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Goals",
-                "slug": "goals"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Roadmap",
-                "slug": "roadmap"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Support",
-                "slug": "support"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Contributions",
-                "slug": "contributions"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Technical",
-                "slug": "technical"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Thanks",
-                "slug": "thanks"
-              },
-              "depth": 3
-            }
-          ]
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "License",
-            "slug": "license"
-          },
-          "depth": 2
         }
       ]
     }, {
@@ -482,6 +287,22 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       "depth": 1,
       "outline": [
         {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "3.3.1 (2014-08-27)",
+            "slug": "331-2014-08-27"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "3.3.0 (2014-07-31)",
+            "slug": "330-2014-07-31"
+          },
+          "depth": 2
+        }, {
           "type": "heading",
           "data": {
             "level": 2,

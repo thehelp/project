@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><meta name="groc-github-url" content="https://github.com/thehelp/project"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/thehelp/project/blob/master/README.md">README.md</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="thehelp-project">thehelp-project</h1>
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><meta name="groc-github-url" content="https://github.com/thehelp/project"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/thehelp/project/blob/master/README.md">README.md</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p><a href="https://travis-ci.org/thehelp/project"><img src="https://travis-ci.org/thehelp/project.svg?branch=master" alt="Build Status" title="" /></a></p>
+
+<h1 id="thehelp-project">thehelp-project</h1>
 
 <p>This project is designed to get high quality grunt-based project automation in place very quickly, with just one entry in your package.json.</p>
 
@@ -11,6 +13,7 @@
 <li>command-line options supported for tests: 'grep', 'coverage', 'reporter' and 'bail'</li>
 <li>static analysis, using two tasks: <a href="http://www.jshint.com/"><code>jshint</code></a> and <a href="https://github.com/philbooth/complexity-report"><code>complexity</code></a></li>
 <li>style checking, using the highly-configurable <a href="https://github.com/mdevils/node-jscs"><code>jscs</code></a></li>
+<li>json linting, using <a href="https://github.com/zaach/jsonlint"><code>jsonlint</code></a></li>
 <li>documentation generation via <a href="https://github.com/nevir/groc"><code>groc</code></a> (with a few stylesheet tweaks)</li>
 <li><a href="https://github.com/gruntjs/grunt-contrib-watch"><code>watch</code></a> core setup and subtasks for tests, static analysis, style and documentation generation</li>
 <li>grunt 'partial' command-line option to cut down watch task run times (via <code>modifiedInLast()</code>)</li>
@@ -125,6 +128,13 @@ grunt staticanalysis
 <p>For code style checking, delivered by <code>jscs</code>:</p>
 
 <pre><code class="bash">grunt style
+</code></pre>
+
+<h3 id="json-lint">JSON lint</h3>
+
+<p>To ensure that all *.json files in the root directory of your project are well-formed:</p>
+
+<pre><code class="bash">grunt jsonlint
 </code></pre>
 
 <h3 id="generate-documentation">Generate documentation</h3>
