@@ -33,7 +33,7 @@ GruntConfig.prototype.standardSetup = function(options) {
 
   this.setupTimeGrunt();
   this.registerWatch(options.watch);
-  this.registerJsonLint(options.env);
+  this.registerJsonLint(options.jsonLint);
   this.registerEnv(options.env);
   this.registerClean(options.clean);
 
