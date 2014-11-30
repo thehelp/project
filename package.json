@@ -19,6 +19,7 @@
     "grunt-shell": "1.0.1",
     "istanbul": "0.3.2",
     "lodash": "2.x",
+    "mocha": "2.0.1",
     "time-grunt": "1.0.0"
   },
   "devDependencies": {
