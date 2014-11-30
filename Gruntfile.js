@@ -12,4 +12,12 @@ module.exports = function(grunt) {
 
   config.standardSetup();
   config.standardDefault();
+
+  //Run the full integration test via the shell
+  grunt.config('shell.integration', {
+    command: 'cd test/default && grunt --coverage && ./clean.sh'
+  });
+
+  var tasks = config.defaultTasks.concat(['shell:integration']);
+  grunt.registerTask('default', tasks);
 };

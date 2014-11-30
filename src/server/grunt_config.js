@@ -177,15 +177,36 @@ to run, since that's the set of files supplied to mocha. Even if we watch all fi
 still provide only the set of test-containing files to mocha._
 */
 GruntConfig.prototype.registerTest = function(options) {
-  /*jshint maxcomplexity: 9 */
+  /*jshint maxcomplexity: 13 */
 
   options = options || {};
-
   options.src = options.src || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
 
-  this.loadLocalNpm('grunt-mocha-cli');
+  // a little weird, because we need to support both cli and istanbul options
+  var coverage = this.grunt.option('coverage');
+  var mochaModule = coverage ? 'grunt-mocha-istanbul' : 'grunt-mocha-cli';
+  this.loadLocalNpm(mochaModule);
 
-  this.grunt.config('mochacli', {
+  // istanbul-specific:
+  options.reportFormats = ['html', 'lcov'];
+  options.mochaOptions = options.mochaOptions || [];
+  if (this.grunt.option('bail')) {
+    options.mochaOptions.push('--bail');
+  }
+
+  // both
+  options.reporter = options.reporter || this.grunt.option('reporter') || 'spec';
+  if (typeof options.grep === 'undefined') {
+    options.grep = this.grunt.option('grep');
+  }
+
+  // cli-specific
+  if (typeof options.bail === 'undefined') {
+    options.bail = this.grunt.option('bail');
+  }
+
+  var mochaName = coverage ? 'mocha_istanbul' : 'mochacli';
+  this.grunt.config(mochaName, {
     unit: {
       src: ['test/unit/**/*.js', '!test/unit/client/**'],
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
@@ -200,13 +221,7 @@ GruntConfig.prototype.registerTest = function(options) {
     all: {
       src: ['test/**/*.js', '!test/*.js', '!test/*/client/**', '!test/util/*']
     },
-    options: {
-      reporter: this.grunt.option('coverage') ? 'html-cov' :
-        this.grunt.option('reporter') || 'spec',
-      require: this.grunt.option('coverage') ? ['blanket'] : [],
-      grep: this.grunt.option('grep'),
-      bail: this.grunt.option('bail') ? true : false
-    }
+    options: options
   });
 
   this.grunt.config('watch.unit', {
@@ -218,10 +233,10 @@ GruntConfig.prototype.registerTest = function(options) {
     tasks: ['integration']
   });
 
-  this.grunt.registerTask('unit', ['env', 'mochacli:unit']);
-  this.grunt.registerTask('integration', ['env', 'mochacli:integration']);
-  this.grunt.registerTask('manual', ['env', 'mochacli:manual']);
-  this.grunt.registerTask('test-all', ['env', 'mochacli:all']);
+  this.grunt.registerTask('unit', ['env', mochaName + ':unit']);
+  this.grunt.registerTask('integration', ['env', mochaName + ':integration']);
+  this.grunt.registerTask('manual', ['env', mochaName + ':manual']);
+  this.grunt.registerTask('test-all', ['env', mochaName + ':all']);
   this.grunt.registerTask('test', ['env', 'unit', 'integration']);
 };
 

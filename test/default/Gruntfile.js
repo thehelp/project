@@ -12,6 +12,4 @@ module.exports = function(grunt) {
 
   config.standardSetup();
   config.standardDefault();
-
-  config.registerCopyFromBower();
 };

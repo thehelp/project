@@ -15,7 +15,9 @@
     "grunt-jscs": "0.6.2",
     "grunt-jsonlint": "1.0.4",
     "grunt-mocha-cli": "1.10.0",
+    "grunt-mocha-istanbul": "2.2.0",
     "grunt-shell": "1.0.1",
+    "istanbul": "0.3.2",
     "lodash": "2.x",
     "time-grunt": "1.0.0"
   },
