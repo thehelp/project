@@ -9,7 +9,8 @@ This project is designed to get high quality grunt-based project automation in p
 * [`time-grunt`](https://github.com/sindresorhus/time-grunt), tracking how long your grunt tasks take
 * [`env`](https://github.com/jsoverson/grunt-env), loading environment variables from env.json
 * [`mocha-cli`](https://github.com/Rowno/grunt-mocha-cli) for 'unit', 'integration' and 'manual' tasks, running [`mocha`](http://visionmedia.github.io/mocha/) tests underneath 'test/<test type>' excluding the 'client' subdirectory
-* command-line options supported for tests: 'grep', 'coverage', 'reporter' and 'bail'
+* command-line options supported for tests: 'grep', 'reporter' and 'bail'
+* Code coverage collected via [`grunt-mocha-istanbul`](https://github.com/pocesar/grunt-mocha-istanbul) when `--coverage` option is provided
 * static analysis, using two tasks: [`jshint`](http://www.jshint.com/) and [`complexity`](https://github.com/philbooth/complexity-report)
 * style checking, using the highly-configurable [`jscs`](https://github.com/mdevils/node-jscs)
 * json linting, using [`jsonlint`](https://github.com/zaach/jsonlint)
@@ -55,37 +56,17 @@ To use all the defaults you'll have to structure your project the way `thehelp-p
 
 ```
 ├ README.md       becomes doc/index.html
-├ *.md            becomes doc/*.html
+├ FILENAME.md     becomes doc/FILENAME.html
 ├ env.json        environment variables needed by your project
-├ docs/           all groc-generated doc files added here
 ├ src/            core source files
 ├ tasks/          any grunt tasks your project exposes
+├ docs/           all groc-generated doc files added here
+├ coverage/       istanbul code coverage reports generated here
 └ test/
   ├ unit/         unit tests
   │ └ client/     files under client/ in all three test directories are excluded
   ├ integration/  integration tests
   └ manual/       manual tests (will not be run as part of 'grunt test')
-```
-
-### Code coverage
-
-To use code coverage functionality, you'll need to have [`blanket`](https://github.com/alex-seville/blanket) installed as a dev dependency at the top level in your project:
-
-```bash
-npm install blanket --save-dev
-```
-
-In your package.json you'll need some configuration information to let `blanket` know which files you want to instrument for code coverage. I usually use something like this:
-
-```json
-{
-  "config": {
-    "blanket": {
-      "data-cover-only": "src",
-      "data-cover-never": "['lib/','node_modules/','test/','src/client']"
-    }
-  }
-}
 ```
 
 ### Documentation generation
@@ -118,8 +99,39 @@ grunt test-all
 grunt test --bail
 grunt test --grep searchPattern
 grunt test --reporter nyan
-grunt test-all --coverage > result.html && open result.html
+grunt test-all --coverage
+grunt test --coverage=true --bail
 ```
+
+This last option will collect code coverage into the `coverage` directory, using a different, slower-starting grunt task. To customize the files instrumented for code coverage, provide custom options to the test command setup:
+
+```javascript
+config.standardSetup({
+  test: {
+    exclusions: ['src/legacy/**/*.js']
+  }
+});
+```
+
+_Note: when combining boolean options, be sure to include `=true` after any option which is followed by another option. `grunt` won't pick up the second option; it will be considered the value for the preceding option._
+
+```bash
+npm install blanket --save-dev
+```
+
+In your package.json you'll need some configuration information to let `blanket` know which files you want to instrument for code coverage. I usually use something like this:
+
+```json
+{
+  "config": {
+    "blanket": {
+      "data-cover-only": "src",
+      "data-cover-never": "['lib/','node_modules/','test/','src/client']"
+    }
+  }
+}
+```
+
 
 ### Static analysis
 
