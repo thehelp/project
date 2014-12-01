@@ -5,4 +5,5 @@ install:
   - npm install
   - npm install -g grunt-cli
   - sudo easy_install Pygments
-  - export VAR=value
+  - 'echo "{\"VAR\": \"value\"}" > env.json'
+  - 'echo "module.exports = {VALUE_FROM_JS: \"new!\"};" > env.js'

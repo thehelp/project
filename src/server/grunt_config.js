@@ -35,6 +35,7 @@ GruntConfig.prototype.standardSetup = function(options) {
   this.registerWatch(options.watch);
   this.registerJsonLint(options.jsonLint);
   this.registerEnv(options.env);
+  this.registerEnvJs(options.envJs);
   this.registerClean(options.clean);
 
   this.registerTest(options.test);
@@ -140,6 +141,58 @@ GruntConfig.prototype.registerEnv = function(options) {
   });
 };
 
+// `registerEnvJs` sets up the `env-js` task to populate environment variables. By default
+// loads data from 'env.js' in the current working directory (the root of your project).
+GruntConfig.prototype.registerEnvJs = function(options) {
+  /*jshint maxcomplexity: 13 */
+  var _this = this;
+
+  this.grunt.registerMultiTask('env-js', function() {
+    var files = this.filesSrc;
+    var pathSpecified = true;
+
+    if (!files || !files.length) {
+      if (this.files && this.files.length) {
+        throw new Error('Supplied file does not exist!');
+      }
+
+      pathSpecified = false;
+      files = ['env.js'];
+      if (_this.grunt.option('verbose')) {
+        _this.grunt.log.warn('No files specified; loading default file <CWD>/env.js');
+      }
+    }
+
+    if (files.length > 1) {
+      throw new Error('Too many files specified');
+    }
+
+    try {
+      var file = path.resolve(files[0]);
+      var env = require(file);
+      if (env) {
+        for (var key in env) {
+          if (env.hasOwnProperty(key) && typeof process.env[key] === 'undefined') {
+            process.env[key] = env[key];
+          }
+        }
+      }
+    }
+    catch (e) {
+      if (pathSpecified) {
+        throw e;
+      }
+      if (_this.grunt.option('verbose')) {
+        _this.grunt.log.warn(e.stack);
+      }
+    }
+  });
+
+  this.grunt.config('env-js', options || {
+    default: {}
+  });
+};
+
 // `registerClean` deletes directories as specified in options, or in
 // three default directories: 'dist,' 'tmp,' and 'public.
 GruntConfig.prototype.registerClean = function(options) {
@@ -233,11 +286,11 @@ GruntConfig.prototype.registerTest = function(options) {
     tasks: ['integration']
   });
 
-  this.grunt.registerTask('unit', ['env', mochaName + ':unit']);
-  this.grunt.registerTask('integration', ['env', mochaName + ':integration']);
-  this.grunt.registerTask('manual', ['env', mochaName + ':manual']);
-  this.grunt.registerTask('test-all', ['env', mochaName + ':all']);
-  this.grunt.registerTask('test', ['env', 'unit', 'integration']);
+  this.grunt.registerTask('unit', ['env', 'env-js', mochaName + ':unit']);
+  this.grunt.registerTask('integration', ['env', 'env-js', mochaName + ':integration']);
+  this.grunt.registerTask('manual', ['env', 'env-js', mochaName + ':manual']);
+  this.grunt.registerTask('test-all', ['env', 'env-js', mochaName + ':all']);
+  this.grunt.registerTask('test', ['unit', 'integration']);
 };
 
 /*
