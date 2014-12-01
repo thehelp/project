@@ -272,7 +272,11 @@ GruntConfig.prototype.registerTest = function(options) {
       src: ['test/manual/**/*.js', '!test/manual/client/**']
     },
     all: {
-      src: ['test/**/*.js', '!test/*.js', '!test/*/client/**', '!test/util/*']
+      src: [
+        'test/unit/**/*.js', '!test/unit/client/**',
+        'test/integration/**/*.js', '!test/integration/client/**',
+        'test/manual/**/*.js', '!test/manual/client/**'
+      ]
     },
     options: options
   });
