@@ -1,3 +1,16 @@
+## 3.4.0 (2014-12-04)
+
+* Fix bug: pass `options.jsonLint` to `registerJsonLint()` instead of `options.env`
+* New: `env-js` task loading environment variables from 'env.js' by default, run before all test tasks, after `env` task
+* `--coverage` option now uses `grunt-mocha-istanbul` instead of locally-installed `blanket` and htmlcov `mocha` reporter. Far easier to use.
+* `test-all` task now includes only unit, integration and manual tests. Cleaner than previous implementation, which would load any files matching 'test/**/*.js', excluding only 'test/*.js' or 'test/unit/*.js'.
+* Custom options can now be supplied to `registerTest()` or as `test` key provided to `standardSetup()` - including `excludes` key to customize which files and folders are instrumented for code coverage.
+* Major version update: `grunt-jscs`
+* Minor version updates: `grunt-contrib-copy`, `grunt-mocha-cli`, `grunt-shell`
+* Patch update: `grunt-env`
+* Update dev dependencies
+* Note: `groc` kept back for now, despite available updates
+
 ## 3.3.1 (2014-08-27)
 
 * Update `groc` to version that doesn't fall prey to breaking changes in `underscore` 1.7
