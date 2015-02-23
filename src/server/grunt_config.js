@@ -235,25 +235,25 @@ GruntConfig.prototype.registerTest = function(options) {
   options = options || {};
   options.src = options.src || ['src/**/*.js', '*.js', 'tasks/**/*.js'];
 
-  // a little weird, because we need to support both cli and istanbul options
+  //a little weird, because we need to support both cli and istanbul options
   var coverage = this.grunt.option('coverage');
   var mochaModule = coverage ? 'grunt-mocha-istanbul' : 'grunt-mocha-cli';
   this.loadLocalNpm(mochaModule);
 
-  // istanbul-specific:
+  //istanbul-specific:
   options.reportFormats = ['html', 'lcov'];
   options.mochaOptions = options.mochaOptions || [];
   if (this.grunt.option('bail')) {
     options.mochaOptions.push('--bail');
   }
 
-  // both
+  //both
   options.reporter = options.reporter || this.grunt.option('reporter') || 'spec';
   if (typeof options.grep === 'undefined') {
     options.grep = this.grunt.option('grep');
   }
 
-  // cli-specific
+  //cli-specific
   if (typeof options.bail === 'undefined') {
     options.bail = this.grunt.option('bail');
   }
