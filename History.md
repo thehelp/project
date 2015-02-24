@@ -1,3 +1,7 @@
+## 3.4.1 (2015-02-24)
+
+* `options.staticAnalsis.excludes` can now hold an array of file paths to be excluded from the jscomplexity step. Some files (especially configuration) just aren't worth the work to take the complexity down.
+
 ## 3.4.0 (2014-12-04)
 
 * Fix bug: pass `options.jsonLint` to `registerJsonLint()` instead of `options.env`
