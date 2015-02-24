@@ -337,6 +337,7 @@ GruntConfig.prototype.registerStaticAnalysis = function(options) {
   this.grunt.config('complexity', {
     all: {
       src: options.all,
+      exclude: options.exclude,
       filter: this.grunt.option('partial') ? this.modifiedInLast() : null
     },
     options: {
