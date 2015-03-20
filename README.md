@@ -69,16 +69,6 @@ To use all the defaults you'll have to structure your project the way `thehelp-p
   └ manual/       manual tests (will not be run as part of 'grunt test')
 ```
 
-### Documentation generation
-
-To use `groc`-based documentation generation, you'll need to have [Pygments](http://pygments.org/docs/installation/) installed. On OSX, the easiest way to install it is:
-
-```bash
-sudo easy_install Pygments
-```
-
-Even on non-OSX, `easy_install` is still the the right way to install it. You'll just need to pull down [Python](http://www.python.org/getit/) to get it.
-
 
 ## Usage
 
@@ -299,14 +289,6 @@ When you have some changes ready, please submit a pull request with:
 * A description of how you tested the change
 
 I may ask you to use a `git rebase` to ensure that your commits are not interleaved with commits already in the history. And of course, make sure `grunt` completes successfully. :0)
-
-### Technical
-
-This project uses my fork of `groc` for a few reasons. Without my changes:
-
-* Full file paths from original machine are generated into behavior.js
-* `jade` dependency is locked to pre-1.x
-* Package is not protected against future breaking changes due to '>=' dependency versions
 
 ### Thanks
 
