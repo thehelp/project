@@ -1,3 +1,15 @@
+## 3.5.0 (2015-03-20)
+
+* `groc` updated to `0.8.0` - easier to set up and faster! No longer requires Python Pygments module, and does work to determine what documentation should be generated before running.
+* Fix: `env:default` and `env-js:default` are now run before all the test-related aliases, instead of just `env` and `env-js`. This allows you to create `env`/`env-js` sub tasks in your gruntfile and use them in other contexts.
+
+* Minor version updates: `grunt-complexity`, `grunt-contrib-copy`, `grunt-contrib-jshint`, `grunt-mocha-istanbul`, `time-grunt`
+* Patch updates: `istanbul`, `grunt-env`, `grunt-mocha-cli`, `grunt-shell`
+
+* Tested against node `0.12.0` and io.js `1.4.3` and above - five total platforms are now included in all [Travis CI runs](https://travis-ci.org/thehelp/project)
+* Did some work to de-duplicate dependencies. node_modules directory was at 52MB before the work, at 46MB after.
+* Tuned the npm package a little
+
 ## 3.4.1 (2015-02-24)
 
 * `options.staticAnalsis.excludes` can now hold an array of file paths to be excluded from the jscomplexity step. Some files (especially configuration) just aren't worth the work to take the complexity down.
