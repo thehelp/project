@@ -290,10 +290,12 @@ GruntConfig.prototype.registerTest = function(options) {
     tasks: ['integration']
   });
 
-  this.grunt.registerTask('unit', ['env', 'env-js', mochaName + ':unit']);
-  this.grunt.registerTask('integration', ['env', 'env-js', mochaName + ':integration']);
-  this.grunt.registerTask('manual', ['env', 'env-js', mochaName + ':manual']);
-  this.grunt.registerTask('test-all', ['env', 'env-js', mochaName + ':all']);
+  var prefix = ['env:default', 'env-js:default'];
+  this.grunt.registerTask('unit', prefix.concat([mochaName + ':unit']));
+  this.grunt.registerTask('integration', prefix.concat([mochaName + ':integration']));
+  this.grunt.registerTask('manual', prefix.concat([mochaName + ':manual']));
+  this.grunt.registerTask('test-all', prefix.concat([mochaName + ':all']));
+
   this.grunt.registerTask('test', ['unit', 'integration']);
 };
 
