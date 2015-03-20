@@ -3,6 +3,8 @@ misc
 logs
 
 public
+docs
+coverage
 
 db
 lib
@@ -14,5 +16,6 @@ lib
 
 Gruntfile.js
 result.html
+env.js
 env.json
 config.json
