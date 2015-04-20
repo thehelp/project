@@ -1,3 +1,10 @@
+## 3.5.1 (2015-04-20)
+
+* Minor version updates: `grunt-jscs`, `grunt-mocha-cli`, `grunt-mocha-istanbul`, `mocha`
+* Patch updates: `grunt-contrib-jshint`, `istanbul`, `time-grunt`
+* Update dependencies included for de-duping. This set of dependencies, which includes manually breaking conflicts ‘npm dedupe' doesn’t help with, saves about 9MB.
+* Update dev dependencies
+
 ## 3.5.0 (2015-03-20)
 
 * `groc` updated to `0.8.0` - easier to set up and faster! No longer requires Python Pygments module, and does work to determine what documentation should be generated before running.
