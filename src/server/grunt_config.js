@@ -93,6 +93,9 @@ GruntConfig.prototype.loadLocalNpm = function(name, root, delta) {
   delta = delta || '../..';
 
   var tasks = path.join(root, delta, 'node_modules', name, 'tasks');
+  if (!fs.existsSync(tasks)) {
+    tasks = path.join(__dirname, '../../..', name, 'tasks');
+  }
 
   this.grunt.loadTasks(tasks);
 };
