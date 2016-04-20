@@ -14,6 +14,7 @@ lib
 
 *.sublime*
 
+.travis.yml
 Gruntfile.js
 result.html
 env.js
