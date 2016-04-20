@@ -1,3 +1,7 @@
+## 3.6.0 (2016-04-20)
+
+* Support for npm 3.x, which puts all node modules at the top-level if it can. In case the user has installed their own, incompatible version of the dependency, we still check our own version of it first. Also removed dedupe hints from dependency list, vastly simplifying it.
+
 ## 3.5.1 (2015-04-20)
 
 * Minor version updates: `grunt-jscs`, `grunt-mocha-cli`, `grunt-mocha-istanbul`, `mocha`

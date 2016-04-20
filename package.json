@@ -1,6 +1,6 @@
 {
   "name": "thehelp-project",
-  "version": "3.5.1",
+  "version": "3.6.0",
   "main": "src/server/index.js",
 
   "dependencies": {
