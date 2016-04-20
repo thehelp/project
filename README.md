@@ -1,3 +1,7 @@
+# (Deprecated)
+
+I don't expect to make any more updates to this project, but by all means continue to use it if it helps you out! Also, let's talk if you'd like to jump in and help maintain it!
+
 [![Build Status](https://travis-ci.org/thehelp/project.svg?branch=master)](https://travis-ci.org/thehelp/project)
 
 # thehelp-project
