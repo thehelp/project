@@ -2,7 +2,7 @@
 
 # thehelp-project (deprecated)
 
-_I don't expect to make any more updates to this project, but by all means continue to use it if it helps you out! Also, let's talk if you'd like to jump in and help maintain it! https://blog.scottnonnenberg.com/the-state-of-thehelp/ _
+_I don't expect to make any more updates to this project, but by all means continue to use it if it helps you out! Also, let's talk if you'd like to jump in and help maintain it! https://blog.scottnonnenberg.com/the-state-of-thehelp/#thehelp-project _
 
 This project is designed to get high quality grunt-based project automation in place very quickly, with just one entry in your package.json.
 
