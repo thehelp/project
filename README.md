@@ -10,7 +10,7 @@ This project is designed to get high quality grunt-based project automation in p
 
 * [`time-grunt`](https://github.com/sindresorhus/time-grunt), tracking how long your grunt tasks take
 * [`env`](https://github.com/jsoverson/grunt-env), loading environment variables from env.json
-* [`mocha-cli`](https://github.com/Rowno/grunt-mocha-cli) for 'unit', 'integration' and 'manual' tasks, running [`mocha`](http://visionmedia.github.io/mocha/) tests underneath 'test/<test type>' excluding the 'client' subdirectory
+* [`mocha-cli`](https://github.com/Rowno/grunt-mocha-cli) for 'unit', 'integration' and 'manual' tasks, running [`mocha`](http://mochajs.org/) tests underneath 'test/<test type>' excluding the 'client' subdirectory
 * command-line options supported for tests: 'grep', 'reporter' and 'bail'
 * Code coverage collected via [`grunt-mocha-istanbul`](https://github.com/pocesar/grunt-mocha-istanbul) when `--coverage` option is provided
 * static analysis, using two tasks: [`jshint`](http://www.jshint.com/) and [`complexity`](https://github.com/philbooth/complexity-report)
